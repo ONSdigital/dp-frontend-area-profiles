@@ -9,7 +9,7 @@ image_resource:
     tag: 1.16
 
 inputs:
-  - name: dp-frontend-area-profiles-controller
+  - name: dp-frontend-area-profiles
 
 run:
-  path: dp-frontend-area-profiles-controller/ci/scripts/component.sh
+  path: dp-frontend-area-profiles/ci/scripts/component.sh

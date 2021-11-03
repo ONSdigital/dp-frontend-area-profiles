@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/config"
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/mapper"
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
 	"github.com/ONSdigital/log.go/v2/log"
 )
 

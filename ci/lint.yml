@@ -9,7 +9,7 @@ image_resource:
     tag: latest
 
 inputs:
-  - name: dp-frontend-area-profiles-controller
+  - name: dp-frontend-area-profiles
 
 run:
-  path: dp-frontend-area-profiles-controller/ci/scripts/lint.sh
+  path: dp-frontend-area-profiles/ci/scripts/lint.sh

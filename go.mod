@@ -1,4 +1,4 @@
-module github.com/ONSdigital/dp-frontend-area-profiles-controller
+module github.com/ONSdigital/dp-frontend-area-profiles
 
 go 1.16
 

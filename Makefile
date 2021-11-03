@@ -19,12 +19,12 @@ lint:
 
 .PHONY: build
 build:
-	go build -tags 'production' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles-controller
+	go build -tags 'production' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles
 
 .PHONY: debug
 debug:
-	go build -tags 'debug' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles-controller
-	HUMAN_LOG=1 DEBUG=1 $(BINPATH)/dp-frontend-area-profiles-controller
+	go build -tags 'debug' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles
+	HUMAN_LOG=1 DEBUG=1 $(BINPATH)/dp-frontend-area-profiles
 
 .PHONY: test
 test:
@@ -36,4 +36,4 @@ convey:
 
 .PHONY: test-component
 test-component:
-	go test -cover -coverpkg=github.com/ONSdigital/dp-frontend-area-profiles-controller/... -component
+	go test -cover -coverpkg=github.com/ONSdigital/dp-frontend-area-profiles/... -component

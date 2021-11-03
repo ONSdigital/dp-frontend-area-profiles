@@ -1,4 +1,4 @@
-job "dp-frontend-area-profiles-controller" {
+job "dp-frontend-area-profiles" {
   datacenters = ["eu-west-1"]
   region      = "eu"
   type        = "service"
@@ -26,24 +26,24 @@ job "dp-frontend-area-profiles-controller" {
       mode     = "delay"
     }
 
-    task "dp-frontend-area-profiles-controller-web" {
+    task "dp-frontend-area-profiles-web" {
       driver = "docker"
 
       artifact {
-        source = "s3::https://s3-eu-west-1.amazonaws.com/{{DEPLOYMENT_BUCKET}}/dp-frontend-area-profiles-controller/{{PROFILE}}/{{RELEASE}}.tar.gz"
+        source = "s3::https://s3-eu-west-1.amazonaws.com/{{DEPLOYMENT_BUCKET}}/dp-frontend-area-profiles/{{PROFILE}}/{{RELEASE}}.tar.gz"
       }
 
       config {
         command = "${NOMAD_TASK_DIR}/start-task"
 
-        args = ["./dp-frontend-area-profiles-controller"]
+        args = ["./dp-frontend-area-profiles"]
 
         image = "{{ECR_URL}}:concourse-{{REVISION}}"
 
       }
 
       service {
-        name = "dp-frontend-area-profiles-controller"
+        name = "dp-frontend-area-profiles"
         port = "http"
         tags = ["web"]
 
@@ -70,7 +70,7 @@ job "dp-frontend-area-profiles-controller" {
       }
 
       vault {
-        policies = ["dp-frontend-area-profiles-controller-web"]
+        policies = ["dp-frontend-area-profiles-web"]
       }
     }
   }
@@ -90,23 +90,23 @@ job "dp-frontend-area-profiles-controller" {
       mode     = "delay"
     }
 
-    task "dp-frontend-area-profiles-controller-publishing" {
+    task "dp-frontend-area-profiles-publishing" {
       driver = "docker"
 
       artifact {
-        source = "s3::https://s3-eu-west-1.amazonaws.com/{{DEPLOYMENT_BUCKET}}/dp-frontend-area-profiles-controller/{{PROFILE}}/{{RELEASE}}.tar.gz"
+        source = "s3::https://s3-eu-west-1.amazonaws.com/{{DEPLOYMENT_BUCKET}}/dp-frontend-area-profiles/{{PROFILE}}/{{RELEASE}}.tar.gz"
       }
 
       config {
         command = "${NOMAD_TASK_DIR}/start-task"
 
-        args = ["./dp-frontend-area-profiles-controller"]
+        args = ["./dp-frontend-area-profiles"]
 
         image = "{{ECR_URL}}:concourse-{{REVISION}}"
       }
 
       service {
-        name = "dp-frontend-area-profiles-controller"
+        name = "dp-frontend-area-profiles"
         port = "http"
         tags = ["publishing"]
 
@@ -133,7 +133,7 @@ job "dp-frontend-area-profiles-controller" {
       }
 
       vault {
-        policies = ["dp-frontend-area-profiles-controller-publishing"]
+        policies = ["dp-frontend-area-profiles-publishing"]
       }
     }
   }

@@ -9,10 +9,10 @@ image_resource:
     tag: 1.16
 
 inputs:
-  - name: dp-frontend-area-profiles-controller
+  - name: dp-frontend-area-profiles
 
 caches:
   - path: go/
 
 run:
-  path: dp-frontend-area-profiles-controller/ci/scripts/unit.sh
+  path: dp-frontend-area-profiles/ci/scripts/unit.sh

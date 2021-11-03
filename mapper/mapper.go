@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 )
 
 // TODO: remove hello world example mapper and models

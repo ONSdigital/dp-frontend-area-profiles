@@ -5,7 +5,7 @@ package mocks
 
 import (
 	"context"
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/service"
+	"github.com/ONSdigital/dp-frontend-area-profiles/service"
 	"github.com/ONSdigital/dp-healthcheck/healthcheck"
 	"net/http"
 	"sync"

@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/config"
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/handlers"
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 
 	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"

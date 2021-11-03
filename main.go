@@ -6,13 +6,13 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/config"
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/service"
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/service"
 	"github.com/ONSdigital/log.go/v2/log"
 )
 
 func main() {
-	log.Namespace = "dp-frontend-area-profiles-controller"
+	log.Namespace = "dp-frontend-area-profiles"
 	ctx := context.Background()
 
 	if err := run(ctx); err != nil {

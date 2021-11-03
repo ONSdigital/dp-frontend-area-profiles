@@ -7,7 +7,7 @@ import (
 )
 
 // TODO: remove hello world example config option
-// Config represents service configuration for dp-frontend-area-profiles-controller
+// Config represents service configuration for dp-frontend-area-profiles
 type Config struct {
 	BindAddr                   string        `envconfig:"BIND_ADDR"`
 	GracefulShutdownTimeout    time.Duration `envconfig:"GRACEFUL_SHUTDOWN_TIMEOUT"`

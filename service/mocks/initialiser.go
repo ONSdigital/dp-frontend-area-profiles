@@ -5,8 +5,8 @@ package mocks
 
 import (
 	"github.com/ONSdigital/dp-api-clients-go/v2/health"
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/config"
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/service"
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/service"
 	"net/http"
 	"sync"
 )

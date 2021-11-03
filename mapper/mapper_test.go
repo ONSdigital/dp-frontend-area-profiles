@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 
 	. "github.com/smartystreets/goconvey/convey"
 )

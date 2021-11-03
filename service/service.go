@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/config"
-	"github.com/ONSdigital/dp-frontend-area-profiles-controller/routes"
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
 	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"
 )

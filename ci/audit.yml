@@ -8,8 +8,8 @@ image_resource:
     tag: latest
 
 inputs:
-  - name: dp-frontend-area-profiles-controller
-    path: dp-frontend-area-profiles-controller
+  - name: dp-frontend-area-profiles
+    path: dp-frontend-area-profiles
 
 run:
-  path: dp-frontend-area-profiles-controller/ci/scripts/audit.sh
+  path: dp-frontend-area-profiles/ci/scripts/audit.sh
