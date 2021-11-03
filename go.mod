@@ -1,6 +1,6 @@
 module github.com/ONSdigital/dp-frontend-area-profiles
 
-go 1.17
+go 1.16
 
 require (
 	github.com/ONSdigital/dp-api-clients-go v1.43.0 // indirect
