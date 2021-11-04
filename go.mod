@@ -14,5 +14,5 @@ require (
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/smartystreets/goconvey v1.6.4
 	golang.org/x/net v0.0.0-20211101193420-4a448f8816b3 // indirect
-	golang.org/x/sys v0.0.0-20211102192858-4dd72447c267 // indirect
+	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b // indirect
 )
