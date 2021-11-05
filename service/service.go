@@ -3,20 +3,10 @@ package service
 import (
 	"context"
 	"errors"
-
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
 	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"
-)
-
-var (
-	// BuildTime represents the time in which the service was built
-	BuildTime string
-	// GitCommit represents the commit (SHA-1) hash of the service that is running
-	GitCommit string
-	// Version represents the version of the service that is running
-	Version string
 )
 
 // Service contains the healthcheck, server and serviceList for the controller
@@ -33,7 +23,7 @@ func New() *Service {
 }
 
 // Init initialises all the service dependencies, including healthcheck with checkers, api and middleware
-func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *ExternalServiceList) (err error) {
+func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *ExternalServiceList, BuildTime, GitCommit, Version string) (err error) {
 	log.Info(ctx, "initialising service")
 
 	svc.Config = cfg
