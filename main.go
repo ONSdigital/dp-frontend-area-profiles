@@ -11,6 +11,16 @@ import (
 	"github.com/ONSdigital/log.go/v2/log"
 )
 
+var (
+	// BuildTime represents the time in which the service was built
+	BuildTime string
+	// GitCommit represents the commit (SHA-1) hash of the service that is running
+	GitCommit string
+	// Version represents the version of the service that is running
+	Version string
+)
+
+
 func main() {
 	log.Namespace = "dp-frontend-area-profiles"
 	ctx := context.Background()
@@ -43,7 +53,7 @@ func run(ctx context.Context) error {
 
 	// Run service
 	svc := service.New()
-	if err := svc.Init(ctx, cfg, svcList); err != nil {
+	if err := svc.Init(ctx, cfg, svcList, BuildTime, GitCommit,Version); err != nil {
 		log.Error(ctx, "failed to initialise service", err)
 		return err
 	}
