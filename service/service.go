@@ -3,8 +3,6 @@ package service
 import (
 	"context"
 	"errors"
-	"fmt"
-
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
 	"github.com/ONSdigital/log.go/v2/log"
@@ -35,8 +33,6 @@ func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *E
 	clients := routes.Clients{}
 
 	// Get healthcheck with checkers
-	fmt.Println("buildTime")
-	fmt.Println(BuildTime)
 	svc.HealthCheck, err = serviceList.GetHealthCheck(cfg, BuildTime, GitCommit, Version)
 	if err != nil {
 		log.Fatal(ctx, "failed to create health check", err)
