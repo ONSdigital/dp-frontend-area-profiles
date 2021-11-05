@@ -90,9 +90,9 @@ func TestInitSuccess(t *testing.T) {
 		mockServiceList := service.NewServiceList(initMock)
 
 		Convey("and valid config and service error channel are provided", func() {
-			service.BuildTime = "TestBuildTime"
-			service.GitCommit = "TestGitCommit"
-			service.Version = "TestVersion"
+			buildTime := "TestBuildTime"
+			gitCommit := "TestGitCommit"
+			version := "TestVersion"
 
 			cfg, err := config.Get()
 			So(err, ShouldBeNil)
@@ -100,7 +100,7 @@ func TestInitSuccess(t *testing.T) {
 			svc := &service.Service{}
 
 			Convey("When Init is called", func() {
-				err := svc.Init(ctx, cfg, mockServiceList)
+				err := svc.Init(ctx, cfg, mockServiceList, buildTime, gitCommit, version)
 
 				Convey("Then service is initialised successfully", func() {
 					So(svc.Config, ShouldResemble, cfg)
@@ -133,9 +133,9 @@ func TestInitFailure(t *testing.T) {
 		mockServiceList := service.NewServiceList(initMock)
 
 		Convey("and valid config and service error channel are provided", func() {
-			service.BuildTime = "TestBuildTime"
-			service.GitCommit = "TestGitCommit"
-			service.Version = "TestVersion"
+			buildTime := "TestBuildTime"
+			gitCommit := "TestGitCommit"
+			version := "TestVersion"
 
 			cfg, err := config.Get()
 			So(err, ShouldBeNil)
@@ -143,7 +143,7 @@ func TestInitFailure(t *testing.T) {
 			svc := &service.Service{}
 
 			Convey("When Init is called", func() {
-				err := svc.Init(ctx, cfg, mockServiceList)
+				err := svc.Init(ctx, cfg, mockServiceList, buildTime, gitCommit, version)
 
 				Convey("Then service initialisation fails", func() {
 					So(svc.Config, ShouldResemble, cfg)
@@ -172,9 +172,9 @@ func TestInitFailure(t *testing.T) {
 		mockServiceList := service.NewServiceList(initMock)
 
 		Convey("and valid config and service error channel are provided", func() {
-			service.BuildTime = "TestBuildTime"
-			service.GitCommit = "TestGitCommit"
-			service.Version = "TestVersion"
+			buildTime := "TestBuildTime"
+			gitCommit := "TestGitCommit"
+			version := "TestVersion"
 
 			cfg, err := config.Get()
 			So(err, ShouldBeNil)
@@ -182,7 +182,7 @@ func TestInitFailure(t *testing.T) {
 			svc := &service.Service{}
 
 			Convey("When Init is called", func() {
-				err := svc.Init(ctx, cfg, mockServiceList)
+				err := svc.Init(ctx, cfg, mockServiceList, buildTime, gitCommit, version)
 
 				Convey("Then service initialisation fails", func() {
 					So(svc.Config, ShouldResemble, cfg)
@@ -253,10 +253,6 @@ func TestStart(t *testing.T) {
 		mockServiceList := service.NewServiceList(initMock)
 
 		Convey("and valid config and service error channel are provided", func() {
-			service.BuildTime = "TestBuildTime"
-			service.GitCommit = "TestGitCommit"
-			service.Version = "TestVersion"
-
 			svcErrors := make(chan error, 1)
 
 			cfg, err := config.Get()
