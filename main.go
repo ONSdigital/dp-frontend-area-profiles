@@ -20,7 +20,6 @@ var (
 	Version string
 )
 
-
 func main() {
 	log.Namespace = "dp-frontend-area-profiles"
 	ctx := context.Background()
@@ -53,7 +52,7 @@ func run(ctx context.Context) error {
 
 	// Run service
 	svc := service.New()
-	if err := svc.Init(ctx, cfg, svcList, BuildTime, GitCommit,Version); err != nil {
+	if err := svc.Init(ctx, cfg, svcList, BuildTime, GitCommit, Version); err != nil {
 		log.Error(ctx, "failed to initialise service", err)
 		return err
 	}
