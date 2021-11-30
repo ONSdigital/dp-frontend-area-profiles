@@ -19,7 +19,6 @@ func TestUnitMapper(t *testing.T) {
 			GracefulShutdownTimeout:    0,
 			HealthCheckInterval:        0,
 			HealthCheckCriticalTimeout: 0,
-			HelloWorldEmphasise:        true,
 		}
 
 		hm := HelloModel{
@@ -28,6 +27,6 @@ func TestUnitMapper(t *testing.T) {
 		}
 
 		hw := HelloWorld(ctx, hm, cfg)
-		So(hw.HelloWho, ShouldEqual, "Hello World!")
+		So(hw.HelloWho, ShouldEqual, "Hello World")
 	})
 }
