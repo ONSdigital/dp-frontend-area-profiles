@@ -21,8 +21,5 @@ type HelloWorldModel struct {
 func HelloWorld(ctx context.Context, hm HelloModel, cfg config.Config) HelloWorldModel {
 	var hwm HelloWorldModel
 	hwm.HelloWho = fmt.Sprintf("%s %s", hm.Greeting, hm.Who)
-	if cfg.HelloWorldEmphasise {
-		hwm.HelloWho += "!"
-	}
 	return hwm
 }
