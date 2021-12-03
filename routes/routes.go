@@ -21,6 +21,5 @@ func Setup(ctx context.Context, r *mux.Router, cfg *config.Config, c Clients) {
 	log.Info(ctx, "adding routes")
 	r.StrictSlash(true).Path("/health").HandlerFunc(c.HealthCheckHandler)
 
-	// TODO: remove hello world example handler route
-	r.StrictSlash(true).Path("/helloworld").Methods("GET").HandlerFunc(handlers.HelloWorld(*cfg))
+	r.StrictSlash(true).Path("/areas").Methods("GET").HandlerFunc(handlers.GeographyStart(*cfg))
 }
