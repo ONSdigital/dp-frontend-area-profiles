@@ -1,25 +1,17 @@
 package mapper
 
-import (
-	"context"
-	"fmt"
+import coreModel "github.com/ONSdigital/dp-renderer/model"
 
-	"github.com/ONSdigital/dp-frontend-area-profiles/config"
-)
 
-// TODO: remove hello world example mapper and models
-
-type HelloModel struct {
+type StartPageModel struct {
+	coreModel.Page
 	Greeting string `json:"greeting"`
-	Who      string `json:"who"`
 }
 
-type HelloWorldModel struct {
-	HelloWho string `json:"hello-who"`
-}
-
-func HelloWorld(ctx context.Context, hm HelloModel, cfg config.Config) HelloWorldModel {
-	var hwm HelloWorldModel
-	hwm.HelloWho = fmt.Sprintf("%s %s", hm.Greeting, hm.Who)
-	return hwm
+func CreateStartPage(basePage coreModel.Page) StartPageModel {
+	model := StartPageModel{
+		Page: basePage,
+	}
+	model.Greeting = "Welcome to area profiles"
+	return model
 }
