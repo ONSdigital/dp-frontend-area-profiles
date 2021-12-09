@@ -29,8 +29,8 @@ debug: generate-debug
 
 
 .PHONY: test
-test:
-	go test -race -cover ./...
+test: generate-prod
+	go test -race -cover -tags 'production' ./...
 
 .PHONY: convey
 convey:
