@@ -1,0 +1,53 @@
+{{ $lang := .Language }}
+
+<div class="page-content margin-bottom-sm--4 margin-bottom-md--6">
+    <div class="wrapper">
+        <div class="ons-grid">
+            <div class="ons-grid__col ons-col-8@m">
+                <nav aria-label="Breadcrumbs" class="ons-breadcrumb print--hide">
+                    <ol class="ons-breadcrumb__items">
+                        {{ range .Breadcrumb }}
+                            <li class="ons-breadcrumb__item">
+                                <a class="ons-breadcrumb__link" href="{{ .URI }}">{{ .Title }}</a>
+                            </li>
+                        {{ end }}
+                    </ol>
+                </nav>
+            </div>
+
+            <h1 class="ons-grid__col ons-col-8@m ons-u-fs-xxxl margin-bottom-sm--2 margin-bottom-md--3 margin-top-sm--3 margin-top-md--4">
+                {{ localise "FindFactsAndFiguresEnglandWales" $lang 1 }}
+            </h1>
+
+            <div class="ons-u-bb margin-bottom-sm--1 margin-bottom-md--2">
+                <div class="ons-grid__col ons-col-8@m">
+                    <p>
+                        {{ localise "GetDataAboutPeopleAndHouseholds" $lang 1 | safeHTML}}
+                    </p>
+
+                    <p>
+                        {{ localise "DataIncludes" $lang 1}}:
+                    </p>
+
+                    <ul class="margin-bottom-sm--2 margin-bottom-md--7">
+                        <li>{{ localise "HowManyPeopleLiveThere" $lang 1}}</li>
+                        <li>{{ localise "HowCrowdedItIs" $lang 1}}</li>
+                        <li>{{ localise "PeoplesAverageAge" $lang 1}}</li>
+                        <li>{{ localise "PeopleThinkTheirGoodHealth" $lang 1}}</li>
+                        <li>{{ localise "HouseholdsEnglishNotMainLanguage" $lang 1}}</li>
+                        <li>{{ localise "HouseholdsWelshMainLanguage" $lang 1}}</li>
+                        <li>{{ localise "HouseholdsWithMortgage" $lang 1}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="ons-grid__col ons-col-8@m">
+                <h2>{{ localise "OtherCountries" $lang 1}}</h2>
+
+                <p>{{ localise "FindFactsAndFiguresScotland" $lang 1 | safeHTML}}</p>
+
+                <p>{{ localise "FindFactsAndFiguresNorthernIreland" $lang 1 | safeHTML}}</p>
+            </div>
+        </div>
+    </div>
+</div>

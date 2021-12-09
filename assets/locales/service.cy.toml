@@ -1,0 +1,66 @@
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Notes
+# - Documentation: https://github.com/nicksnyder/go-i18n/blob/master/README.md
+# - Description should be the English version of the text, unless English version is a shorthand e.g. Home button is shorthand in English for Homepage
+# - Arguments can be added via {{.argN}} where N is integer index starting at 0 e.g. {{.arg0}} {{.arg1}}
+# - To inject HTML (Avoid where possible as it is messy) use "| safeHTML" e.g. {{ localise Foo .Language 1 | safeHTML }} where Foo might be "<strong>test</strong>"
+# count - 0 = zero
+# count - 1 = one
+# count - 2 = two; useful for languages with mutations like welsh (radical) 'brother'=brawd, two (soft) 'brothers'=frawd, three or more (nasal) 'brothers'=brodyr
+# count - 3 = few
+# count - 6 = many
+# count - 4 = other; 4,5 & >6
+# Plural rules can be found here: http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[FindFactsAndFiguresEnglandWales]
+description = "Find facts and figures heading"
+one = "Find facts and figures about areas in England or Wales"
+
+[GetDataAboutPeopleAndHouseholds]
+description = "Area profiles start page intro"
+one = "Get data about people and households in <a href='/areas/E92000001'>England</a> or <a href='/areas/W92000004'>Wales</a>. You can also view facts and figures for a town, local authority or ward in each country."
+
+[DataIncludes]
+description = "Data includes"
+one = "Data includes"
+
+[HowManyPeopleLiveThere]
+description = "how many people live there"
+one = "how many people live there"
+
+[HowCrowdedItIs]
+description = "how crowded it is"
+one = "how crowded it is"
+
+[PeoplesAverageAge]
+description = "people's average age"
+one = "people's average age"
+
+[PeopleThinkTheirGoodHealth]
+description = "how many people think their general health is good"
+one = "how many people think their general health is good"
+
+[HouseholdsEnglishNotMainLanguage]
+description = "how many households where English is not the main language"
+one = "how many households where English is not the main language"
+
+[HouseholdsWelshMainLanguage]
+description = "how many households where Welsh is the main language"
+one = "how many households where Welsh is the main language (Wales only)"
+
+[HouseholdsWithMortgage]
+description = "how many households are owned with a mortgage, loan or shared ownership"
+one = "how many households are owned with a mortgage, loan or shared ownership"
+
+[OtherCountries]
+description = "Other countries"
+one = "Other countries"
+
+[FindFactsAndFiguresScotland]
+description = "Find facts and figures about areas in Scotland on Scotland’s Census website"
+one = "Find facts and figures about <a href='https://www.scotlandscensus.gov.uk/search-the-census#/explore'>areas in Scotland on Scotland’s Census website</a>."
+
+[FindFactsAndFiguresNorthernIreland]
+description = "For facts and figures about areas in Northern Ireland, see the Northern Ireland Statistics and Research Agency website."
+one = "For facts and figures about <a href='https://www.nisra.gov.uk/statistics/census/2021-census'>areas in Northern Ireland, see the Northern Ireland Statistics and Research Agency website</a>."
