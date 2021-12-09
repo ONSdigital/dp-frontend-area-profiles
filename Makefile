@@ -37,8 +37,8 @@ convey:
 	goconvey ./...
 
 .PHONY: test-component
-test-component:
-	go test -cover -coverpkg=github.com/ONSdigital/dp-frontend-area-profiles/... -component
+test-component: generate-prod
+	go test -cover -tags 'production' -coverpkg=github.com/ONSdigital/dp-frontend-area-profiles/... -component
 
 .PHONY: fetch-dp-renderer
 fetch-renderer-lib:
