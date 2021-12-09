@@ -26,7 +26,7 @@ func TestConfig(t *testing.T) {
 				So(cfg.HealthCheckCriticalTimeout, ShouldEqual, 90*time.Second)
 				So(cfg.Debug, ShouldEqual, false)
 				So(cfg.SiteDomain, ShouldEqual, "localhost")
-				So(cfg.PatternLibraryAssetsPath, ShouldEqual, "//cdn.ons.gov.uk/dp-design-system/ba32e79")
+				So(cfg.PatternLibraryAssetsPath, ShouldEqual, "//cdn.ons.gov.uk/dp-design-system/613c855")
 			})
 
 			Convey("Then a second call to config should return the same config", func() {

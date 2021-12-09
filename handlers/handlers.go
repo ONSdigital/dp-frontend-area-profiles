@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
 	"net/http"
 
@@ -23,9 +22,7 @@ func setStatusCode(req *http.Request, w http.ResponseWriter, err error) {
 // GeographyStart Handler
 func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		//ctx := req.Context()
 		basePage := rc.NewBasePageModel()
-		fmt.Println()
 		model := mapper.CreateStartPage(basePage)
 		rc.BuildPage(w, model, "geography-start")
 	}
