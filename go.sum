@@ -22,6 +22,8 @@ github.com/ONSdigital/dp-net v1.2.0 h1:gP9pBt/J8gktYeKsb7hq6uOC2xx1tfvTorUBNXp6p
 github.com/ONSdigital/dp-net v1.2.0/go.mod h1:NinlaqcsPbIR+X7j5PXCl3UI5G2zCL041SDF6WIiiO4=
 github.com/ONSdigital/dp-renderer v1.9.2 h1:wfU1zcx1Hlr9QppR2oFdDneaQI3w2VDD1HlJ7+Vuq5E=
 github.com/ONSdigital/dp-renderer v1.9.2/go.mod h1:Z5sbyS0ApY6D8ikGDt2KIl5bt2p5kk73PeeMxGs1pEM=
+github.com/ONSdigital/dp-renderer v1.9.3 h1:z0D9vccS4T8m+ML6txR9i24h5k7YDX763eK5tKf8T8o=
+github.com/ONSdigital/dp-renderer v1.9.3/go.mod h1:Z5sbyS0ApY6D8ikGDt2KIl5bt2p5kk73PeeMxGs1pEM=
 github.com/ONSdigital/go-ns v0.0.0-20191104121206-f144c4ec2e58/go.mod h1:iWos35il+NjbvDEqwtB736pyHru0MPFE/LqcwkV1wDc=
 github.com/ONSdigital/log.go v1.0.0/go.mod h1:UnGu9Q14gNC+kz0DOkdnLYGoqugCvnokHBRBxFRpVoQ=
 github.com/ONSdigital/log.go v1.0.1-0.20200805084515-ee61165ea36a/go.mod h1:dDnQATFXCBOknvj6ZQuKfmDhbOWf3e8mtV+dPEfWJqs=
@@ -44,6 +46,7 @@ github.com/fatih/color v1.13.0 h1:8LOYc1KYPPmyKMuN8QV2DNRWNbLo6LZ0iLs8+mlH53w=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
 github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=
 github.com/fsnotify/fsnotify v1.4.9/go.mod h1:znqG4EE+3YCdAaPaxE2ZRY/06pZUdp0tY4IgpuI1SZQ=
+github.com/golang/mock v1.4.4 h1:l75CXGRSwbaYNpl/Z2X1XIIAMSCquvXgpVZDhwEIJsc=
 github.com/golang/mock v1.4.4/go.mod h1:l3mdAwkq5BuhzHwde/uurv3sEJeZMXNpwsxVWU71h+4=
 github.com/google/go-cmp v0.5.5 h1:Khx7svrCpmxxtHBq5j2mp/xVjsi8hQMfNLvJFAlrGgU=
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
