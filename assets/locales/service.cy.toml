@@ -19,7 +19,7 @@ one = "Find facts and figures about areas in England or Wales"
 
 [GetDataAboutPeopleAndHouseholds]
 description = "Area profiles start page intro"
-one = "Get data about people and households in <a href='/areas/E92000001'>England</a> or <a href='/areas/W92000004'>Wales</a>. You can also view facts and figures for a town, local authority or ward in each country."
+one = "Get data about people and households in <a href=\"/areas/E92000001\">England</a> or <a href=\"/areas/W92000004\">Wales</a>. You can also view facts and figures for a town, local authority or ward in each country."
 
 [DataIncludes]
 description = "Data includes"
@@ -59,8 +59,8 @@ one = "Other countries"
 
 [FindFactsAndFiguresScotland]
 description = "Find facts and figures about areas in Scotland on Scotland’s Census website"
-one = "Find facts and figures about <a href='https://www.scotlandscensus.gov.uk/search-the-census#/explore'>areas in Scotland on Scotland’s Census website</a>."
+one = "Find facts and figures about <a href=\"https://www.scotlandscensus.gov.uk/search-the-census#/explore\">areas in Scotland on Scotland’s Census website</a>."
 
 [FindFactsAndFiguresNorthernIreland]
 description = "For facts and figures about areas in Northern Ireland, see the Northern Ireland Statistics and Research Agency website."
-one = "For facts and figures about <a href='https://www.nisra.gov.uk/statistics/census/2021-census'>areas in Northern Ireland, see the Northern Ireland Statistics and Research Agency website</a>."
+one = "For facts and figures about <a href=\"https://www.nisra.gov.uk/statistics/census/2021-census\">areas in Northern Ireland, see the Northern Ireland Statistics and Research Agency website</a>."
