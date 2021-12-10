@@ -26,6 +26,7 @@ func TestSetup(t *testing.T) {
 		Convey("The following route(s) should have been added", func() {
 			So(hasRoute(r, "/health", http.MethodGet), ShouldBeTrue)
 			So(hasRoute(r, "/areas", http.MethodGet), ShouldBeTrue)
+			So(hasRoute(r, "/areas/{id}", http.MethodGet), ShouldBeTrue)
 		})
 	})
 }
