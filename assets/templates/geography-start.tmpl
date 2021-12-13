@@ -1,0 +1,39 @@
+<div class="ons-page__container ons-container ons-u-mb-xl">
+    <div class="ons-grid ons-js-toc-container">
+        <div class="ons-grid__col ons-col-8@m ons-u-mb-m">
+            {{ template "partials/breadcrumb" . }}
+        </div>
+
+        <h1 class="ons-grid__col ons-col-8@m ons-u-fs-xxxl ons-u-mb-m">
+            {{ localise "FindFactsAndFiguresEnglandWales" .Language 1 }}
+        </h1>
+
+        <div class="ons-u-mb-s ons-grid__col ons-col-8@m">
+            <p>
+                {{ localise "GetDataAboutPeopleAndHouseholds" .Language 1 | safeHTML}}
+            </p>
+
+            <p>
+                {{ localise "DataIncludes" .Language 1}}:
+            </p>
+
+            <ul class="ons-u-pb-l ons-u-bb">
+                <li>{{ localise "HowManyPeopleLiveThere" .Language 1}}</li>
+                <li>{{ localise "HowCrowdedItIs" .Language 1}}</li>
+                <li>{{ localise "PeoplesAverageAge" .Language 1}}</li>
+                <li>{{ localise "PeopleThinkTheirGoodHealth" .Language 1}}</li>
+                <li>{{ localise "HouseholdsEnglishNotMainLanguage" .Language 1}}</li>
+                <li>{{ localise "HouseholdsWelshMainLanguage" .Language 1}}</li>
+                <li>{{ localise "HouseholdsWithMortgage" .Language 1}}</li>
+            </ul>
+        </div>
+
+        <div class="ons-grid__col ons-col-8@m">
+            <h2>{{ localise "OtherCountries" .Language 1}}</h2>
+
+            <p>{{ localise "FindFactsAndFiguresScotland" .Language 1 | safeHTML}}</p>
+
+            <p>{{ localise "FindFactsAndFiguresNorthernIreland" .Language 1 | safeHTML}}</p>
+        </div>
+    </div>
+</div>

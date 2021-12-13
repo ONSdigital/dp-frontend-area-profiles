@@ -1,32 +1,22 @@
 package mapper
 
 import (
-	"context"
+	"github.com/ONSdigital/dp-renderer/model"
 	"testing"
-
-	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-// TODO: remove example test case
 func TestUnitMapper(t *testing.T) {
-	ctx := context.Background()
+	mdl := model.Page{}
 
-	Convey("test mapper adds emphasis to hello world string when set in config", t, func() {
-		cfg := config.Config{
-			BindAddr:                   "1234",
-			GracefulShutdownTimeout:    0,
-			HealthCheckInterval:        0,
-			HealthCheckCriticalTimeout: 0,
-		}
+	Convey("test CreateStartPage mapper correctly initialises a StartPageModel", t, func() {
+		geoStartModel := CreateStartPage(mdl)
 
-		hm := HelloModel{
-			Greeting: "Hello",
-			Who:      "World",
-		}
-
-		hw := HelloWorld(ctx, hm, cfg)
-		So(hw.HelloWho, ShouldEqual, "Hello World")
+		So(geoStartModel.BetaBannerEnabled, ShouldBeTrue)
+		So(geoStartModel.Metadata.Title, ShouldEqual, "Areas")
+		So(len(geoStartModel.Page.Breadcrumb), ShouldEqual, 1)
+		So(geoStartModel.Page.Breadcrumb[0].Title, ShouldEqual, "Home")
+		So(geoStartModel.Page.Breadcrumb[0].URI, ShouldEqual, "/")
 	})
 }
