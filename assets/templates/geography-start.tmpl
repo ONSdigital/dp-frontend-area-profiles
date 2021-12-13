@@ -1,43 +1,39 @@
-{{ $lang := .Language }}
-
 <div class="ons-page__container ons-container ons-u-mb-xl">
-    <div class="ons-grid ons-js-toc-container ons-u-ml-no">
+    <div class="ons-grid ons-js-toc-container">
         <div class="ons-grid__col ons-col-8@m ons-u-mb-m">
             {{ template "partials/breadcrumb" . }}
         </div>
 
         <h1 class="ons-grid__col ons-col-8@m ons-u-fs-xxxl ons-u-mb-m">
-            {{ localise "FindFactsAndFiguresEnglandWales" $lang 1 }}
+            {{ localise "FindFactsAndFiguresEnglandWales" .Language 1 }}
         </h1>
 
-        <div class="ons-u-bb  ons-u-mb-s">
-            <div class="ons-grid__col ons-col-8@m">
-                <p>
-                    {{ localise "GetDataAboutPeopleAndHouseholds" $lang 1 | safeHTML}}
-                </p>
+        <div class="ons-u-mb-s ons-grid__col ons-col-8@m">
+            <p>
+                {{ localise "GetDataAboutPeopleAndHouseholds" .Language 1 | safeHTML}}
+            </p>
 
-                <p>
-                    {{ localise "DataIncludes" $lang 1}}:
-                </p>
+            <p>
+                {{ localise "DataIncludes" .Language 1}}:
+            </p>
 
-                <ul class="ons-u-mb-xl">
-                    <li>{{ localise "HowManyPeopleLiveThere" $lang 1}}</li>
-                    <li>{{ localise "HowCrowdedItIs" $lang 1}}</li>
-                    <li>{{ localise "PeoplesAverageAge" $lang 1}}</li>
-                    <li>{{ localise "PeopleThinkTheirGoodHealth" $lang 1}}</li>
-                    <li>{{ localise "HouseholdsEnglishNotMainLanguage" $lang 1}}</li>
-                    <li>{{ localise "HouseholdsWelshMainLanguage" $lang 1}}</li>
-                    <li>{{ localise "HouseholdsWithMortgage" $lang 1}}</li>
-                </ul>
-            </div>
+            <ul class="ons-u-pb-l ons-u-bb">
+                <li>{{ localise "HowManyPeopleLiveThere" .Language 1}}</li>
+                <li>{{ localise "HowCrowdedItIs" .Language 1}}</li>
+                <li>{{ localise "PeoplesAverageAge" .Language 1}}</li>
+                <li>{{ localise "PeopleThinkTheirGoodHealth" .Language 1}}</li>
+                <li>{{ localise "HouseholdsEnglishNotMainLanguage" .Language 1}}</li>
+                <li>{{ localise "HouseholdsWelshMainLanguage" .Language 1}}</li>
+                <li>{{ localise "HouseholdsWithMortgage" .Language 1}}</li>
+            </ul>
         </div>
 
         <div class="ons-grid__col ons-col-8@m">
-            <h2>{{ localise "OtherCountries" $lang 1}}</h2>
+            <h2>{{ localise "OtherCountries" .Language 1}}</h2>
 
-            <p>{{ localise "FindFactsAndFiguresScotland" $lang 1 | safeHTML}}</p>
+            <p>{{ localise "FindFactsAndFiguresScotland" .Language 1 | safeHTML}}</p>
 
-            <p>{{ localise "FindFactsAndFiguresNorthernIreland" $lang 1 | safeHTML}}</p>
+            <p>{{ localise "FindFactsAndFiguresNorthernIreland" .Language 1 | safeHTML}}</p>
         </div>
     </div>
 </div>
