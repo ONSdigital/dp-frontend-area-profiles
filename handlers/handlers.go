@@ -28,7 +28,7 @@ func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
 	}
 }
 
-// GeographyStart Handler
+// GetArea Handler
 func GetArea(cfg config.Config, rc RenderClient) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		basePage := rc.NewBasePageModel()

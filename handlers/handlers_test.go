@@ -71,7 +71,6 @@ func TestUnitHandlers(t *testing.T) {
 		mockConfig := config.Config{}
 		mockRenderClient := NewMockRenderClient(mockCtrl)
 
-
 		router := mux.NewRouter()
 		router.HandleFunc("/areas/{id}", GetArea(mockConfig, mockRenderClient))
 

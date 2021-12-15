@@ -1,6 +1,9 @@
 package mapper
 
-import coreModel "github.com/ONSdigital/dp-renderer/model"
+import (
+	"fmt"
+	coreModel "github.com/ONSdigital/dp-renderer/model"
+)
 
 
 type StartPageModel struct {
@@ -39,7 +42,7 @@ func CreateAreaPage(basePage coreModel.Page) AreaModel {
 		Page: basePage,
 	}
 	model.Metadata = coreModel.Metadata{
-		Title: model.Name + " Summary",
+		Title: fmt.Sprintf("%s Summary", model.Name),
 	}
 	model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
 		Title: "Home",
