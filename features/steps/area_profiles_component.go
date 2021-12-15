@@ -7,17 +7,28 @@ import (
 	"github.com/ONSdigital/dp-frontend-area-profiles/service"
 	"github.com/ONSdigital/dp-frontend-area-profiles/service/mocks"
 	"github.com/ONSdigital/dp-healthcheck/healthcheck"
+	"github.com/chromedp/chromedp"
+	"log"
 	"net/http"
+	"time"
 )
+
+type Chrome struct {
+	execAllocatorCanceller context.CancelFunc
+	ctxCanceller           context.CancelFunc
+	ctx                    context.Context
+}
 
 type AreaProfileComponent struct {
 	componenttest.ErrorFeature
 	apiFeature              *componenttest.APIFeature
+	chrome					Chrome
 	Config                  *config.Config
 	errorChan               chan error
 	HTTPServer              *http.Server
 	ServiceRunning          bool
 	svc                     *service.Service
+	waitTimeOut             time.Duration
 }
 
 func NewAreaProfilesComponent() (*AreaProfileComponent, error) {
@@ -28,7 +39,10 @@ func NewAreaProfilesComponent() (*AreaProfileComponent, error) {
 		errorChan: svcErrors,
 		HTTPServer:     &http.Server{},
 		ServiceRunning: false,
+		waitTimeOut: 10*time.Second,
 	}
+
+	c.SetChromeContext()
 
 	var err error
 
@@ -62,6 +76,7 @@ func (c *AreaProfileComponent) InitialiseService() (http.Handler, error) {
 
 func (c *AreaProfileComponent) Reset() *AreaProfileComponent {
 	c.apiFeature.Reset()
+	c.SetChromeContext()
 	return c
 }
 
@@ -70,7 +85,31 @@ func (c *AreaProfileComponent) Close() error {
 		_ = c.svc.Close(context.Background())
 		c.ServiceRunning = false
 	}
+	c.chrome.ctxCanceller()
+	c.chrome.execAllocatorCanceller()
 	return nil
+}
+
+func (c *AreaProfileComponent) BaseURL() string {
+	return "http://" + c.Config.SiteDomain + c.Config.BindAddr
+}
+
+func (c *AreaProfileComponent) SetChromeContext() {
+	opts := append(chromedp.DefaultExecAllocatorOptions[:],
+		chromedp.DisableGPU,
+		// set this to false to be able to watch the browser in action
+		chromedp.Flag("headless", true),
+	)
+
+	allocCtx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
+	c.chrome.execAllocatorCanceller = cancel
+
+	ctx, cancel := chromedp.NewContext(allocCtx, chromedp.WithLogf(log.Printf))
+	c.chrome.ctxCanceller = cancel
+
+	log.Print("re-starting chrome ...")
+
+	c.chrome.ctx = ctx
 }
 
 func (c *AreaProfileComponent) DoGetHealthcheckOk(cfg *config.Config, buildTime string, gitCommit string, version string) (service.HealthChecker, error) {
@@ -85,4 +124,12 @@ func (c *AreaProfileComponent) DoGetHTTPServer(bindAddr string, router http.Hand
 	c.HTTPServer.Addr = bindAddr
 	c.HTTPServer.Handler = router
 	return c.HTTPServer
+}
+
+func (c *AreaProfileComponent) RunWithTimeOut(ctx *context.Context, timeout time.Duration, tasks chromedp.Tasks) chromedp.ActionFunc {
+	return func(ctx context.Context) error {
+		timeoutContext, cancel := context.WithTimeout(ctx, timeout)
+		defer cancel()
+		return tasks.Do(timeoutContext)
+	}
 }
