@@ -2,6 +2,10 @@ package handlers
 
 import (
 	"errors"
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	coreModel "github.com/ONSdigital/dp-renderer/model"
+	"github.com/golang/mock/gomock"
+	"github.com/gorilla/mux"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -15,6 +19,9 @@ func (e *testCliError) Error() string { return "client error" }
 func (e *testCliError) Code() int     { return http.StatusNotFound }
 
 func TestUnitHandlers(t *testing.T) {
+	mockCtrl := gomock.NewController(t)
+	defer mockCtrl.Finish()
+	cfg := initialiseMockConfig()
 
 	Convey("test setStatusCode", t, func() {
 
@@ -39,4 +46,31 @@ func TestUnitHandlers(t *testing.T) {
 		})
 	})
 
+	Convey("test GetGeographyStart", t, func() {
+		mockConfig := config.Config{}
+		mockRenderClient := NewMockRenderClient(mockCtrl)
+
+
+		router := mux.NewRouter()
+		router.HandleFunc("/areas", GeographyStart(mockConfig, mockRenderClient))
+
+		w := httptest.NewRecorder()
+
+		Convey("it returns 200 when rendered successfully", func() {
+			mockRenderClient.EXPECT().NewBasePageModel().Return(coreModel.NewPage(cfg.PatternLibraryAssetsPath, cfg.SiteDomain))
+			mockRenderClient.EXPECT().BuildPage(gomock.Any(), gomock.Any(), "geography-start")
+			req := httptest.NewRequest("GET", "http://localhost:26600/areas", nil)
+
+			router.ServeHTTP(w, req)
+
+			So(w.Code, ShouldEqual, http.StatusOK)
+		})
+	})
+}
+
+func initialiseMockConfig() config.Config {
+	return config.Config{
+		PatternLibraryAssetsPath: "http://localhost:9000/dist",
+		SiteDomain:               "ons",
+	}
 }

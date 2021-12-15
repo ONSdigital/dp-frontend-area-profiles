@@ -1,11 +1,10 @@
 package handlers
 
 import (
-	"encoding/json"
+	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
 	"net/http"
 
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
-	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
 	"github.com/ONSdigital/log.go/v2/log"
 )
 
@@ -20,30 +19,11 @@ func setStatusCode(req *http.Request, w http.ResponseWriter, err error) {
 	w.WriteHeader(status)
 }
 
-// TODO: remove hello world example handler
-// HelloWorld Handler
-func HelloWorld(cfg config.Config) http.HandlerFunc {
+// GeographyStart Handler
+func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		helloWorld(w, req, cfg)
+		basePage := rc.NewBasePageModel()
+		model := mapper.CreateStartPage(basePage)
+		rc.BuildPage(w, model, "geography-start")
 	}
-}
-
-func helloWorld(w http.ResponseWriter, req *http.Request, cfg config.Config) {
-	ctx := req.Context()
-	greetingsModel := mapper.HelloModel{Greeting: "Hello", Who: "World"}
-	m := mapper.HelloWorld(ctx, greetingsModel, cfg)
-
-	b, err := json.Marshal(m)
-	if err != nil {
-		setStatusCode(req, w, err)
-		return
-	}
-
-	_, err = w.Write(b)
-	if err != nil {
-		log.Error(ctx, "failed to write bytes for http response", err)
-		setStatusCode(req, w, err)
-		return
-	}
-	return
 }
