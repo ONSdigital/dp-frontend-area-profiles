@@ -27,3 +27,12 @@ func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
 		rc.BuildPage(w, model, "geography-start")
 	}
 }
+
+// GetArea Handler
+func GetArea(cfg config.Config, rc RenderClient) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		basePage := rc.NewBasePageModel()
+		model := mapper.CreateAreaPage(basePage)
+		rc.BuildPage(w, model, "area-summary")
+	}
+}
