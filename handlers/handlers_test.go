@@ -66,6 +66,26 @@ func TestUnitHandlers(t *testing.T) {
 			So(w.Code, ShouldEqual, http.StatusOK)
 		})
 	})
+
+	Convey("test GetArea", t, func() {
+		mockConfig := config.Config{}
+		mockRenderClient := NewMockRenderClient(mockCtrl)
+
+		router := mux.NewRouter()
+		router.HandleFunc("/areas/{id}", GetArea(mockConfig, mockRenderClient))
+
+		w := httptest.NewRecorder()
+
+		Convey("it returns 200 when rendered successfully", func() {
+			mockRenderClient.EXPECT().NewBasePageModel().Return(coreModel.NewPage(cfg.PatternLibraryAssetsPath, cfg.SiteDomain))
+			mockRenderClient.EXPECT().BuildPage(gomock.Any(), gomock.Any(), "area-summary")
+			req := httptest.NewRequest("GET", "http://localhost:26600/areas/abc123", nil)
+
+			router.ServeHTTP(w, req)
+
+			So(w.Code, ShouldEqual, http.StatusOK)
+		})
+	})
 }
 
 func initialiseMockConfig() config.Config {
