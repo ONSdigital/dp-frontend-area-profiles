@@ -3,5 +3,4 @@ FROM onsdigital/dp-concourse-tools-ubuntu
 WORKDIR /app/
 
 COPY dp-frontend-area-profiles .
-
 CMD ./dp-frontend-area-profiles
