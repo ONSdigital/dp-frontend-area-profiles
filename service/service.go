@@ -6,6 +6,7 @@ import (
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-frontend-area-profiles/assets"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
 	render "github.com/ONSdigital/dp-renderer"
 	"github.com/ONSdigital/log.go/v2/log"
@@ -33,7 +34,7 @@ func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *E
 	svc.ServiceList = serviceList
 
 	// Initialise clients
-	clients := routes.Clients{
+	clients := handlers.Clients{
 		Render:  render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
 		AreaApi: areas.New("http://127.0.0.1:25500"),
 	}
@@ -117,7 +118,7 @@ func (svc *Service) Close(ctx context.Context) error {
 	return nil
 }
 
-func (svc *Service) registerCheckers(ctx context.Context, c routes.Clients) (err error) {
+func (svc *Service) registerCheckers(ctx context.Context, c handlers.Clients) (err error) {
 	hasErrors := false
 
 	// TODO: Add health checks here

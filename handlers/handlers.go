@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
-	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
 	"net/http"
 
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
@@ -32,13 +31,13 @@ func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
 }
 
 // GetArea Handler
-func GetArea(ctx context.Context, cfg config.Config, c routes.Clients) http.HandlerFunc {
+func GetArea(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		areaData, err := c.AreaApi.GetArea(ctx, "", "", "1", "")
 		if err != nil {
-			// TODO
+			log.Error(ctx, "Fetching Area Data", err)
 		}
-		fmt.Println(areaData)
+		fmt.Println(areaData) // {     map[] false }
 
 		basePage := c.Render.NewBasePageModel()
 		model := mapper.CreateAreaPage(basePage)
