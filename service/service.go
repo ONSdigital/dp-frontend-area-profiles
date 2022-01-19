@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"errors"
+	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-frontend-area-profiles/assets"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
@@ -34,6 +35,7 @@ func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *E
 	// Initialise clients
 	clients := routes.Clients{
 		Render:  render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
+		AreaApi: areas.New("http://127.0.0.1:25500"),
 	}
 
 	// Get healthcheck with checkers

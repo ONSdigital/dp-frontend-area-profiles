@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
+	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
 	"net/http"
 
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
@@ -29,10 +30,13 @@ func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
 }
 
 // GetArea Handler
-func GetArea(cfg config.Config, rc RenderClient) http.HandlerFunc {
+func GetArea(cfg config.Config, c routes.Clients) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		basePage := rc.NewBasePageModel()
+
+		//areaData := c.AreaApi.GetArea()
+
+		basePage := c.Render.NewBasePageModel()
 		model := mapper.CreateAreaPage(basePage)
-		rc.BuildPage(w, model, "area-summary")
+		c.Render.BuildPage(w, model, "area-summary")
 	}
 }
