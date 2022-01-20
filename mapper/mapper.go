@@ -2,9 +2,13 @@ package mapper
 
 import (
 	"fmt"
+	areas "github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 )
 
+const (
+	pageType = "homepage"
+)
 
 type StartPageModel struct {
 	coreModel.Page
@@ -16,7 +20,7 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 		Page: basePage,
 	}
 	model.Metadata = coreModel.Metadata{
-		Title:       "Areas",
+		Title: "Areas",
 	}
 	model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
 		Title: "Home",
@@ -28,19 +32,22 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 
 type AreaModel struct {
 	coreModel.Page
-	Name string `json:"name"`
-	Level string `json:"level"`
-	Code string `json:"code"`
+	Name      string      `json:"name"`
+	Level     string      `json:"level"`
+	Code      string      `json:"code"`
 	Ancestors []AreaModel `json:"ancestors"`
-	Siblings []AreaModel `json:"siblings"`
-	Children []AreaModel `json:"children"`
+	Siblings  []AreaModel `json:"siblings"`
+	Children  []AreaModel `json:"children"`
 }
 
-func CreateAreaPage(basePage coreModel.Page) AreaModel {
+func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails) AreaModel {
 	// TODO - load the area data for the requested area once the API has been developed
 	model := AreaModel{
 		Page: basePage,
 	}
+	model.Page.Type = pageType
+	model.Name = areaDetails.Name
+	model.Code = areaDetails.Code
 	model.Metadata = coreModel.Metadata{
 		Title: fmt.Sprintf("%s Summary", model.Name),
 	}
