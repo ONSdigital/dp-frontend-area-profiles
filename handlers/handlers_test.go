@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"errors"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
@@ -9,8 +10,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	. "github.com/smartystreets/goconvey/convey"
 )
 
 type testCliError struct{}
@@ -50,7 +49,6 @@ func TestUnitHandlers(t *testing.T) {
 		mockConfig := config.Config{}
 		mockRenderClient := NewMockRenderClient(mockCtrl)
 
-
 		router := mux.NewRouter()
 		router.HandleFunc("/areas", GeographyStart(mockConfig, mockRenderClient))
 
@@ -68,11 +66,19 @@ func TestUnitHandlers(t *testing.T) {
 	})
 
 	Convey("test GetArea", t, func() {
+
 		mockConfig := config.Config{}
 		mockRenderClient := NewMockRenderClient(mockCtrl)
 
 		router := mux.NewRouter()
-		router.HandleFunc("/areas/{id}", GetArea(mockConfig, mockRenderClient))
+		c := Clients{
+			HealthCheckHandler: nil,
+			Render:             nil,
+			AreaApi:            nil,
+			Renderer:           nil,
+		}
+		ctx := context.Background()
+		router.HandleFunc("/areas/{id}", GetArea(ctx, mockConfig, c))
 
 		w := httptest.NewRecorder()
 

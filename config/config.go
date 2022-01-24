@@ -13,6 +13,7 @@ type Config struct {
 	Debug                      bool          `envconfig:"DEBUG"`
 	SiteDomain                 string        `envconfig:"SITE_DOMAIN"`
 	PatternLibraryAssetsPath   string        `envconfig:"PATTERN_LIBRARY_ASSETS_PATH"`
+	RendererURL                string        `envconfig:"RENDERER_URL"`
 	GracefulShutdownTimeout    time.Duration `envconfig:"GRACEFUL_SHUTDOWN_TIMEOUT"`
 	HealthCheckInterval        time.Duration `envconfig:"HEALTHCHECK_INTERVAL"`
 	HealthCheckCriticalTimeout time.Duration `envconfig:"HEALTHCHECK_CRITICAL_TIMEOUT"`
