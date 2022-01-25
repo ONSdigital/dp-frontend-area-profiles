@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	handlers "github.com/ONSdigital/dp-frontend-area-profiles/handlers/mocks"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 	"github.com/golang/mock/gomock"
 	"github.com/gorilla/mux"
@@ -73,14 +74,11 @@ func TestUnitHandlers(t *testing.T) {
 
 		router := mux.NewRouter()
 
-		mockHealthCheckHandler := func(w http.ResponseWriter, req *http.Request) {}
-		mockRender :=
-
 		c := Clients{
-			HealthCheckHandler: mockHealthCheckHandler,
-			Render:             nil,
-			AreaApi:            nil,
-			Renderer:           nil,
+			HealthCheckHandler: func(w http.ResponseWriter, req *http.Request) {},
+			Render:             &handlers.RenderClientMock{},
+			AreaApi:            &handlers.AreaApiClientMock{},
+			Renderer:           &handlers.RendererClientMock{},
 		}
 		ctx := context.Background()
 		router.HandleFunc("/areas/{id}", GetArea(ctx, mockConfig, c))
