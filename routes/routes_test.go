@@ -5,6 +5,7 @@ import (
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/gorilla/mux"
+	. "github.com/smartystreets/goconvey/convey"
 	"net/http"
 	"net/http/httptest"
 	"testing"
