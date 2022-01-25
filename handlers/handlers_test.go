@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
-	handlers "github.com/ONSdigital/dp-frontend-area-profiles/handlers/mocks"
+	mocks "github.com/ONSdigital/dp-frontend-area-profiles/handlers/mocks"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 	"github.com/golang/mock/gomock"
 	"github.com/gorilla/mux"
@@ -49,7 +49,7 @@ func TestUnitHandlers(t *testing.T) {
 
 	Convey("test GetGeographyStart", t, func() {
 		mockConfig := config.Config{}
-		mockRenderClient := NewMockRenderClient(mockCtrl)
+		mockRenderClient := mocks.NewMockRenderClient(mockCtrl)
 
 		router := mux.NewRouter()
 		router.HandleFunc("/areas", GeographyStart(mockConfig, mockRenderClient))
@@ -70,15 +70,16 @@ func TestUnitHandlers(t *testing.T) {
 	Convey("test GetArea", t, func() {
 
 		mockConfig := config.Config{}
-		mockRenderClient := NewMockRenderClient(mockCtrl)
-
+		mockRenderClient := mocks.NewMockRenderClient(mockCtrl)
+		mockAreaApi := mocks.NewMockAreaApiClient(mockCtrl)
+		mockRenderer := mocks.NewMockRendererClient(mockCtrl)
 		router := mux.NewRouter()
 
 		c := Clients{
 			HealthCheckHandler: func(w http.ResponseWriter, req *http.Request) {},
-			Render:             &handlers.RenderClientMock{},
-			AreaApi:            &handlers.AreaApiClientMock{},
-			Renderer:           &handlers.RendererClientMock{},
+			Render:             mockRenderClient,
+			AreaApi:            mockAreaApi,
+			Renderer:           mockRenderer,
 		}
 		ctx := context.Background()
 		router.HandleFunc("/areas/{id}", GetArea(ctx, mockConfig, c))
@@ -88,6 +89,7 @@ func TestUnitHandlers(t *testing.T) {
 		Convey("it returns 200 when rendered successfully", func() {
 			mockRenderClient.EXPECT().NewBasePageModel().Return(coreModel.NewPage(cfg.PatternLibraryAssetsPath, cfg.SiteDomain))
 			mockRenderClient.EXPECT().BuildPage(gomock.Any(), gomock.Any(), "area-summary")
+			mockAreaApi.EXPECT().GetArea(ctx, "", "", "", "abc123")
 			req := httptest.NewRequest("GET", "http://localhost:26600/areas/abc123", nil)
 
 			router.ServeHTTP(w, req)

@@ -9,10 +9,6 @@ import (
 	"net/http"
 )
 
-//go:generate moq -out mocks/areaApi.go . AreaApiClient
-//go:generate moq -out mocks/render.go . RenderClient
-//go:generate moq -out mocks/renderer.go . RendererClient
-
 type AreaApiClient interface {
 	GetArea(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID string) (areaDetails areas.AreaDetails, err error)
 	Checker(ctx context.Context, check *health.CheckState) error
