@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"context"
-	clients "github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	health "github.com/ONSdigital/dp-healthcheck/healthcheck"
 	render "github.com/ONSdigital/dp-renderer"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
@@ -11,7 +11,7 @@ import (
 )
 
 type AreaApiClient interface {
-	GetArea(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID string) (areaDetails clients.AreaDetails, err error)
+	GetArea(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID string) (areaDetails areas.AreaDetails, err error)
 	Checker(ctx context.Context, check *health.CheckState) error
 }
 

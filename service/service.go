@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	areas "github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	renderer "github.com/ONSdigital/dp-api-clients-go/v2/renderer"
 	"github.com/ONSdigital/dp-frontend-area-profiles/assets"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"

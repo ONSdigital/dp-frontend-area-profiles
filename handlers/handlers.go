@@ -37,10 +37,10 @@ func GetArea(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc
 		func(w http.ResponseWriter, req *http.Request, lang, collectionID, accessToken string) {
 			vars := mux.Vars(req)
 			areaID := vars["id"]
-			// TODO add when available: AcceptedLang := req.Header.Get("Accepted-Language")
+			//acceptedLang := req.Header.Get("Accepted-Language")
 			areaData, err := c.AreaApi.GetArea(ctx, accessToken, "", collectionID, areaID)
 			if err != nil {
-				log.Error(ctx, "Fetching Area Data", err)
+				//log.Error(ctx, "Fetching Area Data", err)
 			}
 
 			basePage := c.Render.NewBasePageModel()

@@ -7,6 +7,7 @@ import (
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 	"github.com/golang/mock/gomock"
 	"github.com/gorilla/mux"
+	. "github.com/smartystreets/goconvey/convey"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -71,8 +72,12 @@ func TestUnitHandlers(t *testing.T) {
 		mockRenderClient := NewMockRenderClient(mockCtrl)
 
 		router := mux.NewRouter()
+
+		mockHealthCheckHandler := func(w http.ResponseWriter, req *http.Request) {}
+		mockRender :=
+
 		c := Clients{
-			HealthCheckHandler: nil,
+			HealthCheckHandler: mockHealthCheckHandler,
 			Render:             nil,
 			AreaApi:            nil,
 			Renderer:           nil,

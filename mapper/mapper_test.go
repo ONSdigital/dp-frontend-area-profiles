@@ -3,6 +3,7 @@ package mapper
 import (
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-renderer/model"
+	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
