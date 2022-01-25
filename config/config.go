@@ -9,6 +9,7 @@ import (
 // TODO: remove hello world example config option
 // Config represents service configuration for dp-frontend-area-profiles
 type Config struct {
+	AreaApiURL                 string        `envconfig:"AREA_API_URL"`
 	BindAddr                   string        `envconfig:"BIND_ADDR"`
 	Debug                      bool          `envconfig:"DEBUG"`
 	SiteDomain                 string        `envconfig:"SITE_DOMAIN"`
