@@ -3,6 +3,7 @@ package routes
 import (
 	"context"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/gorilla/mux"
 	. "github.com/smartystreets/goconvey/convey"
 	"net/http"
@@ -15,8 +16,8 @@ func TestSetup(t *testing.T) {
 		r := mux.NewRouter()
 		ctx := context.Background()
 		cfg, err := config.Get()
-		clients := Clients{
-			HealthCheckHandler: func(w http.ResponseWriter, req *http.Request){ return },
+		clients := handlers.Clients{
+			HealthCheckHandler: func(w http.ResponseWriter, req *http.Request) { return },
 		}
 
 		So(err, ShouldBeNil)
@@ -36,4 +37,3 @@ func hasRoute(r *mux.Router, path, method string) bool {
 	match := &mux.RouteMatch{}
 	return r.Match(req, match)
 }
-

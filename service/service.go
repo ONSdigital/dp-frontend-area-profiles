@@ -3,8 +3,12 @@ package service
 import (
 	"context"
 	"errors"
+	areas "github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	"github.com/ONSdigital/dp-api-clients-go/v2/health"
+	renderer "github.com/ONSdigital/dp-api-clients-go/v2/renderer"
 	"github.com/ONSdigital/dp-frontend-area-profiles/assets"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
 	render "github.com/ONSdigital/dp-renderer"
 	"github.com/ONSdigital/log.go/v2/log"
@@ -13,10 +17,12 @@ import (
 
 // Service contains the healthcheck, server and serviceList for the controller
 type Service struct {
-	Config      *config.Config
-	HealthCheck HealthChecker
-	Server      HTTPServer
-	ServiceList *ExternalServiceList
+	Config             *config.Config
+	HealthCheck        HealthChecker
+	areaApiHealthCheck *health.Client
+	Server             HTTPServer
+	ServiceList        *ExternalServiceList
+	clients            *handlers.Clients
 }
 
 // New creates a new service
@@ -30,10 +36,13 @@ func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *E
 
 	svc.Config = cfg
 	svc.ServiceList = serviceList
+	svc.areaApiHealthCheck = serviceList.GetHealthClient("area-api", cfg.AreaApiURL)
 
 	// Initialise clients
-	clients := routes.Clients{
-		Render:  render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
+	clients := handlers.Clients{
+		Render:   render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
+		AreaApi:  areas.NewWithHealthClient(svc.areaApiHealthCheck),
+		Renderer: renderer.New(cfg.RendererURL),
 	}
 
 	// Get healthcheck with checkers
@@ -115,14 +124,16 @@ func (svc *Service) Close(ctx context.Context) error {
 	return nil
 }
 
-func (svc *Service) registerCheckers(ctx context.Context, c routes.Clients) (err error) {
+func (svc *Service) registerCheckers(ctx context.Context, c handlers.Clients) (err error) {
 	hasErrors := false
 
-	// TODO: Add health checks here
+	if err = svc.HealthCheck.AddCheck("areas-api", svc.areaApiHealthCheck.Checker); err != nil {
+		hasErrors = true
+		log.Error(ctx, "failed to add area-api checker", err)
+	}
 
 	if hasErrors {
 		return errors.New("Error(s) registering checkers for healthcheck")
 	}
-
 	return nil
 }

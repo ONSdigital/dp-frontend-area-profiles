@@ -1,7 +1,10 @@
 package handlers
 
 import (
+	"context"
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
+	dphandlers "github.com/ONSdigital/dp-net/handlers"
+	"github.com/gorilla/mux"
 	"net/http"
 
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
@@ -29,10 +32,19 @@ func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
 }
 
 // GetArea Handler
-func GetArea(cfg config.Config, rc RenderClient) http.HandlerFunc {
-	return func(w http.ResponseWriter, req *http.Request) {
-		basePage := rc.NewBasePageModel()
-		model := mapper.CreateAreaPage(basePage)
-		rc.BuildPage(w, model, "area-summary")
-	}
+func GetArea(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc {
+	return dphandlers.ControllerHandler(func(w http.ResponseWriter, req *http.Request, lang, collectionID, accessToken string) {
+		func(w http.ResponseWriter, req *http.Request, lang, collectionID, accessToken string) {
+			vars := mux.Vars(req)
+			areaID := vars["id"]
+			//acceptedLang := req.Header.Get("Accepted-Language")
+			areaData, err := c.AreaApi.GetArea(ctx, accessToken, "", collectionID, areaID)
+			if err != nil {
+				log.Error(ctx, "Fetching Area Data", err)
+			}
+			basePage := c.Render.NewBasePageModel()
+			model := mapper.CreateAreaPage(basePage, areaData)
+			c.Render.BuildPage(w, model, "area-summary")
+		}(w, req, lang, collectionID, accessToken)
+	})
 }
