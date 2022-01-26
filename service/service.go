@@ -40,7 +40,7 @@ func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *E
 
 	svc.Config = cfg
 	svc.ServiceList = serviceList
-	svc.areaApiHealthCheck = serviceList.GetHealthClient("area-api", AreaApiURL)
+	svc.areaApiHealthCheck = serviceList.GetHealthClient("area-api", cfg.AreaApiURL)
 
 	// Initialise clients
 	clients := handlers.Clients{

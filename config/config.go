@@ -6,7 +6,6 @@ import (
 	"github.com/kelseyhightower/envconfig"
 )
 
-// TODO: remove hello world example config option
 // Config represents service configuration for dp-frontend-area-profiles
 type Config struct {
 	AreaApiURL                 string        `envconfig:"AREA_API_URL"`
@@ -44,12 +43,14 @@ func get() (*Config, error) {
 	}
 
 	cfg = &Config{
+		AreaApiURL:                 ":25500",
 		BindAddr:                   ":26600",
 		Debug:                      false,
 		SiteDomain:                 "localhost",
 		GracefulShutdownTimeout:    5 * time.Second,
 		HealthCheckInterval:        30 * time.Second,
 		HealthCheckCriticalTimeout: 90 * time.Second,
+		RendererURL:                ":",
 	}
 
 	return cfg, envconfig.Process("", cfg)

@@ -9,8 +9,9 @@ import (
 	"net/http"
 )
 
+// AreaApiClient is an interface for requesting area profile specific data
 type AreaApiClient interface {
-	GetArea(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID string) (areaDetails areas.AreaDetails, err error)
+	GetArea(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID string) (areas.AreaDetails, error)
 	Checker(ctx context.Context, check *health.CheckState) error
 }
 
@@ -34,6 +35,7 @@ type RenderClient interface {
 	NewBasePageModel() coreModel.Page
 }
 
+// RendererClient is an interface with methods for rending frontend assets
 type RendererClient interface {
 	Do(string, []byte) ([]byte, error)
 	Checker(ctx context.Context, check *health.CheckState) error
