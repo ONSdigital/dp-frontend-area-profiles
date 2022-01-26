@@ -15,10 +15,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-const (
-	AreaApiURL = "http://127.0.0.1:25500"
-)
-
 // Service contains the healthcheck, server and serviceList for the controller
 type Service struct {
 	Config             *config.Config
