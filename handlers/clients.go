@@ -11,7 +11,8 @@ import (
 
 // AreaApiClient is an interface for requesting area profile specific data
 type AreaApiClient interface {
-	GetArea(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID string) (areas.AreaDetails, error)
+	GetArea(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) (areaDetails areas.AreaDetails, err error)
+	GetRelations(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) (relations []areas.Relation, err error)
 	Checker(ctx context.Context, check *health.CheckState) error
 }
 

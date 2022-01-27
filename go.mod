@@ -3,7 +3,7 @@ module github.com/ONSdigital/dp-frontend-area-profiles
 go 1.16
 
 require (
-	github.com/ONSdigital/dp-api-clients-go v1.43.0 // indirect
+	//github.com/ONSdigital/dp-api-clients-go v1.43.0 // indirect
 	github.com/ONSdigital/dp-api-clients-go/v2 v2.7.0
 	github.com/ONSdigital/dp-healthcheck v1.2.0
 	github.com/ONSdigital/dp-net v1.4.0
@@ -18,4 +18,8 @@ require (
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/smartystreets/goconvey v1.7.2
 	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b // indirect
+)
+
+replace (
+	github.com/ONSdigital/dp-api-clients-go/v2 => /Users/josefgasewicz/Work/ONSdigital/dp-api-clients-go
 )
