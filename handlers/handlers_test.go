@@ -85,15 +85,14 @@ func TestUnitHandlers(t *testing.T) {
 		router.HandleFunc("/areas/{id}", GetArea(ctx, mockConfig, c))
 
 		w := httptest.NewRecorder()
-
 		Convey("it returns 200 when rendered successfully", func() {
+			// Add moq tests
 			mockRenderClient.EXPECT().NewBasePageModel().Return(coreModel.NewPage(cfg.PatternLibraryAssetsPath, cfg.SiteDomain))
 			mockRenderClient.EXPECT().BuildPage(gomock.Any(), gomock.Any(), "area-summary")
-			mockAreaApi.EXPECT().GetArea(ctx, "", "", "", "abc123")
+			mockAreaApi.EXPECT().GetArea(ctx, "", "", "", "abc123", "")
+			mockAreaApi.EXPECT().GetRelations(ctx, "", "", "", "abc123", "")
 			req := httptest.NewRequest("GET", "http://localhost:26600/areas/abc123", nil)
-
 			router.ServeHTTP(w, req)
-
 			So(w.Code, ShouldEqual, http.StatusOK)
 		})
 	})
