@@ -1,28 +1,25 @@
-<div class="ons-page__container ons-container ons-u-mb-xl">
- <div class="ons-grid ons-js-toc-container">
-
+<div class="ons-container ons-container--wide">
     <div class="ons-grid__col ons-col-8@m ons-u-mb-m">
         {{ template "partials/breadcrumb" . }}
     </div>
-
-     <div class="ons-grid__col ons-col-8@m ons-u-mb-m">
-
-        <h1 class="ons-u-fs-xxxl">{{ localise "England" .Language 1 }}</h1>
-        <b>{{ localise "Country" .Language 1 }}: {{ .Code }}</b>
-        <h2 class="ons-u-fs-xl">{{ localise "Overview" .Language 1 }}</h2>
-        <p>{{ localise "FactsAndFiguresAboutPeople" .Language 1 }}</p>
-        <h2 class="ons-u-fs-xl">{{ localise "Overview" .Language 1 }}</h2>
-        <p>{{ localise "FactsAndFiguresAboutPeople" .Language 1 }}</p>
-        <p>{{ localise "FindOut" .Language 1 }}:</p>
-        <ul>
-            <li>{{ localise "HowManyPeopleLiveHere" .Language 1 }}</li>
-            <li>{{ localise "HowCrowdedIsIt" .Language 1 }}</li>
-            <li>{{ localise "PeoplesAverageAge" .Language 1 }}</li>
-            <li>{{ localise "HowManyPeopleThinkHealth" .Language 1 }}</li>
-            <li>{{ localise "HowManyHouseholdsEnglishMainLanguage" .Language 1 }}</li>
-            <li>{{ localise "HowHouseholdsOwnedMortgageSharedOwnership" .Language 1 }}</li>
-        </ul>
-        <a class="ons-external-link" href="#" target="_blank" aria-label="{{ localise "ViewFactsFiguresNomis" .Language 1 }}">{{ localise "ViewFactsFiguresNomis" .Language 1 }}
+    <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
+         <div class="ons-grid__col ons-col-6@m">
+            <h1 class="ons-u-fs-xxxl">{{ localise "England" .Language 1 }}</h1>
+            <b>{{ localise "Country" .Language 1 }}: {{ .Code }}</b>
+            <h2 class="ons-u-fs-xl">{{ localise "Overview" .Language 1 }}</h2>
+            <p>{{ localise "FactsAndFiguresAboutPeople" .Language 1 }}</p>
+            <h2 class="ons-u-fs-xl">{{ localise "Overview" .Language 1 }}</h2>
+            <p>{{ localise "FactsAndFiguresAboutPeople" .Language 1 }}</p>
+            <p>{{ localise "FindOut" .Language 1 }}:</p>
+            <ul>
+                <li>{{ localise "HowManyPeopleLiveHere" .Language 1 }}</li>
+                <li>{{ localise "HowCrowdedIsIt" .Language 1 }}</li>
+                <li>{{ localise "PeoplesAverageAge" .Language 1 }}</li>
+                <li>{{ localise "HowManyPeopleThinkHealth" .Language 1 }}</li>
+                <li>{{ localise "HowManyHouseholdsEnglishMainLanguage" .Language 1 }}</li>
+                <li>{{ localise "HowHouseholdsOwnedMortgageSharedOwnership" .Language 1 }}</li>
+            </ul>
+            <a class="ons-external-link" href="#" target="_blank" aria-label="{{ localise "ViewFactsFiguresNomis" .Language 1 }}">{{ localise "ViewFactsFiguresNomis" .Language 1 }}
                 <span class="ons-external-link__icon">
                 <!-- TODO  Replace below svg block with icon template when available -->
                     <svg class="ons-svg-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor">
@@ -30,8 +27,18 @@
                         <path d="M8.83,7.88a.51.51,0,0,0,.71,0l2.31-2.32,1.28,1.28A.51.51,0,0,0,14,6.49v-4a.52.52,0,0,0-.5-.5h-4A.51.51,0,0,0,9,2.52a.58.58,0,0,0,.14.33l1.28,1.28L8.12,6.46a.51.51,0,0,0,0,.71Z" transform="translate(-2 -1.99)"/>
                     </svg>
                 </span>
-             </a>
-     </div>
-
+            </a>
+         </div>
+    </div>
+    <hr class="ons-u-mt-no" />
+    <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
+        <h2 class="ons-u-fs-xl">Areas Within England</h2>
+        <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
+            {{ range .Relations }}
+                <div class="ons-grid__col ons-col-4@m">
+                   <div class="ons-pl-grid-col"><a class="ons-external-link" href="#" target="_blank">{{ .AreaName }}</a></div>
+                 </div>
+            {{ end }}
+        </div>
     </div>
 </div>

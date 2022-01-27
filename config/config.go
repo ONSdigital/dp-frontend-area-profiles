@@ -43,8 +43,8 @@ func get() (*Config, error) {
 	}
 
 	cfg = &Config{
-		AreaApiURL:                 ":25500",
-		BindAddr:                   ":26600",
+		AreaApiURL:                 "127.0.0.1:25500",
+		BindAddr:                   "127.0.0.1:26600",
 		Debug:                      false,
 		SiteDomain:                 "localhost",
 		GracefulShutdownTimeout:    5 * time.Second,

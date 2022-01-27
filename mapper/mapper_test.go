@@ -31,7 +31,19 @@ func TestUnitMapper(t *testing.T) {
 			Visible:       false,
 			AreaType:      "",
 		}
-		areaModel := CreateAreaPage(mdl, areaDetails)
+		relations := []areas.Relation{
+			{
+				AreaCode: "E12000001",
+				AreaName: "North East",
+				Href:     "/v1/area/E12000001",
+			},
+			{
+				AreaCode: "E12000002",
+				AreaName: "North West",
+				Href:     "/v1/area/E12000002",
+			},
+		}
+		areaModel := CreateAreaPage(mdl, areaDetails, relations)
 
 		So(areaModel.BetaBannerEnabled, ShouldBeTrue)
 		So(areaModel.Metadata.Title, ShouldEqual, areaModel.Name+" Summary")
@@ -40,5 +52,11 @@ func TestUnitMapper(t *testing.T) {
 		So(areaModel.Page.Breadcrumb[0].URI, ShouldEqual, "/")
 		So(areaModel.Page.Breadcrumb[1].Title, ShouldEqual, "Areas")
 		So(areaModel.Page.Breadcrumb[1].URI, ShouldEqual, "/areas")
+		So(areaModel.Relations[0].AreaCode, ShouldEqual, "E12000001")
+		So(areaModel.Relations[0].AreaName, ShouldEqual, "North East")
+		So(areaModel.Relations[0].Href, ShouldEqual, "/v1/area/E12000001")
+		So(areaModel.Relations[1].AreaCode, ShouldEqual, "E12000002")
+		So(areaModel.Relations[1].AreaName, ShouldEqual, "North West")
+		So(areaModel.Relations[1].Href, ShouldEqual, "/v1/area/E12000002")
 	})
 }

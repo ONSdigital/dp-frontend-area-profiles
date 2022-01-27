@@ -32,23 +32,27 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 
 type AreaModel struct {
 	coreModel.Page
-	Name      string      `json:"name"`
-	Level     string      `json:"level"`
-	Code      string      `json:"code"`
-	Ancestors []AreaModel `json:"ancestors"`
-	Siblings  []AreaModel `json:"siblings"`
-	Children  []AreaModel `json:"children"`
+	Name      string           `json:"name"`
+	Level     string           `json:"level"`
+	Code      string           `json:"code"`
+	Ancestors []AreaModel      `json:"ancestors"`
+	Siblings  []AreaModel      `json:"siblings"`
+	Children  []AreaModel      `json:"children"`
+	Relations []areas.Relation `json:"relations"`
 }
 
 // CreateAreaPage maps request area profile data to frontend view
-func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails) AreaModel {
+func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation) AreaModel {
 	// TODO - load the area data for the requested area once the API has been developed
 	model := AreaModel{
 		Page: basePage,
 	}
 	model.Page.Type = pageType
+	// Area Details
 	model.Name = areaDetails.Name
 	model.Code = areaDetails.Code
+	// Relations
+	model.Relations = relations
 	model.Metadata = coreModel.Metadata{
 		Title: fmt.Sprintf("%s Summary", model.Name),
 	}
