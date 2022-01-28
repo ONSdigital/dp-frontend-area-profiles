@@ -41,7 +41,6 @@ func GetArea(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc
 
 func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Context, c Clients, lang, collectionID, accessToken string) {
 	var err error
-	ctx, cancel := context.WithCancel(req.Context())
 	var areaData areas.AreaDetails
 	var relationsData []areas.Relation
 	vars := mux.Vars(req)
@@ -55,7 +54,6 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 		areaData, err = c.AreaApi.GetArea(ctx, accessToken, "", collectionID, areaID, acceptedLang)
 		if err != nil {
 			log.Error(ctx, "Fetching Area Data", err)
-			cancel()
 			return
 		}
 	}()
@@ -66,7 +64,6 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 		relationsData, relationsErr = c.AreaApi.GetRelations(ctx, accessToken, "", collectionID, areaID, acceptedLang)
 		if relationsErr != nil {
 			log.Error(ctx, "Fetching area relations data", err)
-			cancel()
 			return
 		}
 	}()
