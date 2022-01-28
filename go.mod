@@ -19,7 +19,3 @@ require (
 	github.com/smartystreets/goconvey v1.7.2
 	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b // indirect
 )
-
-replace (
-	github.com/ONSdigital/dp-api-clients-go/v2 => /Users/josefgasewicz/Work/ONSdigital/dp-api-clients-go
-)
