@@ -74,7 +74,6 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 		//setStatusCode(w, req, err)
 		return
 	}
-	relationsData = []areas.Relation{}
 	//  View logic
 	basePage := c.Render.NewBasePageModel()
 	model := mapper.CreateAreaPage(basePage, areaData, relationsData)

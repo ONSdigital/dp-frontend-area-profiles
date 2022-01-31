@@ -115,7 +115,7 @@ func TestInitSuccess(t *testing.T) {
 							So(mockServiceList.HealthCheck, ShouldBeTrue)
 							So(len(hcMock.AddCheckCalls()), ShouldEqual, 1)
 							So(len(initMock.DoGetHTTPServerCalls()), ShouldEqual, 1)
-							So(initMock.DoGetHTTPServerCalls()[0].BindAddr, ShouldEqual, "127.0.0.1:26600")
+							So(initMock.DoGetHTTPServerCalls()[0].BindAddr, ShouldEqual, ":26600")
 						})
 					})
 				})

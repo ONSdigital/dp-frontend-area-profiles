@@ -1,7 +1,4 @@
 <div class="ons-container ons-container--wide">
-    <div class="ons-grid__col ons-col-8@m ons-u-mb-m">
-        {{ template "partials/breadcrumb" . }}
-    </div>
     <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
          <div class="ons-grid__col ons-col-6@m">
             <h1 class="ons-u-fs-xxxl">{{ localise "England" .Language 1 }}</h1>
@@ -32,11 +29,11 @@
     </div>
     <hr class="ons-u-mt-no" />
     <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
-        <h2 class="ons-u-fs-xl">Areas Within England</h2>
+        <h2 class="ons-u-fs-xl">{{ localise "AreasWithinEngland" .Language 1 }}</h2>
         <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
             {{ range .Relations }}
                 <div class="ons-grid__col ons-col-4@m">
-                   <div class="ons-pl-grid-col"><a class="ons-external-link" href="#" target="_blank">{{ .AreaName }}</a></div>
+                   <div class="ons-pl-grid-col"><a class="ons-external-link" href="{{ .Href }}" target="_blank">{{ .AreaName }}</a></div>
                  </div>
             {{ end }}
         </div>

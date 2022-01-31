@@ -110,3 +110,7 @@ one = "how many households are owned without a mortgage, loan or shared ownershi
 [ViewFactsFiguresNomis]
 description = "View facts and figures on Nomis"
 one = "View facts and figures on Nomis"
+
+[AreasWithinEngland]
+description = "Areas Within England"
+one = "Areas Within England"
