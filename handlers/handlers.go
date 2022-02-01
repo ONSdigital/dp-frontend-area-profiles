@@ -41,6 +41,7 @@ func GetArea(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc
 
 func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Context, c Clients, lang, collectionID, accessToken string) {
 	var err error
+	var relationsErr error
 	var areaData areas.AreaDetails
 	var relationsData []areas.Relation
 	vars := mux.Vars(req)
@@ -60,18 +61,20 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	go func() {
 		defer wg.Done()
 		// Create a new local error variable otherwise we will incur a race condition when other goroutines access it
-		var relationsErr error
+
 		relationsData, relationsErr = c.AreaApi.GetRelations(ctx, accessToken, "", collectionID, areaID, acceptedLang)
 		if relationsErr != nil {
-			log.Error(ctx, "Fetching area relations data", err)
+			log.Error(ctx, "Fetching area relations data", relationsErr)
 			return
 		}
 	}()
 
 	wg.Wait()
-	if err != nil {
-		log.Error(ctx, "Error fetching from remote", err)
-		//setStatusCode(w, req, err)
+	if err != nil || relationsErr != nil {
+		if err == nil {
+			setStatusCode(req, w, relationsErr)
+		}
+		setStatusCode(req, w, err)
 		return
 	}
 	//  View logic
