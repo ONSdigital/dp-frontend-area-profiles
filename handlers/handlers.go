@@ -44,11 +44,12 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	var relationsErr error
 	var areaData areas.AreaDetails
 	var relationsData []areas.Relation
+	var ancestorData []areas.Ancestor
 	vars := mux.Vars(req)
 	areaID := vars["id"]
 	acceptedLang := req.Header.Get("Accept-Language")
 	var wg sync.WaitGroup
-	wg.Add(2)
+	wg.Add(3)
 	// Remote requests
 	go func() {
 		defer wg.Done()
@@ -68,7 +69,15 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 			return
 		}
 	}()
-
+	go func() {
+		defer wg.Done()
+		var ancestorErr error
+		ancestorData, ancestorErr = c.AreaApi.GetAncestors("")
+		if ancestorErr != nil {
+			log.Error(ctx, "Fetching ancestor data", err)
+			return
+		}
+	}()
 	wg.Wait()
 	if err != nil || relationsErr != nil {
 		if err == nil {
