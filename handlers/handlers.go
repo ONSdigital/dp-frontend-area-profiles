@@ -72,7 +72,7 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	wg.Wait()
 	if err != nil || relationsErr != nil {
 		if err == nil {
-			setStatusCode(req, w, relationsErr)
+			err = relationsErr
 		}
 		setStatusCode(req, w, err)
 		return
