@@ -25,6 +25,9 @@ var _ AreaApiClient = &AreaApiClientMock{}
 // 			CheckerFunc: func(ctx context.Context, check *healthcheck.CheckState) error {
 // 				panic("mock out the Checker method")
 // 			},
+// 			GetAncestorsFunc: func(areaId string) ([]areas.Ancestor, error) {
+// 				panic("mock out the GetAncestors method")
+// 			},
 // 			GetAreaFunc: func(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) (areas.AreaDetails, error) {
 // 				panic("mock out the GetArea method")
 // 			},
@@ -41,6 +44,9 @@ type AreaApiClientMock struct {
 	// CheckerFunc mocks the Checker method.
 	CheckerFunc func(ctx context.Context, check *healthcheck.CheckState) error
 
+	// GetAncestorsFunc mocks the GetAncestors method.
+	GetAncestorsFunc func(areaId string) ([]areas.Ancestor, error)
+
 	// GetAreaFunc mocks the GetArea method.
 	GetAreaFunc func(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) (areas.AreaDetails, error)
 
@@ -55,6 +61,11 @@ type AreaApiClientMock struct {
 			Ctx context.Context
 			// Check is the check argument value.
 			Check *healthcheck.CheckState
+		}
+		// GetAncestors holds details about calls to the GetAncestors method.
+		GetAncestors []struct {
+			// AreaId is the areaId argument value.
+			AreaId string
 		}
 		// GetArea holds details about calls to the GetArea method.
 		GetArea []struct {
@@ -88,6 +99,7 @@ type AreaApiClientMock struct {
 		}
 	}
 	lockChecker      sync.RWMutex
+	lockGetAncestors sync.RWMutex
 	lockGetArea      sync.RWMutex
 	lockGetRelations sync.RWMutex
 }
@@ -124,6 +136,37 @@ func (mock *AreaApiClientMock) CheckerCalls() []struct {
 	mock.lockChecker.RLock()
 	calls = mock.calls.Checker
 	mock.lockChecker.RUnlock()
+	return calls
+}
+
+// GetAncestors calls GetAncestorsFunc.
+func (mock *AreaApiClientMock) GetAncestors(areaId string) ([]areas.Ancestor, error) {
+	if mock.GetAncestorsFunc == nil {
+		panic("AreaApiClientMock.GetAncestorsFunc: method is nil but AreaApiClient.GetAncestors was just called")
+	}
+	callInfo := struct {
+		AreaId string
+	}{
+		AreaId: areaId,
+	}
+	mock.lockGetAncestors.Lock()
+	mock.calls.GetAncestors = append(mock.calls.GetAncestors, callInfo)
+	mock.lockGetAncestors.Unlock()
+	return mock.GetAncestorsFunc(areaId)
+}
+
+// GetAncestorsCalls gets all the calls that were made to GetAncestors.
+// Check the length with:
+//     len(mockedAreaApiClient.GetAncestorsCalls())
+func (mock *AreaApiClientMock) GetAncestorsCalls() []struct {
+	AreaId string
+} {
+	var calls []struct {
+		AreaId string
+	}
+	mock.lockGetAncestors.RLock()
+	calls = mock.calls.GetAncestors
+	mock.lockGetAncestors.RUnlock()
 	return calls
 }
 

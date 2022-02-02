@@ -5,6 +5,7 @@ import (
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
+	"github.com/ONSdigital/dp-frontend-area-profiles/utils"
 	dphandlers "github.com/ONSdigital/dp-net/handlers"
 	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"
@@ -42,6 +43,7 @@ func GetArea(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc
 func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Context, c Clients, lang, collectionID, accessToken string) {
 	var err error
 	var relationsErr error
+	var ancestorErr error
 	var areaData areas.AreaDetails
 	var relationsData []areas.Relation
 	var ancestorData []areas.Ancestor
@@ -71,7 +73,6 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	}()
 	go func() {
 		defer wg.Done()
-		var ancestorErr error
 		ancestorData, ancestorErr = c.AreaApi.GetAncestors("")
 		if ancestorErr != nil {
 			log.Error(ctx, "Fetching ancestor data", err)
@@ -79,10 +80,8 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 		}
 	}()
 	wg.Wait()
-	if err != nil || relationsErr != nil {
-		if err == nil {
-			err = relationsErr
-		}
+	firstErr := utils.GetFirstError(err, relationsErr, ancestorErr)
+	if firstErr != nil {
 		setStatusCode(req, w, err)
 		return
 	}

@@ -42,7 +42,7 @@ type AreaModel struct {
 }
 
 // CreateAreaPage maps request area profile data to frontend view
-func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation) AreaModel {
+func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation, ancestors []areas.Ancestor) AreaModel {
 	// TODO - load the area data for the requested area once the API has been developed
 	model := AreaModel{
 		Page: basePage,
