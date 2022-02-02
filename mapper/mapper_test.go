@@ -43,11 +43,19 @@ func TestUnitMapper(t *testing.T) {
 				Href:     "/v1/area/E12000002",
 			},
 		}
-		areaModel := CreateAreaPage(mdl, areaDetails, relations)
+		ancestors := []areas.Ancestor{areas.Ancestor{
+			Name:      "England",
+			Level:     "",
+			Code:      "E92000001",
+			Ancestors: []areas.Ancestor{},
+			Siblings:  nil,
+			Children:  nil,
+		}}
+		areaModel := CreateAreaPage(mdl, areaDetails, relations, ancestors)
 
 		So(areaModel.BetaBannerEnabled, ShouldBeTrue)
 		So(areaModel.Metadata.Title, ShouldEqual, areaModel.Name+" Summary")
-		So(areaModel.Page.Breadcrumb, ShouldHaveLength, 2)
+		So(areaModel.Page.Breadcrumb, ShouldHaveLength, 3)
 		So(areaModel.Page.Breadcrumb[0].Title, ShouldEqual, "Home")
 		So(areaModel.Page.Breadcrumb[0].URI, ShouldEqual, "/")
 		So(areaModel.Page.Breadcrumb[1].Title, ShouldEqual, "Areas")
@@ -58,5 +66,11 @@ func TestUnitMapper(t *testing.T) {
 		So(areaModel.Relations[1].AreaCode, ShouldEqual, "E12000002")
 		So(areaModel.Relations[1].AreaName, ShouldEqual, "North West")
 		So(areaModel.Relations[1].Href, ShouldEqual, "/v1/area/E12000002")
+		So(areaModel.Ancestors[0].Name, ShouldEqual, "England")
+		So(areaModel.Ancestors[0].Level, ShouldEqual, "")
+		So(areaModel.Ancestors[0].Code, ShouldEqual, "E92000001")
+		So(areaModel.Ancestors[0].Ancestors, ShouldHaveLength, 0)
+		So(areaModel.Ancestors[0].Siblings, ShouldEqual, nil)
+		So(areaModel.Ancestors[0].Children, ShouldEqual, nil)
 	})
 }
