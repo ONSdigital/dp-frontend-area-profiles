@@ -73,7 +73,7 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	}()
 	go func() {
 		defer wg.Done()
-		ancestorData, ancestorErr = c.AreaApi.GetAncestors("E12000002")
+		ancestorData, ancestorErr = c.AreaApi.GetAncestors(areaID)
 		if ancestorErr != nil {
 			log.Error(ctx, "Fetching ancestor data", err)
 			return

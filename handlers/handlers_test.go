@@ -75,9 +75,6 @@ func TestGetAreaWithSpies(t *testing.T) {
 	defer mockCtrl.Finish()
 	cfg := initialiseMockConfig()
 	Convey("test GetArea", t, func() {
-		//var wg sync.WaitGroup
-		//wg.Add(1)
-		//defer wg.Wait()
 		mockConfig := config.Config{}
 		mockRenderClient := NewMockRenderClient(mockCtrl)
 		mockAreaApi := NewMockAreaApiClient(mockCtrl)
@@ -97,11 +94,11 @@ func TestGetAreaWithSpies(t *testing.T) {
 		w := httptest.NewRecorder()
 		Convey("it returns 200 when rendered successfully", func() {
 			// Add moq tests
-
 			mockRenderClient.EXPECT().NewBasePageModel().Return(coreModel.NewPage(cfg.PatternLibraryAssetsPath, cfg.SiteDomain))
 			mockRenderClient.EXPECT().BuildPage(gomock.Any(), gomock.Any(), "area-summary")
 			mockAreaApi.EXPECT().GetArea(ctx, "", "", "", "E92000001", "").AnyTimes()
 			mockAreaApi.EXPECT().GetRelations(ctx, "", "", "", "E92000001", "").AnyTimes()
+			mockAreaApi.EXPECT().GetAncestors("E92000001").AnyTimes()
 
 			req := httptest.NewRequest("GET", "http://localhost:26600/areas/E92000001", nil)
 
