@@ -87,6 +87,6 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	}
 	//  View logic
 	basePage := c.Render.NewBasePageModel()
-	model := mapper.CreateAreaPage(basePage, areaData, relationsData)
+	model := mapper.CreateAreaPage(basePage, areaData, relationsData, ancestorData)
 	c.Render.BuildPage(w, model, "area-summary")
 }
