@@ -1,10 +1,11 @@
 <div class="ons-container ons-container--wide">
+    <div class="ons-grid__col ons-col-8@m ons-u-mb-m">
+        {{ template "partials/breadcrumb" . }}
+    </div>
     <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
          <div class="ons-grid__col ons-col-6@m">
             <h1 class="ons-u-fs-xxxl">{{ localise "England" .Language 1 }}</h1>
             <b>{{ localise "Country" .Language 1 }}: {{ .Code }}</b>
-            <h2 class="ons-u-fs-xl">{{ localise "Overview" .Language 1 }}</h2>
-            <p>{{ localise "FactsAndFiguresAboutPeople" .Language 1 }}</p>
             <h2 class="ons-u-fs-xl">{{ localise "Overview" .Language 1 }}</h2>
             <p>{{ localise "FactsAndFiguresAboutPeople" .Language 1 }}</p>
             <p>{{ localise "FindOut" .Language 1 }}:</p>
@@ -16,7 +17,7 @@
                 <li>{{ localise "HowManyHouseholdsEnglishMainLanguage" .Language 1 }}</li>
                 <li>{{ localise "HowHouseholdsOwnedMortgageSharedOwnership" .Language 1 }}</li>
             </ul>
-            <a class="ons-external-link" href="#" target="_blank" aria-label="{{ localise "ViewFactsFiguresNomis" .Language 1 }}">{{ localise "ViewFactsFiguresNomis" .Language 1 }}
+            <a class="ons-external-link" href="https://www.nomisweb.co.uk/" target="_blank" aria-label="{{ localise "ViewFactsFiguresNomis" .Language 1 }}">{{ localise "ViewFactsFiguresNomis" .Language 1 }}
                 <span class="ons-external-link__icon">
                 <!-- TODO  Replace below svg block with icon template when available -->
                     <svg class="ons-svg-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor">

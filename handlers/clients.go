@@ -15,7 +15,7 @@ import (
 type AreaApiClient interface {
 	GetArea(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) (areaDetails areas.AreaDetails, err error)
 	GetRelations(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) (relations []areas.Relation, err error)
-	GetAncestors(areaId string) (ancestors []areas.Ancestor, err error)
+	GetAncestors(code string) (ancestors []areas.Ancestor, err error)
 	Checker(ctx context.Context, check *health.CheckState) error
 }
 

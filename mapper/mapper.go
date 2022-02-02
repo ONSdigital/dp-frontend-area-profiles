@@ -35,7 +35,7 @@ type AreaModel struct {
 	Name      string           `json:"name"`
 	Level     string           `json:"level"`
 	Code      string           `json:"code"`
-	Ancestors []AreaModel      `json:"ancestors"`
+	Ancestors []areas.Ancestor `json:"ancestors"`
 	Siblings  []AreaModel      `json:"siblings"`
 	Children  []AreaModel      `json:"children"`
 	Relations []areas.Relation `json:"relations"`
@@ -64,10 +64,11 @@ func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, rela
 		Title: "Areas",
 		URI:   "/areas",
 	})
+	model.Ancestors = ancestors
 	for _, ancestor := range model.Ancestors {
 		model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
 			Title: ancestor.Name,
-			URI:   "/areas/" + ancestor.Code,
+			URI:   "/areas/" + ancestor.Name,
 		})
 	}
 	model.Page.BetaBannerEnabled = true
