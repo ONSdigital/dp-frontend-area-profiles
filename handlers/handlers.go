@@ -2,13 +2,14 @@ package handlers
 
 import (
 	"context"
+	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
 	dphandlers "github.com/ONSdigital/dp-net/handlers"
+	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"
 	"net/http"
-
-	"github.com/ONSdigital/dp-frontend-area-profiles/config"
-	"github.com/ONSdigital/log.go/v2/log"
+	"sync"
 )
 
 func setStatusCode(req *http.Request, w http.ResponseWriter, err error) {
@@ -34,17 +35,50 @@ func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
 // GetArea Handler
 func GetArea(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc {
 	return dphandlers.ControllerHandler(func(w http.ResponseWriter, req *http.Request, lang, collectionID, accessToken string) {
-		func(w http.ResponseWriter, req *http.Request, lang, collectionID, accessToken string) {
-			vars := mux.Vars(req)
-			areaID := vars["id"]
-			//acceptedLang := req.Header.Get("Accepted-Language")
-			areaData, err := c.AreaApi.GetArea(ctx, accessToken, "", collectionID, areaID)
-			if err != nil {
-				log.Error(ctx, "Fetching Area Data", err)
-			}
-			basePage := c.Render.NewBasePageModel()
-			model := mapper.CreateAreaPage(basePage, areaData)
-			c.Render.BuildPage(w, model, "area-summary")
-		}(w, req, lang, collectionID, accessToken)
+		GetAreaViewHandler(w, req, ctx, c, lang, collectionID, accessToken)
 	})
+}
+
+func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Context, c Clients, lang, collectionID, accessToken string) {
+	var err error
+	var relationsErr error
+	var areaData areas.AreaDetails
+	var relationsData []areas.Relation
+	vars := mux.Vars(req)
+	areaID := vars["id"]
+	acceptedLang := req.Header.Get("Accept-Language")
+	var wg sync.WaitGroup
+	wg.Add(2)
+	// Remote requests
+	go func() {
+		defer wg.Done()
+		areaData, err = c.AreaApi.GetArea(ctx, accessToken, "", collectionID, areaID, acceptedLang)
+		if err != nil {
+			log.Error(ctx, "Fetching Area Data", err)
+			return
+		}
+	}()
+	go func() {
+		defer wg.Done()
+		// Create a new local error variable otherwise we will incur a race condition when other goroutines access it
+
+		relationsData, relationsErr = c.AreaApi.GetRelations(ctx, accessToken, "", collectionID, areaID, acceptedLang)
+		if relationsErr != nil {
+			log.Error(ctx, "Fetching area relations data", relationsErr)
+			return
+		}
+	}()
+
+	wg.Wait()
+	if err != nil || relationsErr != nil {
+		if err == nil {
+			err = relationsErr
+		}
+		setStatusCode(req, w, err)
+		return
+	}
+	//  View logic
+	basePage := c.Render.NewBasePageModel()
+	model := mapper.CreateAreaPage(basePage, areaData, relationsData)
+	c.Render.BuildPage(w, model, "area-summary")
 }
