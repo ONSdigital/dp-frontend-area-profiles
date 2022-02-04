@@ -52,19 +52,49 @@ func (mr *MockAreaApiClientMockRecorder) Checker(ctx, check interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Checker", reflect.TypeOf((*MockAreaApiClient)(nil).Checker), ctx, check)
 }
 
-// GetArea mocks base method.
-func (m *MockAreaApiClient) GetArea(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID string) (areas.AreaDetails, error) {
+// GetAncestors mocks base method.
+func (m *MockAreaApiClient) GetAncestors(code string) ([]areas.Ancestor, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetArea", ctx, userAuthToken, serviceAuthToken, collectionID, areaID)
+	ret := m.ctrl.Call(m, "GetAncestors", code)
+	ret0, _ := ret[0].([]areas.Ancestor)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAncestors indicates an expected call of GetAncestors.
+func (mr *MockAreaApiClientMockRecorder) GetAncestors(code interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAncestors", reflect.TypeOf((*MockAreaApiClient)(nil).GetAncestors), code)
+}
+
+// GetArea mocks base method.
+func (m *MockAreaApiClient) GetArea(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) (areas.AreaDetails, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetArea", ctx, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang)
 	ret0, _ := ret[0].(areas.AreaDetails)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetArea indicates an expected call of GetArea.
-func (mr *MockAreaApiClientMockRecorder) GetArea(ctx, userAuthToken, serviceAuthToken, collectionID, areaID interface{}) *gomock.Call {
+func (mr *MockAreaApiClientMockRecorder) GetArea(ctx, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetArea", reflect.TypeOf((*MockAreaApiClient)(nil).GetArea), ctx, userAuthToken, serviceAuthToken, collectionID, areaID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetArea", reflect.TypeOf((*MockAreaApiClient)(nil).GetArea), ctx, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang)
+}
+
+// GetRelations mocks base method.
+func (m *MockAreaApiClient) GetRelations(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) ([]areas.Relation, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetRelations", ctx, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang)
+	ret0, _ := ret[0].([]areas.Relation)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetRelations indicates an expected call of GetRelations.
+func (mr *MockAreaApiClientMockRecorder) GetRelations(ctx, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRelations", reflect.TypeOf((*MockAreaApiClient)(nil).GetRelations), ctx, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang)
 }
 
 // MockClientError is a mock of ClientError interface.
