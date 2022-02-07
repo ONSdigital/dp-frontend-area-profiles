@@ -3,14 +3,15 @@ package handlers
 import (
 	"context"
 	"errors"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 	"github.com/golang/mock/gomock"
 	"github.com/gorilla/mux"
 	. "github.com/smartystreets/goconvey/convey"
-	"net/http"
-	"net/http/httptest"
-	"testing"
 )
 
 var ctx = context.Background()
@@ -75,6 +76,9 @@ func TestGetAreaWithSpies(t *testing.T) {
 	defer mockCtrl.Finish()
 	cfg := initialiseMockConfig()
 	Convey("test GetArea", t, func() {
+		//var wg sync.WaitGroup
+		//wg.Add(1)
+		//defer wg.Wait()
 		mockConfig := config.Config{}
 		mockRenderClient := NewMockRenderClient(mockCtrl)
 		mockAreaApi := NewMockAreaApiClient(mockCtrl)

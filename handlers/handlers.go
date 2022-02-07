@@ -2,6 +2,9 @@ package handlers
 
 import (
 	"context"
+	"net/http"
+	"sync"
+
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
@@ -9,8 +12,6 @@ import (
 	dphandlers "github.com/ONSdigital/dp-net/handlers"
 	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"
-	"net/http"
-	"sync"
 )
 
 func setStatusCode(req *http.Request, w http.ResponseWriter, err error) {

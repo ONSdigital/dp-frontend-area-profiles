@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"context"
+	"io"
+	"net/http"
+
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	health "github.com/ONSdigital/dp-healthcheck/healthcheck"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
-	"io"
-	"net/http"
 )
 
 //go:generate moq -out moq_clients.go -pkg handlers . AreaApiClient RenderClient RendererClient

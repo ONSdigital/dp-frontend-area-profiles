@@ -2,6 +2,7 @@ package mapper
 
 import (
 	"fmt"
+
 	areas "github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 )

@@ -1,10 +1,11 @@
 package mapper
 
 import (
+	"testing"
+
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-renderer/model"
 	. "github.com/smartystreets/goconvey/convey"
-	"testing"
 )
 
 func TestUnitMapper(t *testing.T) {
