@@ -28,15 +28,17 @@
             </a>
         </div>
     </div>
-    <hr class="ons-u-mt-no" />
-    <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
-        <h2 class="ons-u-fs-xl">{{ localise "AreasWithinEngland" .Language 1 }}</h2>
+    {{ if .Relations }}
+        <hr class="ons-u-mt-no" />
         <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
-            {{ range .Relations }}
-                <div class="ons-grid__col ons-col-4@m">
-                    <div class="ons-pl-grid-col"><a class="ons-external-link" href="{{ .Href }}" target="_blank">{{ .AreaName }}</a></div>
-                </div>
-            {{ end }}
+            <h2 class="ons-u-fs-xl">{{ localise "AreasWithinEngland" .Language 1 }}</h2>
+            <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
+                {{ range .Relations }}
+                    <div class="ons-grid__col ons-col-4@m">
+                        <div class="ons-pl-grid-col"><a class="ons-external-link" href="{{ .Href }}" target="_blank">{{ .AreaName }}</a></div>
+                    </div>
+                {{ end }}
+            </div>
         </div>
-    </div>
+    {{ end }}
 </div>

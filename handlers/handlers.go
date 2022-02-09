@@ -8,7 +8,6 @@ import (
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
-	"github.com/ONSdigital/dp-frontend-area-profiles/utils"
 	dphandlers "github.com/ONSdigital/dp-net/handlers"
 	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"
@@ -65,7 +64,6 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	go func() {
 		defer wg.Done()
 		// Create a new local error variable otherwise we will incur a race condition when other goroutines access it
-
 		relationsData, relationsErr = c.AreaApi.GetRelations(ctx, accessToken, "", collectionID, areaID, acceptedLang)
 		if relationsErr != nil {
 			log.Error(ctx, "Fetching area relations data", relationsErr)
@@ -81,11 +79,6 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 		}
 	}()
 	wg.Wait()
-	firstErr := utils.GetFirstError(err, relationsErr, ancestorErr)
-	if firstErr != nil {
-		setStatusCode(req, w, err)
-		return
-	}
 	//  View logic
 	basePage := c.Render.NewBasePageModel()
 	model := mapper.CreateAreaPage(basePage, areaData, relationsData, ancestorData)
