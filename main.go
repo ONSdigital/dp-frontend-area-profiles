@@ -6,8 +6,13 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/ONSdigital/dp-api-clients-go/renderer"
+	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	"github.com/ONSdigital/dp-frontend-area-profiles/assets"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/ONSdigital/dp-frontend-area-profiles/service"
+	render "github.com/ONSdigital/dp-renderer"
 	"github.com/ONSdigital/log.go/v2/log"
 )
 
@@ -52,7 +57,15 @@ func run(ctx context.Context) error {
 
 	// Run service
 	svc := service.New()
-	if err := svc.Init(ctx, cfg, svcList, BuildTime, GitCommit, Version); err != nil {
+	svc.IntiateServiceList(cfg, svcList)
+
+	// Initialise clients
+	clients := handlers.Clients{
+		Render:   render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
+		Renderer: renderer.New(cfg.RendererURL),
+		AreaApi:  areas.NewWithHealthClient(svc.AreaApiHealthCheck),
+	}
+	if err := svc.Init(ctx, cfg, svcList, clients, BuildTime, GitCommit, Version); err != nil {
 		log.Error(ctx, "failed to initialise service", err)
 		return err
 	}
