@@ -2,6 +2,7 @@ package routes
 
 import (
 	"context"
+
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/ONSdigital/log.go/v2/log"

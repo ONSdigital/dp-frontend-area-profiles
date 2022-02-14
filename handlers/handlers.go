@@ -36,11 +36,11 @@ func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
 // GetArea Handler
 func GetArea(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc {
 	return dphandlers.ControllerHandler(func(w http.ResponseWriter, req *http.Request, lang, collectionID, accessToken string) {
-		GetAreaViewHandler(w, req, ctx, c, lang, collectionID, accessToken)
+		GetAreaViewHandler(w, req, ctx, c, cfg, lang, collectionID, accessToken)
 	})
 }
 
-func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Context, c Clients, lang, collectionID, accessToken string) {
+func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Context, c Clients, cfg config.Config, lang, collectionID, accessToken string) {
 	var err error
 	var relationsErr error
 	var ancestorErr error
@@ -81,6 +81,9 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	wg.Wait()
 	//  View logic
 	basePage := c.Render.NewBasePageModel()
-	model := mapper.CreateAreaPage(basePage, areaData, relationsData, ancestorData)
+	ffs := mapper.FeatureFlags{
+		EnabledBreadcrumbs: cfg.EnabledBreadcrumbs,
+	}
+	model := mapper.CreateAreaPage(basePage, areaData, relationsData, ancestorData, ffs)
 	c.Render.BuildPage(w, model, "area-summary")
 }

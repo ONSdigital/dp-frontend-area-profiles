@@ -52,7 +52,8 @@ func TestUnitMapper(t *testing.T) {
 			Siblings:  nil,
 			Children:  nil,
 		}}
-		areaModel := CreateAreaPage(mdl, areaDetails, relations, ancestors)
+		ffs := FeatureFlags{EnabledBreadcrumbs: true}
+		areaModel := CreateAreaPage(mdl, areaDetails, relations, ancestors, ffs)
 
 		So(areaModel.BetaBannerEnabled, ShouldBeTrue)
 		So(areaModel.Metadata.Title, ShouldEqual, areaModel.Name+" Summary")
@@ -73,5 +74,6 @@ func TestUnitMapper(t *testing.T) {
 		So(areaModel.Ancestors[0].Ancestors, ShouldHaveLength, 0)
 		So(areaModel.Ancestors[0].Siblings, ShouldEqual, nil)
 		So(areaModel.Ancestors[0].Children, ShouldEqual, nil)
+		So(areaModel.EnabledBreadcrumbs, ShouldEqual, true)
 	})
 }
