@@ -31,23 +31,30 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 	return model
 }
 
+// FeatureFlags
+type FeatureFlags struct {
+	EnabledBreadcrumbs bool
+}
+
 type AreaModel struct {
 	coreModel.Page
-	Name      string           `json:"name"`
-	Level     string           `json:"level"`
-	Code      string           `json:"code"`
-	Ancestors []areas.Ancestor `json:"ancestors"`
-	Siblings  []AreaModel      `json:"siblings"`
-	Children  []AreaModel      `json:"children"`
-	Relations []areas.Relation `json:"relations"`
+	Name               string           `json:"name"`
+	Level              string           `json:"level"`
+	Code               string           `json:"code"`
+	Ancestors          []areas.Ancestor `json:"ancestors"`
+	Siblings           []AreaModel      `json:"siblings"`
+	Children           []AreaModel      `json:"children"`
+	Relations          []areas.Relation `json:"relations"`
+	EnabledBreadcrumbs bool
 }
 
 // CreateAreaPage maps request area profile data to frontend view
-func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation, ancestors []areas.Ancestor) AreaModel {
+func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation, ancestors []areas.Ancestor, ffs FeatureFlags) AreaModel {
 	// TODO - load the area data for the requested area once the API has been developed
 	model := AreaModel{
 		Page: basePage,
 	}
+	model.EnabledBreadcrumbs = ffs.EnabledBreadcrumbs
 	model.Page.Type = pageType
 	// Area Details
 	model.Name = areaDetails.Name
