@@ -113,7 +113,7 @@ func TestInitSuccess(t *testing.T) {
 
 						Convey("And the checkers are registered and the healthcheck", func() {
 							So(mockServiceList.HealthCheck, ShouldBeTrue)
-							So(len(hcMock.AddCheckCalls()), ShouldEqual, 0)
+							So(len(hcMock.AddCheckCalls()), ShouldEqual, 1)
 							So(len(initMock.DoGetHTTPServerCalls()), ShouldEqual, 1)
 							So(initMock.DoGetHTTPServerCalls()[0].BindAddr, ShouldEqual, ":26600")
 						})

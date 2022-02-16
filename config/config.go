@@ -6,16 +6,18 @@ import (
 	"github.com/kelseyhightower/envconfig"
 )
 
-// TODO: remove hello world example config option
 // Config represents service configuration for dp-frontend-area-profiles
 type Config struct {
+	AreaApiURL                 string        `envconfig:"AREA_API_URL"`
 	BindAddr                   string        `envconfig:"BIND_ADDR"`
 	Debug                      bool          `envconfig:"DEBUG"`
 	SiteDomain                 string        `envconfig:"SITE_DOMAIN"`
 	PatternLibraryAssetsPath   string        `envconfig:"PATTERN_LIBRARY_ASSETS_PATH"`
+	RendererURL                string        `envconfig:"RENDERER_URL"`
 	GracefulShutdownTimeout    time.Duration `envconfig:"GRACEFUL_SHUTDOWN_TIMEOUT"`
 	HealthCheckInterval        time.Duration `envconfig:"HEALTHCHECK_INTERVAL"`
 	HealthCheckCriticalTimeout time.Duration `envconfig:"HEALTHCHECK_CRITICAL_TIMEOUT"`
+	EnabledBreadcrumbs         bool          `envconfig:"ENALBED_BREADCRUMBS"`
 }
 
 var cfg *Config
@@ -42,12 +44,14 @@ func get() (*Config, error) {
 	}
 
 	cfg = &Config{
+		AreaApiURL:                 "http://localhost:25500",
 		BindAddr:                   ":26600",
 		Debug:                      false,
 		SiteDomain:                 "localhost",
 		GracefulShutdownTimeout:    5 * time.Second,
 		HealthCheckInterval:        30 * time.Second,
 		HealthCheckCriticalTimeout: 90 * time.Second,
+		RendererURL:                ":",
 	}
 
 	return cfg, envconfig.Process("", cfg)

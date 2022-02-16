@@ -1,17 +1,20 @@
 package handlers
 
 import (
+	"context"
 	"errors"
-	"github.com/ONSdigital/dp-frontend-area-profiles/config"
-	coreModel "github.com/ONSdigital/dp-renderer/model"
-	"github.com/golang/mock/gomock"
-	"github.com/gorilla/mux"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
+	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	coreModel "github.com/ONSdigital/dp-renderer/model"
+	"github.com/golang/mock/gomock"
+	"github.com/gorilla/mux"
 	. "github.com/smartystreets/goconvey/convey"
 )
+
+var ctx = context.Background()
 
 type testCliError struct{}
 
@@ -50,7 +53,6 @@ func TestUnitHandlers(t *testing.T) {
 		mockConfig := config.Config{}
 		mockRenderClient := NewMockRenderClient(mockCtrl)
 
-
 		router := mux.NewRouter()
 		router.HandleFunc("/areas", GeographyStart(mockConfig, mockRenderClient))
 
@@ -66,26 +68,54 @@ func TestUnitHandlers(t *testing.T) {
 			So(w.Code, ShouldEqual, http.StatusOK)
 		})
 	})
+}
 
+func TestGetAreaWithSpies(t *testing.T) {
+
+	mockCtrl := gomock.NewController(t)
+	defer mockCtrl.Finish()
+	cfg := initialiseMockConfig()
 	Convey("test GetArea", t, func() {
+		//var wg sync.WaitGroup
+		//wg.Add(1)
+		//defer wg.Wait()
 		mockConfig := config.Config{}
 		mockRenderClient := NewMockRenderClient(mockCtrl)
-
+		mockAreaApi := NewMockAreaApiClient(mockCtrl)
+		mockRenderer := NewMockRendererClient(mockCtrl)
 		router := mux.NewRouter()
-		router.HandleFunc("/areas/{id}", GetArea(mockConfig, mockRenderClient))
+
+		c := Clients{
+			HealthCheckHandler: func(w http.ResponseWriter, req *http.Request) {},
+			Render:             mockRenderClient,
+			AreaApi:            mockAreaApi,
+			Renderer:           mockRenderer,
+		}
+
+		ctx := context.Background()
+		router.HandleFunc("/areas/{id}", GetArea(ctx, mockConfig, c))
 
 		w := httptest.NewRecorder()
-
 		Convey("it returns 200 when rendered successfully", func() {
+			// Add moq tests
 			mockRenderClient.EXPECT().NewBasePageModel().Return(coreModel.NewPage(cfg.PatternLibraryAssetsPath, cfg.SiteDomain))
 			mockRenderClient.EXPECT().BuildPage(gomock.Any(), gomock.Any(), "area-summary")
-			req := httptest.NewRequest("GET", "http://localhost:26600/areas/abc123", nil)
+			mockAreaApi.EXPECT().GetArea(ctx, "", "", "", "E92000001", "").AnyTimes()
+			mockAreaApi.EXPECT().GetRelations(ctx, "", "", "", "E92000001", "").AnyTimes()
+			mockAreaApi.EXPECT().GetAncestors("E92000001").AnyTimes()
+
+			req := httptest.NewRequest("GET", "http://localhost:26600/areas/E92000001", nil)
 
 			router.ServeHTTP(w, req)
-
 			So(w.Code, ShouldEqual, http.StatusOK)
 		})
 	})
+
+}
+
+func TestUnitReadHandlerSuccess(t *testing.T) {
+	t.Parallel()
+
 }
 
 func initialiseMockConfig() config.Config {
