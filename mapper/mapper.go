@@ -2,9 +2,14 @@ package mapper
 
 import (
 	"fmt"
+
+	areas "github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 )
 
+const (
+	pageType = "homepage"
+)
 
 type StartPageModel struct {
 	coreModel.Page
@@ -16,7 +21,7 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 		Page: basePage,
 	}
 	model.Metadata = coreModel.Metadata{
-		Title:       "Areas",
+		Title: "Areas",
 	}
 	model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
 		Title: "Home",
@@ -26,21 +31,36 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 	return model
 }
 
-type AreaModel struct {
-	coreModel.Page
-	Name string `json:"name"`
-	Level string `json:"level"`
-	Code string `json:"code"`
-	Ancestors []AreaModel `json:"ancestors"`
-	Siblings []AreaModel `json:"siblings"`
-	Children []AreaModel `json:"children"`
+// FeatureFlags
+type FeatureFlags struct {
+	EnabledBreadcrumbs bool
 }
 
-func CreateAreaPage(basePage coreModel.Page) AreaModel {
+type AreaModel struct {
+	coreModel.Page
+	Name               string           `json:"name"`
+	Level              string           `json:"level"`
+	Code               string           `json:"code"`
+	Ancestors          []areas.Ancestor `json:"ancestors"`
+	Siblings           []AreaModel      `json:"siblings"`
+	Children           []AreaModel      `json:"children"`
+	Relations          []areas.Relation `json:"relations"`
+	EnabledBreadcrumbs bool
+}
+
+// CreateAreaPage maps request area profile data to frontend view
+func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation, ancestors []areas.Ancestor, ffs FeatureFlags) AreaModel {
 	// TODO - load the area data for the requested area once the API has been developed
 	model := AreaModel{
 		Page: basePage,
 	}
+	model.EnabledBreadcrumbs = ffs.EnabledBreadcrumbs
+	model.Page.Type = pageType
+	// Area Details
+	model.Name = areaDetails.Name
+	model.Code = areaDetails.Code
+	// Relations
+	model.Relations = relations
 	model.Metadata = coreModel.Metadata{
 		Title: fmt.Sprintf("%s Summary", model.Name),
 	}
@@ -52,10 +72,11 @@ func CreateAreaPage(basePage coreModel.Page) AreaModel {
 		Title: "Areas",
 		URI:   "/areas",
 	})
+	model.Ancestors = ancestors
 	for _, ancestor := range model.Ancestors {
 		model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
 			Title: ancestor.Name,
-			URI:   "/areas/" + ancestor.Code,
+			URI:   "/areas/" + ancestor.Name,
 		})
 	}
 	model.Page.BetaBannerEnabled = true
