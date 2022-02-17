@@ -3,7 +3,7 @@ package mapper
 import (
 	"fmt"
 
-	areas "github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 )
 
@@ -31,31 +31,26 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 	return model
 }
 
-// FeatureFlags
-type FeatureFlags struct {
-	EnabledBreadcrumbs bool
-}
-
 type AreaModel struct {
 	coreModel.Page
-	Name               string           `json:"name"`
-	Level              string           `json:"level"`
-	Code               string           `json:"code"`
-	Ancestors          []areas.Ancestor `json:"ancestors"`
-	Siblings           []AreaModel      `json:"siblings"`
-	Children           []AreaModel      `json:"children"`
-	Relations          []areas.Relation `json:"relations"`
-	EnabledBreadcrumbs bool
+	Name      string           `json:"name"`
+	Level     string           `json:"level"`
+	Code      string           `json:"code"`
+	Ancestors []areas.Ancestor `json:"ancestors"`
+	Siblings  []AreaModel      `json:"siblings"`
+	Children  []AreaModel      `json:"children"`
+	Relations []areas.Relation `json:"relations"`
 }
 
 // CreateAreaPage maps request area profile data to frontend view
-func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation, ancestors []areas.Ancestor, ffs FeatureFlags) AreaModel {
+func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation, ancestors []areas.Ancestor, lang string) AreaModel {
 	// TODO - load the area data for the requested area once the API has been developed
 	model := AreaModel{
 		Page: basePage,
 	}
-	model.EnabledBreadcrumbs = ffs.EnabledBreadcrumbs
+
 	model.Page.Type = pageType
+	model.Page.Language = lang
 	// Area Details
 	model.Name = areaDetails.Name
 	model.Code = areaDetails.Code
@@ -73,11 +68,14 @@ func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, rela
 		URI:   "/areas",
 	})
 	model.Ancestors = ancestors
-	for _, ancestor := range model.Ancestors {
-		model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
-			Title: ancestor.Name,
-			URI:   "/areas/" + ancestor.Name,
-		})
+	// Only add children to breadcrumbs if we are not on a country / root area page
+	if len(ancestors) > 1 {
+		for _, ancestor := range ancestors {
+			model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
+				Title: ancestor.Name,
+				URI:   "/areas/" + ancestor.Name,
+			})
+		}
 	}
 	model.Page.BetaBannerEnabled = true
 	return model

@@ -57,7 +57,7 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 		defer wg.Done()
 		areaData, err = c.AreaApi.GetArea(ctx, accessToken, "", collectionID, areaID, acceptedLang)
 		if err != nil {
-			log.Error(ctx, "Fetching Area Data", err)
+			log.Error(ctx, "fetching Area Data", err)
 			return
 		}
 	}()
@@ -66,7 +66,7 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 		// Create a new local error variable otherwise we will incur a race condition when other goroutines access it
 		relationsData, relationsErr = c.AreaApi.GetRelations(ctx, accessToken, "", collectionID, areaID, acceptedLang)
 		if relationsErr != nil {
-			log.Error(ctx, "Fetching area relations data", relationsErr)
+			log.Error(ctx, "fetching area relations data", relationsErr)
 			return
 		}
 	}()
@@ -74,16 +74,13 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 		defer wg.Done()
 		ancestorData, ancestorErr = c.AreaApi.GetAncestors(areaID)
 		if ancestorErr != nil {
-			log.Error(ctx, "Fetching ancestor data", err)
+			log.Error(ctx, "fetching ancestor data", err)
 			return
 		}
 	}()
 	wg.Wait()
 	//  View logic
 	basePage := c.Render.NewBasePageModel()
-	ffs := mapper.FeatureFlags{
-		EnabledBreadcrumbs: cfg.EnabledBreadcrumbs,
-	}
-	model := mapper.CreateAreaPage(basePage, areaData, relationsData, ancestorData, ffs)
+	model := mapper.CreateAreaPage(basePage, areaData, relationsData, ancestorData, lang)
 	c.Render.BuildPage(w, model, "area-summary")
 }
