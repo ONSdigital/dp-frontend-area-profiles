@@ -50,13 +50,41 @@ func NewAreaProfilesComponent() (*AreaProfileComponent, error) {
 	cfg := c.Config
 	c.svc = service.New()
 	c.svc.IntiateServiceList(cfg, svcList)
-	// Hardcode the domain otherwise the CI will pickup the dev / prod domain
 	cfg.SiteDomain = "localhost"
+
+	// Mock Data
+	DidsburyEastData := []areas.Ancestor{
+		{Name: "England", Level: "", Code: "E92000001", Ancestors: []areas.Ancestor{}, Siblings: []areas.Ancestor{}, Children: []areas.Ancestor{}},
+		{Name: "North West", Level: "", Code: "E12000002", Ancestors: []areas.Ancestor{}, Siblings: []areas.Ancestor{}, Children: []areas.Ancestor{}},
+		{Name: "Manchester", Level: "", Code: "E08000003", Ancestors: []areas.Ancestor{}, Siblings: []areas.Ancestor{}, Children: []areas.Ancestor{}},
+		{Name: "Didsbury East", Level: "", Code: "E05011362", Ancestors: []areas.Ancestor{}, Siblings: []areas.Ancestor{}, Children: []areas.Ancestor{}},
+	}
+	relationsdata := []areas.Relation{
+		{AreaCode: "E12000001", AreaName: "North East", Href: "/v1/area/E12000001"},
+		{AreaCode: "E12000002", AreaName: "North West", Href: "/v1/area/E12000002"},
+		{AreaCode: "E12000003", AreaName: "Yorkshire and The Humbe", Href: "/v1/area/E12000003"},
+	}
+
+	areaData := areas.AreaDetails{
+		Code:        "E92000001",
+		Name:        "England",
+		DateStarted: "Thu, 01 Jan 2009 00: 00: 00 GMT",
+		DateEnd:     "",
+		WelshName:   "Lloegr",
+		Visible:     true,
+		AreaType:    "English",
+	}
 
 	rendererClientMock := &handlers.RendererClientMock{}
 	areaClientMock := &handlers.AreaApiClientMock{
 		GetAreaFunc: func(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) (areas.AreaDetails, error) {
-			return areas.AreaDetails{}, nil
+			return areaData, nil
+		},
+		GetAncestorsFunc: func(code string) ([]areas.Ancestor, error) {
+			return DidsburyEastData, nil
+		},
+		GetRelationsFunc: func(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) ([]areas.Relation, error) {
+			return relationsdata, nil
 		},
 	}
 
