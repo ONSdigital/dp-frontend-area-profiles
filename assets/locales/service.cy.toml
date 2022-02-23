@@ -64,3 +64,50 @@ one = "Find facts and figures about <a href=\"https://www.scotlandscensus.gov.uk
 [FindFactsAndFiguresNorthernIreland]
 description = "For facts and figures about areas in Northern Ireland, see the Northern Ireland Statistics and Research Agency website."
 one = "For facts and figures about <a href=\"https://www.nisra.gov.uk/statistics/census/2021-census\">areas in Northern Ireland, see the Northern Ireland Statistics and Research Agency website</a>."
+
+
+# Area Summary Page
+[England]
+description = "England"
+one = "England"
+
+[Country]
+description = "Country"
+one = "Country"
+
+[Overview]
+description = "Overview"
+one = "Overview"
+
+[FactsAndFiguresAboutPeople]
+description = "Facts and figures about people living in England"
+one = "Facts and figures about people living in England"
+
+[FindOut]
+description = "Find out"
+one = "Find out"
+
+[HowCrowdedItIs]
+description = "how crowded it is"
+one = "how crowded it is"
+
+
+[HowManyPeopleThinkHealth]
+description = "how many people think their general health is good"
+one = "how many people think their general health is good"
+
+[HowManyHouseholdsEnglishMainLanguage]
+description = "how many households where English is not the main language"
+one = "how many households where English is not the main language"
+
+[HowHouseholdsOwnedMortgageSharedOwnership]
+description = "how many households are owned with a mortgage, loan or shared ownership"
+one = "how many households are owned with a mortgage, loan or shared ownership"
+
+[ViewFactsFiguresNomis]
+description = "View facts and figures on Nomis"
+one = "View facts and figures on Nomis"
+
+[AreasWithinEngland]
+description = "Areas Within England"
+one = "Areas Within England"

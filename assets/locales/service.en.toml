@@ -29,10 +29,6 @@ one = "Data includes"
 description = "how many people live there"
 one = "how many people live there"
 
-[HowCrowdedItIs]
-description = "how crowded it is"
-one = "how crowded it is"
-
 [PeoplesAverageAge]
 description = "people's average age"
 one = "people's average age"
@@ -83,29 +79,24 @@ description = "Facts and figures about people living in England"
 one = "Facts and figures about people living in England"
 
 [FindOut]
-description = "Find Out"
-one = "Find Out"
+description = "Find out"
+one = "Find out"
 
-[HowManyPeopleLiveHere]
-description = "how many people live here"
-one = "how many people live here"
-
-[HowCrowdedIsIt]
-description = "how crowded is it"
-one = "how crowded is it"
-
+[HowCrowdedItIs]
+description = "how crowded it is"
+one = "how crowded it is"
 
 [HowManyPeopleThinkHealth]
-description = "how many people think their health is good"
-one = "how many people think their health is good"
+description = "how many people think their general health is good"
+one = "how many people think their general health is good"
 
 [HowManyHouseholdsEnglishMainLanguage]
 description = "how many households where English is not the main language"
 one = "how many households where English is not the main language"
 
 [HowHouseholdsOwnedMortgageSharedOwnership]
-description = "how many households are owned without a mortgage, loan or shared ownership"
-one = "how many households are owned without a mortgage, loan or shared ownership"
+description = "how many households are owned with a mortgage, loan or shared ownership"
+one = "how many households are owned with a mortgage, loan or shared ownership"
 
 [ViewFactsFiguresNomis]
 description = "View facts and figures on Nomis"

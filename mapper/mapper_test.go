@@ -44,7 +44,7 @@ func TestUnitMapper(t *testing.T) {
 				Href:     "/v1/area/E12000002",
 			},
 		}
-		ancestors := []areas.Ancestor{areas.Ancestor{
+		ancestors := []areas.Ancestor{{
 			Name:      "England",
 			Level:     "",
 			Code:      "E92000001",
@@ -52,12 +52,10 @@ func TestUnitMapper(t *testing.T) {
 			Siblings:  nil,
 			Children:  nil,
 		}}
-		ffs := FeatureFlags{EnabledBreadcrumbs: true}
-		areaModel := CreateAreaPage(mdl, areaDetails, relations, ancestors, ffs)
-
+		areaModel := CreateAreaPage(mdl, areaDetails, relations, ancestors, "Enalnd")
 		So(areaModel.BetaBannerEnabled, ShouldBeTrue)
 		So(areaModel.Metadata.Title, ShouldEqual, areaModel.Name+" Summary")
-		So(areaModel.Page.Breadcrumb, ShouldHaveLength, 3)
+		So(areaModel.Page.Breadcrumb, ShouldHaveLength, 2)
 		So(areaModel.Page.Breadcrumb[0].Title, ShouldEqual, "Home")
 		So(areaModel.Page.Breadcrumb[0].URI, ShouldEqual, "/")
 		So(areaModel.Page.Breadcrumb[1].Title, ShouldEqual, "Areas")
@@ -74,6 +72,5 @@ func TestUnitMapper(t *testing.T) {
 		So(areaModel.Ancestors[0].Ancestors, ShouldHaveLength, 0)
 		So(areaModel.Ancestors[0].Siblings, ShouldEqual, nil)
 		So(areaModel.Ancestors[0].Children, ShouldEqual, nil)
-		So(areaModel.EnabledBreadcrumbs, ShouldEqual, true)
 	})
 }

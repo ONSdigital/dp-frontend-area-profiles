@@ -4,11 +4,11 @@
 package handlers
 
 import (
-	"context"
-	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	context "context"
+	areas "github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	health "github.com/ONSdigital/dp-healthcheck/healthcheck"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
-	"io"
+	io "io"
 	"sync"
 )
 

@@ -1,19 +1,19 @@
-<div class="ons-container ons-container--wide">
-    <div class="ons-grid__col ons-col-8@m ons-u-mb-m">
-        {{ if .EnabledBreadcrumbs }}
+<div class="wrapper">
+    <div class="ons-grid ons-js-toc-container">
+        <div class="ons-grid__col ons-col-8@m ons-u-mb-m">
             {{ template "partials/breadcrumb" . }}
-        {{ end }}
-    </div>
-    <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
-        <div class="ons-grid__col ons-col-6@m">
+        </div>
+        <div class="ons-grid__col ons-col-8@m ons-u-mb-s">
             <h1 class="ons-u-fs-xxxl">{{ localise "England" .Language 1 }}</h1>
-            <b>{{ localise "Country" .Language 1 }}: {{ .Code }}</b>
+            <p class="font-size--16"><b>{{ localise "Country" .Language 1 }}:</b> {{ .Code }}</p>
+        </div>
+        <div class="ons-u-mb-s ons-grid__col ons-col-6@m">
             <h2 class="ons-u-fs-xl">{{ localise "Overview" .Language 1 }}</h2>
             <p>{{ localise "FactsAndFiguresAboutPeople" .Language 1 }}</p>
             <p>{{ localise "FindOut" .Language 1 }}:</p>
             <ul>
-                <li>{{ localise "HowManyPeopleLiveHere" .Language 1 }}</li>
-                <li>{{ localise "HowCrowdedIsIt" .Language 1 }}</li>
+                <li>{{ localise "HowManyPeopleLiveThere" .Language 1 }}</li>
+                <li>{{ localise "HowCrowdedItIs" .Language 1 }}</li>
                 <li>{{ localise "PeoplesAverageAge" .Language 1 }}</li>
                 <li>{{ localise "HowManyPeopleThinkHealth" .Language 1 }}</li>
                 <li>{{ localise "HowManyHouseholdsEnglishMainLanguage" .Language 1 }}</li>
@@ -29,18 +29,21 @@
                 </span>
             </a>
         </div>
-    </div>
         {{ if .Relations }}
-            <hr class="ons-u-mt-no" />
-            <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
-                <h2 class="ons-u-fs-xl">{{ localise "AreasWithinEngland" .Language 1 }}</h2>
+            <div class="ons-u-mb-s ons-grid__col ons-col-12@m">
+                <hr class="ons-u-mt-no margin-top" />
+
                 <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
-                    {{ range .Relations }}
-                        <div class="ons-grid__col ons-col-4@m">
-                            <div class="ons-pl-grid-col"><a class="ons-external-link" href="{{ .Href }}" target="_blank">{{ .AreaName }}</a></div>
-                        </div>
-                    {{ end }}
+                    <h2 class="ons-u-fs-xl">{{ localise "AreasWithinEngland" .Language 1 }}</h2>
+                    <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
+                        {{ range .Relations }}
+                            <div class="ons-grid__col ons-col-4@m">
+                                <div class="ons-pl-grid-col"><a class="ons-external-link" href="{{ .Href }}" target="_blank">{{ .AreaName }}</a></div>
+                            </div>
+                        {{ end }}
+                    </div>
                 </div>
             </div>
         {{ end }}
+    </div>
 </div>

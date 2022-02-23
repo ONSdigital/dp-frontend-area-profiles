@@ -8,8 +8,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-api-clients-go/v2/health"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/ONSdigital/dp-frontend-area-profiles/service"
 	"github.com/ONSdigital/dp-frontend-area-profiles/service/mocks"
 	"github.com/ONSdigital/dp-healthcheck/healthcheck"
@@ -72,6 +74,20 @@ var (
 			Client: service.NewMockHTTPClient(&http.Response{}, nil),
 		}
 	}
+
+	renderClientMock   = &handlers.RenderClientMock{}
+	rendererClientMock = &handlers.RendererClientMock{}
+	areaClientMock     = &handlers.AreaApiClientMock{
+		GetAreaFunc: func(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) (areas.AreaDetails, error) {
+			return areas.AreaDetails{}, nil
+		},
+	}
+
+	clients = handlers.Clients{
+		Render:   renderClientMock,
+		Renderer: rendererClientMock,
+		AreaApi:  areaClientMock,
+	}
 )
 
 func TestNew(t *testing.T) {
@@ -98,9 +114,10 @@ func TestInitSuccess(t *testing.T) {
 			So(err, ShouldBeNil)
 
 			svc := &service.Service{}
+			svc.IntiateServiceList(cfg, mockServiceList)
 
 			Convey("When Init is called", func() {
-				err := svc.Init(ctx, cfg, mockServiceList, buildTime, gitCommit, version)
+				err := svc.Init(ctx, cfg, mockServiceList, clients, buildTime, gitCommit, version)
 
 				Convey("Then service is initialised successfully", func() {
 					So(svc.Config, ShouldResemble, cfg)
@@ -141,9 +158,11 @@ func TestInitFailure(t *testing.T) {
 			So(err, ShouldBeNil)
 
 			svc := &service.Service{}
+			svc.IntiateServiceList(cfg, mockServiceList)
 
 			Convey("When Init is called", func() {
-				err := svc.Init(ctx, cfg, mockServiceList, buildTime, gitCommit, version)
+
+				err := svc.Init(ctx, cfg, mockServiceList, clients, buildTime, gitCommit, version)
 
 				Convey("Then service initialisation fails", func() {
 					So(svc.Config, ShouldResemble, cfg)
@@ -180,9 +199,10 @@ func TestInitFailure(t *testing.T) {
 			So(err, ShouldBeNil)
 
 			svc := &service.Service{}
+			svc.IntiateServiceList(cfg, mockServiceList)
 
 			Convey("When Init is called", func() {
-				err := svc.Init(ctx, cfg, mockServiceList, buildTime, gitCommit, version)
+				err := svc.Init(ctx, cfg, mockServiceList, clients, buildTime, gitCommit, version)
 
 				Convey("Then service initialisation fails", func() {
 					So(svc.Config, ShouldResemble, cfg)
@@ -231,6 +251,7 @@ func TestStart(t *testing.T) {
 			Server:      serverMock,
 			ServiceList: mockServiceList,
 		}
+		svc.IntiateServiceList(cfg, mockServiceList)
 
 		Convey("When service starts", func() {
 			svc.Run(ctx, svcErrors)
@@ -264,6 +285,7 @@ func TestStart(t *testing.T) {
 				Server:      failingServerMock,
 				ServiceList: mockServiceList,
 			}
+			svc.IntiateServiceList(cfg, mockServiceList)
 
 			Convey("When service starts", func() {
 				svc.Run(ctx, svcErrors)
