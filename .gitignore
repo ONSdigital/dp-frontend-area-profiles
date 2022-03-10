@@ -12,3 +12,7 @@
 *.iws
 
 assets/data.go
+
+# Frontend
+node_modules/
+dist/

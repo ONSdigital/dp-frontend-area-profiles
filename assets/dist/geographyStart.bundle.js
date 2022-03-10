@@ -1,0 +1,1 @@
+(new(function(){function n(){}return n.prototype.init=function(){console.debug("geography start script...")},n}())).init();
