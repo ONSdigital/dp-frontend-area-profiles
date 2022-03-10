@@ -51,6 +51,8 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 	ctx.Step(`^the first link href value should be "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='relationLinks'] > div:nth-child(1) > div > a"))
 	ctx.Step(`^the second link href value should be "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='relationLinks'] > div:nth-child(2) > div > a"))
 	ctx.Step(`^the third link href value should be "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='relationLinks'] > div:nth-child(3) > div > a"))
+	// Map
+	// ctx.Step(`^a map should be displayed`, )
 }
 
 func InitializeTestSuite(ctx *godog.TestSuiteContext) {
