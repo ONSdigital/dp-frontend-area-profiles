@@ -12,3 +12,4 @@
 *.iws
 
 assets/data.go
+node_modules/
