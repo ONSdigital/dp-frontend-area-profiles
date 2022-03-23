@@ -9,7 +9,7 @@
         </h1>
 
         <div class="ons-u-mb-s ons-grid__col ons-col-8@m">
-            <p data-test="p1">
+            <p>
                 {{ localise "GetDataAboutPeopleAndHouseholds" .Language 1 | safeHTML}}
             </p>
 
@@ -31,9 +31,9 @@
         <div class="ons-grid__col ons-col-8@m">
             <h2>{{ localise "OtherCountries" .Language 1}}</h2>
 
-            <p>{{ localise "FindFactsAndFiguresScotland" .Language 1 | safeHTML}}</p>
+            <p data-test="other-1">{{ localise "FindFactsAndFiguresScotland" .Language 1 | safeHTML}}</p>
 
-            <p>{{ localise "FindFactsAndFiguresNorthernIreland" .Language 1 | safeHTML}}</p>
+            <p data-test="other-2">{{ localise "FindFactsAndFiguresNorthernIreland" .Language 1 | safeHTML}}</p>
         </div>
     </div>
 </div>

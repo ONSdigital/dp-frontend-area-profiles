@@ -52,21 +52,6 @@ func (mr *MockAreaApiClientMockRecorder) Checker(ctx, check interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Checker", reflect.TypeOf((*MockAreaApiClient)(nil).Checker), ctx, check)
 }
 
-// GetAncestors mocks base method.
-func (m *MockAreaApiClient) GetAncestors(code string) ([]areas.Ancestor, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetAncestors", code)
-	ret0, _ := ret[0].([]areas.Ancestor)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetAncestors indicates an expected call of GetAncestors.
-func (mr *MockAreaApiClientMockRecorder) GetAncestors(code interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAncestors", reflect.TypeOf((*MockAreaApiClient)(nil).GetAncestors), code)
-}
-
 // GetArea mocks base method.
 func (m *MockAreaApiClient) GetArea(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) (areas.AreaDetails, error) {
 	m.ctrl.T.Helper()

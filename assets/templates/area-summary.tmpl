@@ -4,12 +4,12 @@
             {{ template "partials/breadcrumb" . }}
         </div>
         <div class="ons-grid__col ons-col-8@m ons-u-mb-s">
-            <h1 class="ons-u-fs-xxxl" data-test="h1">{{ localise "England" .Language 1 }}</h1>
-            <p class="font-size--16"><b>{{ localise "Country" .Language 1 }}:</b> {{ .Code }}</p>
+            <h1 class="ons-u-fs-xxxl" data-test="h1">{{ .Name }}</h1>
+            <p class="font-size--16"><b data-test="area-type">{{ localise .AreaType .Language 1 }}:</b> {{ .Code }}</p>
         </div>
         <div class="ons-u-mb-s ons-grid__col ons-col-6@m">
             <h2 class="ons-u-fs-xl" data-test="overview">{{ localise "Overview" .Language 1 }}</h2>
-            <p data-test="p1">{{ localise "FactsAndFiguresAboutPeople" .Language 1 }}</p>
+            <p data-test="p1">{{ localise "FactsAndFiguresAboutPeople" .Language 1 .Name }}</p>
             <p data-test="p2">{{ localise "FindOut" .Language 1 }}:</p>
             <ul data-test="questions">
                 <li>{{ localise "HowManyPeopleLiveThere" .Language 1 }}</li>
@@ -19,7 +19,7 @@
                 <li>{{ localise "HowManyHouseholdsEnglishMainLanguage" .Language 1 }}</li>
                 <li>{{ localise "HowHouseholdsOwnedMortgageSharedOwnership" .Language 1 }}</li>
             </ul>
-            <a class="ons-external-link" href="https://www.nomisweb.co.uk/" target="_blank" aria-label='{{ localise "ViewFactsFiguresNomis" .Language 1 }}' data-test="ViewFactsFiguresNomis">{{ localise "ViewFactsFiguresNomis" .Language 1 }}
+            <a class="ons-external-link" href="{{ .NomisLink }}" target="_blank" aria-label='{{ localise "ViewFactsFiguresNomis" .Language 1 }}' data-test="ViewFactsFiguresNomis">{{ localise "ViewFactsFiguresNomis" .Language 1 }}
                 <span class="ons-external-link__icon">
                 <!-- TODO  Replace below svg block with icon template when available -->
                     <svg class="ons-svg-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor" data-test="svg-icon1">
@@ -33,11 +33,11 @@
             <div class="ons-u-mb-s ons-grid__col ons-col-12@m">
                 <hr class="ons-u-mt-no margin-top" data-test="hr1" />
                 <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l">
-                    <h2 class="ons-u-fs-xl" data-test="h2Relations">{{ localise "AreasWithinEngland" .Language 1 }}</h2>
+                    <h2 class="ons-u-fs-xl" data-test="h2Relations">{{ localise "AreasWithinEngland" .Language 1 .Name }}</h2>
                     <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l" data-test="relationLinks">
                         {{ range .Relations }}
                             <div class="ons-grid__col ons-col-4@m">
-                                <div class="ons-pl-grid-col"><a class="ons-external-link" href="{{ .Href }}" target="_blank">{{ .AreaName }}</a></div>
+                                <div class="ons-pl-grid-col"><a href="{{ .Href }}" target="_blank">{{ .Name }}</a></div>
                             </div>
                         {{ end }}
                     </div>

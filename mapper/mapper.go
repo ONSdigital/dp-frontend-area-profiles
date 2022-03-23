@@ -31,19 +31,31 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 	return model
 }
 
+type ErrorDetails struct {
+	Description string
+	Title       string
+}
+
+type ErrorModel struct {
+	coreModel.Page
+	Error ErrorDetails
+}
+
 type AreaModel struct {
 	coreModel.Page
 	Name      string           `json:"name"`
-	Level     string           `json:"level"`
 	Code      string           `json:"code"`
+	Level     string           `json:"level"`
+	AreaType  string           `json:"area_type"`
+	NomisLink string           `json:"nomis_link"`
 	Ancestors []areas.Ancestor `json:"ancestors"`
 	Siblings  []AreaModel      `json:"siblings"`
 	Children  []AreaModel      `json:"children"`
-	Relations []areas.Relation `json:"relations"`
+	Relations []RelationLink   `json:"relations"`
 }
 
 // CreateAreaPage maps request area profile data to frontend view
-func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation, ancestors []areas.Ancestor, lang string) AreaModel {
+func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, relations []areas.Relation, lang string) AreaModel {
 	// TODO - load the area data for the requested area once the API has been developed
 	model := AreaModel{
 		Page: basePage,
@@ -53,30 +65,60 @@ func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, rela
 	model.Page.Language = lang
 	// Area Details
 	model.Name = areaDetails.Name
+	model.AreaType = areaDetails.AreaType
 	model.Code = areaDetails.Code
 	// Relations
-	model.Relations = relations
+	model.Relations = createRelationLinks(relations)
+	model.NomisLink = getNOMISLink(areaDetails.Code)
 	model.Metadata = coreModel.Metadata{
 		Title: fmt.Sprintf("%s Summary", model.Name),
 	}
-	model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
-		Title: "Home",
-		URI:   "/",
-	})
-	model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
-		Title: "Areas",
-		URI:   "/areas",
-	})
-	model.Ancestors = ancestors
-	// Only add children to breadcrumbs if we are not on a country / root area page
-	if len(ancestors) > 1 {
-		for _, ancestor := range ancestors {
-			model.Page.Breadcrumb = append(model.Page.Breadcrumb, coreModel.TaxonomyNode{
-				Title: ancestor.Name,
-				URI:   "/areas/" + ancestor.Name,
+
+	model.Ancestors = areaDetails.Ancestors
+	pageBreadcrumb := []coreModel.TaxonomyNode{{Title: "Home", URI: "/"}, {Title: "Areas", URI: "/areas"}}
+	model.Page.Breadcrumb = createBreadcrumbs(areaDetails.Ancestors, pageBreadcrumb)
+	model.Page.BetaBannerEnabled = true
+	return model
+}
+
+// Create404Page returns an ErrorModel struct for use with the error template
+func Create404Page(basePage coreModel.Page, errorDetails ErrorDetails) ErrorModel {
+	return ErrorModel{
+		Page:  basePage,
+		Error: errorDetails,
+	}
+}
+
+func getNOMISLink(geoCode string) string {
+	return fmt.Sprintf(`https://www.nomisweb.co.uk/reports/localarea?compare=%s`, geoCode)
+}
+
+func createBreadcrumbs(ancestors []areas.Ancestor, pageBreadcrumb []coreModel.TaxonomyNode) []coreModel.TaxonomyNode {
+	// If we are on a country page ("England", "Wales") the []areas.Ancestor length will be 0
+	if len(ancestors) > 0 {
+		for i := len(ancestors) - 1; i >= 0; i-- {
+			pageBreadcrumb = append(pageBreadcrumb, coreModel.TaxonomyNode{
+				Title: ancestors[i].Name,
+				URI:   "/areas/" + ancestors[i].Id,
 			})
 		}
 	}
-	model.Page.BetaBannerEnabled = true
-	return model
+	return pageBreadcrumb
+}
+
+type RelationLink struct {
+	Name string
+	Href string
+}
+
+func createRelationLinks(relations []areas.Relation) []RelationLink {
+	var relationLinks []RelationLink
+	for _, relation := range relations {
+		href := fmt.Sprintf("/areas/%s", relation.AreaCode)
+		relationLinks = append(relationLinks, RelationLink{
+			Name: relation.AreaName,
+			Href: href,
+		})
+	}
+	return relationLinks
 }
