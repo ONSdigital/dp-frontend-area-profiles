@@ -6,8 +6,8 @@ package handlers
 import (
 	context "context"
 	areas "github.com/ONSdigital/dp-api-clients-go/v2/areas"
-	health "github.com/ONSdigital/dp-healthcheck/healthcheck"
-	coreModel "github.com/ONSdigital/dp-renderer/model"
+	healthcheck "github.com/ONSdigital/dp-healthcheck/healthcheck"
+	model "github.com/ONSdigital/dp-renderer/model"
 	io "io"
 	"sync"
 )
@@ -22,11 +22,8 @@ var _ AreaApiClient = &AreaApiClientMock{}
 //
 // 		// make and configure a mocked AreaApiClient
 // 		mockedAreaApiClient := &AreaApiClientMock{
-// 			CheckerFunc: func(ctx context.Context, check *health.CheckState) error {
+// 			CheckerFunc: func(ctx context.Context, check *healthcheck.CheckState) error {
 // 				panic("mock out the Checker method")
-// 			},
-// 			GetAncestorsFunc: func(code string) ([]areas.Ancestor, error) {
-// 				panic("mock out the GetAncestors method")
 // 			},
 // 			GetAreaFunc: func(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) (areas.AreaDetails, error) {
 // 				panic("mock out the GetArea method")
@@ -42,10 +39,7 @@ var _ AreaApiClient = &AreaApiClientMock{}
 // 	}
 type AreaApiClientMock struct {
 	// CheckerFunc mocks the Checker method.
-	CheckerFunc func(ctx context.Context, check *health.CheckState) error
-
-	// GetAncestorsFunc mocks the GetAncestors method.
-	GetAncestorsFunc func(code string) ([]areas.Ancestor, error)
+	CheckerFunc func(ctx context.Context, check *healthcheck.CheckState) error
 
 	// GetAreaFunc mocks the GetArea method.
 	GetAreaFunc func(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) (areas.AreaDetails, error)
@@ -60,12 +54,7 @@ type AreaApiClientMock struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
 			// Check is the check argument value.
-			Check *health.CheckState
-		}
-		// GetAncestors holds details about calls to the GetAncestors method.
-		GetAncestors []struct {
-			// Code is the code argument value.
-			Code string
+			Check *healthcheck.CheckState
 		}
 		// GetArea holds details about calls to the GetArea method.
 		GetArea []struct {
@@ -99,19 +88,18 @@ type AreaApiClientMock struct {
 		}
 	}
 	lockChecker      sync.RWMutex
-	lockGetAncestors sync.RWMutex
 	lockGetArea      sync.RWMutex
 	lockGetRelations sync.RWMutex
 }
 
 // Checker calls CheckerFunc.
-func (mock *AreaApiClientMock) Checker(ctx context.Context, check *health.CheckState) error {
+func (mock *AreaApiClientMock) Checker(ctx context.Context, check *healthcheck.CheckState) error {
 	if mock.CheckerFunc == nil {
 		panic("AreaApiClientMock.CheckerFunc: method is nil but AreaApiClient.Checker was just called")
 	}
 	callInfo := struct {
 		Ctx   context.Context
-		Check *health.CheckState
+		Check *healthcheck.CheckState
 	}{
 		Ctx:   ctx,
 		Check: check,
@@ -127,46 +115,15 @@ func (mock *AreaApiClientMock) Checker(ctx context.Context, check *health.CheckS
 //     len(mockedAreaApiClient.CheckerCalls())
 func (mock *AreaApiClientMock) CheckerCalls() []struct {
 	Ctx   context.Context
-	Check *health.CheckState
+	Check *healthcheck.CheckState
 } {
 	var calls []struct {
 		Ctx   context.Context
-		Check *health.CheckState
+		Check *healthcheck.CheckState
 	}
 	mock.lockChecker.RLock()
 	calls = mock.calls.Checker
 	mock.lockChecker.RUnlock()
-	return calls
-}
-
-// GetAncestors calls GetAncestorsFunc.
-func (mock *AreaApiClientMock) GetAncestors(code string) ([]areas.Ancestor, error) {
-	if mock.GetAncestorsFunc == nil {
-		panic("AreaApiClientMock.GetAncestorsFunc: method is nil but AreaApiClient.GetAncestors was just called")
-	}
-	callInfo := struct {
-		Code string
-	}{
-		Code: code,
-	}
-	mock.lockGetAncestors.Lock()
-	mock.calls.GetAncestors = append(mock.calls.GetAncestors, callInfo)
-	mock.lockGetAncestors.Unlock()
-	return mock.GetAncestorsFunc(code)
-}
-
-// GetAncestorsCalls gets all the calls that were made to GetAncestors.
-// Check the length with:
-//     len(mockedAreaApiClient.GetAncestorsCalls())
-func (mock *AreaApiClientMock) GetAncestorsCalls() []struct {
-	Code string
-} {
-	var calls []struct {
-		Code string
-	}
-	mock.lockGetAncestors.RLock()
-	calls = mock.calls.GetAncestors
-	mock.lockGetAncestors.RUnlock()
 	return calls
 }
 
@@ -285,7 +242,7 @@ var _ RenderClient = &RenderClientMock{}
 // 			BuildPageFunc: func(w io.Writer, pageModel interface{}, templateName string)  {
 // 				panic("mock out the BuildPage method")
 // 			},
-// 			NewBasePageModelFunc: func() coreModel.Page {
+// 			NewBasePageModelFunc: func() model.Page {
 // 				panic("mock out the NewBasePageModel method")
 // 			},
 // 		}
@@ -299,7 +256,7 @@ type RenderClientMock struct {
 	BuildPageFunc func(w io.Writer, pageModel interface{}, templateName string)
 
 	// NewBasePageModelFunc mocks the NewBasePageModel method.
-	NewBasePageModelFunc func() coreModel.Page
+	NewBasePageModelFunc func() model.Page
 
 	// calls tracks calls to the methods.
 	calls struct {
@@ -360,7 +317,7 @@ func (mock *RenderClientMock) BuildPageCalls() []struct {
 }
 
 // NewBasePageModel calls NewBasePageModelFunc.
-func (mock *RenderClientMock) NewBasePageModel() coreModel.Page {
+func (mock *RenderClientMock) NewBasePageModel() model.Page {
 	if mock.NewBasePageModelFunc == nil {
 		panic("RenderClientMock.NewBasePageModelFunc: method is nil but RenderClient.NewBasePageModel was just called")
 	}
@@ -395,7 +352,7 @@ var _ RendererClient = &RendererClientMock{}
 //
 // 		// make and configure a mocked RendererClient
 // 		mockedRendererClient := &RendererClientMock{
-// 			CheckerFunc: func(ctx context.Context, check *health.CheckState) error {
+// 			CheckerFunc: func(ctx context.Context, check *healthcheck.CheckState) error {
 // 				panic("mock out the Checker method")
 // 			},
 // 			DoFunc: func(s string, bytes []byte) ([]byte, error) {
@@ -409,7 +366,7 @@ var _ RendererClient = &RendererClientMock{}
 // 	}
 type RendererClientMock struct {
 	// CheckerFunc mocks the Checker method.
-	CheckerFunc func(ctx context.Context, check *health.CheckState) error
+	CheckerFunc func(ctx context.Context, check *healthcheck.CheckState) error
 
 	// DoFunc mocks the Do method.
 	DoFunc func(s string, bytes []byte) ([]byte, error)
@@ -421,7 +378,7 @@ type RendererClientMock struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
 			// Check is the check argument value.
-			Check *health.CheckState
+			Check *healthcheck.CheckState
 		}
 		// Do holds details about calls to the Do method.
 		Do []struct {
@@ -436,13 +393,13 @@ type RendererClientMock struct {
 }
 
 // Checker calls CheckerFunc.
-func (mock *RendererClientMock) Checker(ctx context.Context, check *health.CheckState) error {
+func (mock *RendererClientMock) Checker(ctx context.Context, check *healthcheck.CheckState) error {
 	if mock.CheckerFunc == nil {
 		panic("RendererClientMock.CheckerFunc: method is nil but RendererClient.Checker was just called")
 	}
 	callInfo := struct {
 		Ctx   context.Context
-		Check *health.CheckState
+		Check *healthcheck.CheckState
 	}{
 		Ctx:   ctx,
 		Check: check,
@@ -458,11 +415,11 @@ func (mock *RendererClientMock) Checker(ctx context.Context, check *health.Check
 //     len(mockedRendererClient.CheckerCalls())
 func (mock *RendererClientMock) CheckerCalls() []struct {
 	Ctx   context.Context
-	Check *health.CheckState
+	Check *healthcheck.CheckState
 } {
 	var calls []struct {
 		Ctx   context.Context
-		Check *health.CheckState
+		Check *healthcheck.CheckState
 	}
 	mock.lockChecker.RLock()
 	calls = mock.calls.Checker

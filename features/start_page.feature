@@ -21,7 +21,7 @@ Feature: Groups
     # -- Top section 
     And the page heading should be "Find facts and figures about areas in England or Wales"
     And the first paragraph should have a link of "England"
-    And the second paragraph should have a link of "Wales"
+    And the first paragraph should have a second link of "Wales"
     # -- Country section
     And the country section sub heading is "Other countries"
     And the country section first paragraph contains link with text "areas in Scotland on Scotland’s Census website"

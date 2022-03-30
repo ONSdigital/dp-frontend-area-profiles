@@ -4,11 +4,11 @@ go 1.16
 
 require (
 	github.com/ONSdigital/dp-api-clients-go v1.41.1
-	github.com/ONSdigital/dp-api-clients-go/v2 v2.9.3
+	github.com/ONSdigital/dp-api-clients-go/v2 v2.111.0
 	github.com/ONSdigital/dp-component-test v0.7.0
 	github.com/ONSdigital/dp-healthcheck v1.2.0
 	github.com/ONSdigital/dp-net v1.2.0
-	github.com/ONSdigital/dp-renderer v1.9.3
+	github.com/ONSdigital/dp-renderer v1.21.1
 	github.com/ONSdigital/log.go/v2 v2.0.9
 	github.com/chromedp/cdproto v0.0.0-20211126220118-81fa0469ad77
 	github.com/chromedp/chromedp v0.7.6

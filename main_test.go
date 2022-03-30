@@ -32,14 +32,25 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 	// Start page custom steps
 	// p:nth-child(1) > a:nth-child(1)
 	ctx.Step(`^the page heading should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='h1']"))
-	ctx.Step(`^the first paragraph should have a link of "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='p1'] > a:nth-child(1)"))
-	ctx.Step(`^the second paragraph should have a link of "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='p1'] > a:nth-child(1)")) // bug in chromedp
+	ctx.Step(`^the area type should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='area-type']"))
+	ctx.Step(`^the first paragraph should have a link of "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='a-country-1']"))
+	ctx.Step(`^the first paragraph should have a second link of "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='a-country-2']"))
 	ctx.Step(`^the country section sub heading is "([^"]*)"`, selectedContentShouldExist(uiFeature, "h2"))
-	ctx.Step(`^the country section first paragraph contains link with text "([^"]*)"`, selectedContentShouldExist(uiFeature, "div:nth-child(3) > p:nth-child(1) > a:nth-child(1)"))
-	ctx.Step(`^the country section second paragraph contains link with text "([^"]*)"`, selectedContentShouldExist(uiFeature, "div:nth-child(3) > p:nth-child(1) > a:nth-child(1)")) // bug in chromedp
+	ctx.Step(`^the country section first paragraph contains link with text "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='other-1'] > a"))
+	ctx.Step(`^the country section second paragraph contains link with text "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='other-2'] > a"))
+	ctx.Step(`^the Nomis link text should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='ViewFactsFiguresNomis']"))
+	ctx.Step(`^the Nomis link should point to "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='ViewFactsFiguresNomis']"))
 	// Area page custom steps
 	ctx.Step(`^the relations sub heading should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='h2Relations']"))
 	ctx.Step(`^the relations sections should have (\d+) external links$`, sectionShouldHaveNthElements(uiFeature, "[data-test='relationLinks'] > div > div > a"))
+	// Link text
+	ctx.Step(`^the first link text value should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='relationLinks'] > div:nth-child(1) > div > a"))
+	ctx.Step(`^the second link text value should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='relationLinks'] > div:nth-child(2) > div > a"))
+	ctx.Step(`^the third link text value should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='relationLinks'] > div:nth-child(3) > div > a"))
+	// Link href
+	ctx.Step(`^the first link href value should be "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='relationLinks'] > div:nth-child(1) > div > a"))
+	ctx.Step(`^the second link href value should be "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='relationLinks'] > div:nth-child(2) > div > a"))
+	ctx.Step(`^the third link href value should be "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='relationLinks'] > div:nth-child(3) > div > a"))
 }
 
 func InitializeTestSuite(ctx *godog.TestSuiteContext) {
@@ -102,6 +113,22 @@ func selectedContentShouldExist(f *componenttest.UIFeature, elementSelector stri
 			return err
 		}
 		assert.Equal(f, expectedContent, actualContent)
-		return nil
+		return f.StepError()
+	}
+}
+
+func selectedLinkShouldHaveHREF(f *componenttest.UIFeature, elementSelector string) func(string) error {
+	return func(expectedContent string) error {
+		var actualContent []map[string]string
+		err := chromedp.Run(f.Chrome.Ctx,
+			f.RunWithTimeOut(f.WaitTimeOut, chromedp.Tasks{
+				chromedp.AttributesAll(elementSelector, &actualContent),
+			}),
+		)
+		if err != nil {
+			return err
+		}
+		assert.EqualValues(f, expectedContent, actualContent[0]["href"])
+		return f.StepError()
 	}
 }
