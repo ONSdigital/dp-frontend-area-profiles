@@ -50,13 +50,37 @@ func NewAreaProfilesComponent() (*AreaProfileComponent, error) {
 	cfg := c.Config
 	c.svc = service.New()
 	c.svc.IntiateServiceList(cfg, svcList)
-	// Hardcode the domain otherwise the CI will pickup the dev / prod domain
 	cfg.SiteDomain = "localhost"
+
+	relationsdata := []areas.Relation{
+		{AreaCode: "E12000001", AreaName: "North East", Href: "/areas/E12000001"},
+		{AreaCode: "E12000002", AreaName: "North West", Href: "/areas/E12000002"},
+		{AreaCode: "E12000003", AreaName: "Yorkshire and The Humbe", Href: "/areas/E12000003"},
+	}
+
+	areaData := areas.AreaDetails{
+		Code:        "E92000001",
+		Name:        "England",
+		DateStarted: "Thu, 01 Jan 2009 00: 00: 00 GMT",
+		DateEnd:     "",
+		WelshName:   "Lloegr",
+		Visible:     true,
+		AreaType:    "Country",
+		Ancestors: []areas.Ancestor{
+			{Name: "England", Level: "", Ancestors: nil, Siblings: nil, Children: nil},
+			{Name: "North West", Level: "", Ancestors: nil, Siblings: nil, Children: nil},
+			{Name: "Manchester", Level: "", Ancestors: nil, Siblings: nil, Children: nil},
+			{Name: "Didsbury East", Level: "", Ancestors: nil, Siblings: nil, Children: nil},
+		},
+	}
 
 	rendererClientMock := &handlers.RendererClientMock{}
 	areaClientMock := &handlers.AreaApiClientMock{
 		GetAreaFunc: func(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) (areas.AreaDetails, error) {
-			return areas.AreaDetails{}, nil
+			return areaData, nil
+		},
+		GetRelationsFunc: func(ctx context.Context, userAuthToken, serviceAuthToken, collectionID, areaID, acceptLang string) ([]areas.Relation, error) {
+			return relationsdata, nil
 		},
 	}
 

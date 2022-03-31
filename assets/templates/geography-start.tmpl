@@ -4,7 +4,7 @@
             {{ template "partials/breadcrumb" . }}
         </div>
 
-        <h1 class="ons-grid__col ons-col-8@m ons-u-fs-xxxl ons-u-mb-m">
+        <h1 class="ons-grid__col ons-col-8@m ons-u-fs-xxxl ons-u-mb-m" data-test="h1">
             {{ localise "FindFactsAndFiguresEnglandWales" .Language 1 }}
         </h1>
 
@@ -13,11 +13,11 @@
                 {{ localise "GetDataAboutPeopleAndHouseholds" .Language 1 | safeHTML}}
             </p>
 
-            <p>
+            <p data-test="p2">
                 {{ localise "DataIncludes" .Language 1}}:
             </p>
 
-            <ul class="ons-u-pb-l ons-u-bb">
+            <ul class="ons-u-pb-l ons-u-bb" data-test="questions">
                 <li>{{ localise "HowManyPeopleLiveThere" .Language 1}}</li>
                 <li>{{ localise "HowCrowdedItIs" .Language 1}}</li>
                 <li>{{ localise "PeoplesAverageAge" .Language 1}}</li>
@@ -31,9 +31,9 @@
         <div class="ons-grid__col ons-col-8@m">
             <h2>{{ localise "OtherCountries" .Language 1}}</h2>
 
-            <p>{{ localise "FindFactsAndFiguresScotland" .Language 1 | safeHTML}}</p>
+            <p data-test="other-1">{{ localise "FindFactsAndFiguresScotland" .Language 1 | safeHTML}}</p>
 
-            <p>{{ localise "FindFactsAndFiguresNorthernIreland" .Language 1 | safeHTML}}</p>
+            <p data-test="other-2">{{ localise "FindFactsAndFiguresNorthernIreland" .Language 1 | safeHTML}}</p>
         </div>
     </div>
 </div>

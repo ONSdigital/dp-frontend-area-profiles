@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
+	"github.com/ONSdigital/dp-frontend-area-profiles/utils"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 	"github.com/golang/mock/gomock"
 	"github.com/gorilla/mux"
@@ -32,8 +33,7 @@ func TestUnitHandlers(t *testing.T) {
 			req := httptest.NewRequest("GET", "http://localhost:26600", nil)
 			w := httptest.NewRecorder()
 			err := &testCliError{}
-
-			setStatusCode(req, w, err)
+			utils.SetStatusCode(req, w, err)
 
 			So(w.Code, ShouldEqual, http.StatusNotFound)
 		})
@@ -43,7 +43,7 @@ func TestUnitHandlers(t *testing.T) {
 			w := httptest.NewRecorder()
 			err := errors.New("internal server error")
 
-			setStatusCode(req, w, err)
+			utils.SetStatusCode(req, w, err)
 
 			So(w.Code, ShouldEqual, http.StatusInternalServerError)
 		})
@@ -102,7 +102,6 @@ func TestGetAreaWithSpies(t *testing.T) {
 			mockRenderClient.EXPECT().BuildPage(gomock.Any(), gomock.Any(), "area-summary")
 			mockAreaApi.EXPECT().GetArea(ctx, "", "", "", "E92000001", "").AnyTimes()
 			mockAreaApi.EXPECT().GetRelations(ctx, "", "", "", "E92000001", "").AnyTimes()
-			mockAreaApi.EXPECT().GetAncestors("E92000001").AnyTimes()
 
 			req := httptest.NewRequest("GET", "http://localhost:26600/areas/E92000001", nil)
 

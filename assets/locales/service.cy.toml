@@ -19,7 +19,7 @@ one = "Find facts and figures about areas in England or Wales"
 
 [GetDataAboutPeopleAndHouseholds]
 description = "Area profiles start page intro"
-one = "Get data about people and households in <a href=\"/areas/E92000001\">England</a> or <a href=\"/areas/W92000004\">Wales</a>. You can also view facts and figures for a town, local authority or ward in each country."
+one = "Get data about people and households in <a href=\"/areas/E92000001\" data-test=\"a-country-1\">England</a> or <a href=\"/areas/W92000004\" data-test=\"a-country-2\">Wales</a>. You can also view facts and figures for a town, local authority or ward in each country."
 
 [DataIncludes]
 description = "Data includes"
@@ -67,21 +67,13 @@ one = "For facts and figures about <a href=\"https://www.nisra.gov.uk/statistics
 
 
 # Area Summary Page
-[England]
-description = "England"
-one = "England"
-
-[Country]
-description = "Country"
-one = "Country"
-
 [Overview]
 description = "Overview"
 one = "Overview"
 
 [FactsAndFiguresAboutPeople]
-description = "Facts and figures about people living in England"
-one = "Facts and figures about people living in England"
+description = "Facts and figures about people living in {arg0}"
+one = "Facts and figures about people living in {arg0}"
 
 [FindOut]
 description = "Find out"
@@ -111,3 +103,46 @@ one = "View facts and figures on Nomis"
 [AreasWithinEngland]
 description = "Areas Within England"
 one = "Areas Within England"
+
+# ====================================
+#   Area Types
+# ====================================
+[Country]
+description = "Country"
+one = "Country"
+
+[Region]
+description = "Region"
+one = "Region"
+
+["Unitary Authorities"]
+description = "Unitary Authorities"
+one = "Unitary Authorities"
+
+["Combined Authorities"]
+description = "Combined Authorities"
+one = "Combined Authorities"
+
+["Metropolitan Counties"]
+description = "Metropolitan Counties"
+one = "Metropolitan Counties"
+
+[Counties]
+description = "Counties"
+one = "Counties"
+
+["London Boroughs"]
+description = "London Boroughs"
+one = "London Boroughs"
+
+["Metropolitan Districts"]
+description = "Metropolitan Districts"
+one = "Metropolitan Districts"
+
+["Non-metropolitan Districts"]
+description = "Non-metropolitan Districts"
+one = "Non-metropolitan Districts"
+
+["Electoral Wards"]
+description = "Electoral Wards"
+one = "Electoral Wards"

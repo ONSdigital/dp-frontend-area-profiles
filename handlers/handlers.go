@@ -8,21 +8,11 @@ import (
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
+	"github.com/ONSdigital/dp-frontend-area-profiles/utils"
 	dphandlers "github.com/ONSdigital/dp-net/handlers"
 	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"
 )
-
-func setStatusCode(req *http.Request, w http.ResponseWriter, err error) {
-	status := http.StatusInternalServerError
-	if err, ok := err.(ClientError); ok {
-		if err.Code() == http.StatusNotFound {
-			status = err.Code()
-		}
-	}
-	log.Error(req.Context(), "setting-response-status", err)
-	w.WriteHeader(status)
-}
 
 // GeographyStart Handler
 func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
@@ -43,15 +33,13 @@ func GetArea(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc
 func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Context, c Clients, cfg config.Config, lang, collectionID, accessToken string) {
 	var err error
 	var relationsErr error
-	var ancestorErr error
 	var areaData areas.AreaDetails
 	var relationsData []areas.Relation
-	var ancestorData []areas.Ancestor
 	vars := mux.Vars(req)
 	areaID := vars["id"]
 	acceptedLang := req.Header.Get("Accept-Language")
 	var wg sync.WaitGroup
-	wg.Add(3)
+	wg.Add(2)
 	// Remote requests
 	go func() {
 		defer wg.Done()
@@ -70,17 +58,17 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 			return
 		}
 	}()
-	go func() {
-		defer wg.Done()
-		ancestorData, ancestorErr = c.AreaApi.GetAncestors(areaID)
-		if ancestorErr != nil {
-			log.Error(ctx, "fetching ancestor data", err)
-			return
-		}
-	}()
 	wg.Wait()
-	//  View logic
 	basePage := c.Render.NewBasePageModel()
-	model := mapper.CreateAreaPage(basePage, areaData, relationsData, ancestorData, lang)
+	if err != nil {
+		// We only care about AreaDetails data errors for setting the status code & rendering the error template
+		var errorDetails mapper.ErrorDetails
+		resWriterStatusCode := utils.SetStatusCode(req, w, err)
+		utils.SetErrorDetails(resWriterStatusCode, &errorDetails)
+		c.Render.BuildPage(w, mapper.Create404Page(basePage, errorDetails), "error")
+		return
+	}
+	//  View logic
+	model := mapper.CreateAreaPage(basePage, areaData, relationsData, lang)
 	c.Render.BuildPage(w, model, "area-summary")
 }
