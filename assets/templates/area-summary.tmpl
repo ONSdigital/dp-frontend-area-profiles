@@ -29,6 +29,34 @@
                 </span>
             </a>
         </div>
+        <div class="ons-u-mb-s ons-grid__col ons-col-6@m">
+            <div 
+                class="margin-top-sm--5 margin-top-md--8 margin-top-lg--8"
+                id="map"
+                data-style="mapbox://styles/mapbox/streets-v11"
+                data-center="[-0.5302797870344023, 52.27346293866273]"
+                data-token="pk.eyJ1Ijoiam9lZ29vc2ViYXNzIiwiYSI6ImNsMDltMGlwczBidXMzaXJxMWpleGRybm8ifQ.Xlzr3E2l2fSUxvUvt5ndkA"
+                data-zoom="6">
+                <div class="ons-map-control">
+                    <div class="ons-ctrl-group">
+                        <button class="ons-ctrl-zoom-in">
+                            <span class="mapboxgl-ctrl-icon"></span>
+                        </button>
+                        <button class="ons-ctrl-reset">
+                            <span class="mapboxgl-ctrl-icon"></span>
+                        </button>
+                        <button class="ons-ctrl-zoom-out">
+                            <span class="mapboxgl-ctrl-icon"></span>
+                        </button>
+                    </div>
+                    <div class="ons-ctrl-group">
+                        <button class="ons-ctrl-fullscreen">
+                            <span class="mapboxgl-ctrl-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{ if .Relations }}
             <div class="ons-u-mb-s ons-grid__col ons-col-12@m">
                 <hr class="ons-u-mt-no margin-top" data-test="hr1" />
