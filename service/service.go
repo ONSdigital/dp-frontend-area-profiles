@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"errors"
+	"net/http"
 
 	"github.com/ONSdigital/dp-api-clients-go/v2/health"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
@@ -45,6 +46,8 @@ func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *E
 	// Initialise router
 	r := mux.NewRouter()
 	routes.Setup(ctx, r, cfg, clients)
+	files := http.FileServer(http.Dir("assets"))
+	r.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", files))
 	svc.Server = serviceList.GetHTTPServer(cfg.BindAddr, r)
 
 	return nil

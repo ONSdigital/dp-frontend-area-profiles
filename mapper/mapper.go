@@ -2,6 +2,7 @@ package mapper
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
@@ -14,6 +15,7 @@ const (
 type StartPageModel struct {
 	coreModel.Page
 	Greeting string `json:"greeting"`
+	Version  string `json:"area_profiles_version"`
 }
 
 func CreateStartPage(basePage coreModel.Page) StartPageModel {
@@ -28,6 +30,7 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 		URI:   "/",
 	})
 	model.Page.BetaBannerEnabled = true
+	model.Version = getAreaProfilesVersion()
 	return model
 }
 
@@ -52,6 +55,7 @@ type AreaModel struct {
 	Siblings  []AreaModel      `json:"siblings"`
 	Children  []AreaModel      `json:"children"`
 	Relations []RelationLink   `json:"relations"`
+	Version   string           `json:"area_profiles_version"`
 }
 
 // CreateAreaPage maps request area profile data to frontend view
@@ -78,6 +82,7 @@ func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, rela
 	pageBreadcrumb := []coreModel.TaxonomyNode{{Title: "Home", URI: "/"}, {Title: "Areas", URI: "/areas"}}
 	model.Page.Breadcrumb = createBreadcrumbs(areaDetails.Ancestors, pageBreadcrumb)
 	model.Page.BetaBannerEnabled = true
+	model.Version = getAreaProfilesVersion()
 	return model
 }
 
@@ -121,4 +126,8 @@ func createRelationLinks(relations []areas.Relation) []RelationLink {
 		})
 	}
 	return relationLinks
+}
+
+func getAreaProfilesVersion() string {
+	return os.Getenv("VERSION")
 }

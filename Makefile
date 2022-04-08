@@ -20,6 +20,7 @@ lint:
 
 .PHONY: build
 build: generate-prod
+	make public-build
 	go build -tags 'production' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles
 
 .PHONY: debug
@@ -60,3 +61,14 @@ generate-prod: fetch-renderer-lib
 		cd assets; go run github.com/kevinburke/go-bindata/go-bindata -prefix $(CORE_ASSETS_PATH)/assets -o data.go -pkg assets locales/... templates/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
 		{ echo "// +build production\n"; cat assets/data.go; } > assets/data.go.new
 		mv assets/data.go.new assets/data.go
+
+.PHONY: public-debug
+public-debug:
+	npm run build:dev
+
+.PHONY: public-build
+public-build:
+	npm install
+	npm run lint
+	npm run test
+	npm run build:prod

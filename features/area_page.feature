@@ -39,3 +39,16 @@ Feature: Groups
     And the first link href value should be "/areas/E12000001"
     And the second link href value should be "/areas/E12000002"
     And the third link href value should be "/areas/E12000003"
+    # -- Map
+    And element "[data-test='map']" should be visible
+    And element "[data-test='map-control']" should be visible
+    And element "[data-test='map-ctrl-1']" should be visible
+    And element "[data-test='map-zoom']" should be visible
+    And element "[data-test='map-zoom-icon']" should be visible
+    And element "[data-test='map-reset']" should be visible
+    And element "[data-test='map-reset-icon']" should be visible
+    And element "[data-test='map-zoom-out']" should be visible
+    And element "[data-test='map-zoom-out-icon']" should be visible
+    And element "[data-test='map-ctrl-1']" should be visible
+    And element "[data-test='map-fullscreen']" should be visible
+    And element "[data-test='map-fullscreen-icon']" should be visible
