@@ -19,12 +19,14 @@ lint:
 	exit
 
 .PHONY: build
-build: generate-prod
+build: 
 	make public-build
+	make generate-prod
 	go build -tags 'production' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles
 
 .PHONY: debug
-debug: generate-debug
+debug: 
+	make generate-debug
 	go build -tags 'debug' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles
 	HUMAN_LOG=1 DEBUG=1 $(BINPATH)/dp-frontend-area-profiles
 
