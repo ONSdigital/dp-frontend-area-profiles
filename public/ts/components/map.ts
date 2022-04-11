@@ -1,5 +1,5 @@
 import("mapbox-gl");
-import { MapComponent as _MapComponent } from "maps-js";
+import { MapComponent as _MapComponent } from "dp-maps-js";
 
 interface IMapComponent {
     init: () => void;
