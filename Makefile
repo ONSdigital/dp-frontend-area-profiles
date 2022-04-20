@@ -45,6 +45,7 @@ convey:
 .PHONY: test-component
 test-component: 
 	$(shell mkdir -p assets/dist)
+	$(shell touch assets/dist/scripts.js)
 	make generate-prod
 	go test -cover -tags 'production' -coverpkg=github.com/ONSdigital/dp-frontend-area-profiles/... -component
 
@@ -59,14 +60,16 @@ endif
 
 .PHONY: generate-debug
 generate-debug: fetch-renderer-lib
-		cd assets; go run github.com/kevinburke/go-bindata/go-bindata -prefix $(CORE_ASSETS_PATH)/assets -debug -o data.go -pkg assets locales/... templates/... dist/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
+		go install github.com/go-bindata/go-bindata/...
+		cd assets; go run github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs -prefix $(CORE_ASSETS_PATH)/assets -o data.go -pkg assets locales/... templates/... dist/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
 		{ echo "// +build debug\n"; cat assets/data.go; } > assets/debug.go.new
 		mv assets/debug.go.new assets/data.go
 
 .PHONY: generate-prod
 generate-prod: 
 		make fetch-renderer-lib
-		cd assets; go run github.com/kevinburke/go-bindata/go-bindata -prefix $(CORE_ASSETS_PATH)/assets -o data.go -pkg assets locales/... templates/... dist/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
+		go install github.com/go-bindata/go-bindata/...
+		cd assets; go run github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs -prefix $(CORE_ASSETS_PATH)/assets -o data.go -pkg assets locales/... templates/... dist/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
 		{ echo "// +build production\n"; cat assets/data.go; } > assets/data.go.new
 		mv assets/data.go.new assets/data.go
 

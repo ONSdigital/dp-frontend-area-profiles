@@ -83,6 +83,7 @@ func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, rela
 	model.Page.Breadcrumb = createBreadcrumbs(areaDetails.Ancestors, pageBreadcrumb)
 	model.Page.BetaBannerEnabled = true
 	model.Version = getAreaProfilesVersion()
+
 	return model
 }
 

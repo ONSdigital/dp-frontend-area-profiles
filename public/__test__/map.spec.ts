@@ -1,8 +1,8 @@
 import "mapbox-gl";
 import { MapComponent } from "../ts/components/map";
-import { MapComponent as _MapComponent } from "maps-js";
+import { MapComponent as _MapComponent } from "dp-maps-js";
 
-jest.mock("maps-js", () => ({
+jest.mock("dp-maps-js", () => ({
     MapComponent: jest.fn().mockImplementation(() => {
         return {
             init: () => jest.fn(),

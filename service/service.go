@@ -9,6 +9,7 @@ import (
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
+	"github.com/ONSdigital/dp-frontend-area-profiles/utils"
 	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"
 )
@@ -46,8 +47,7 @@ func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *E
 	// Initialise router
 	r := mux.NewRouter()
 	routes.Setup(ctx, r, cfg, clients)
-	files := http.FileServer(http.Dir("assets"))
-	r.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", files))
+	r.PathPrefix("/dist").Handler(http.StripPrefix("/dist", http.FileServer(utils.AssetDIR("dist"))))
 	svc.Server = serviceList.GetHTTPServer(cfg.BindAddr, r)
 
 	return nil
