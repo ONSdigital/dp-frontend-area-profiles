@@ -29,6 +29,28 @@
                 </span>
             </a>
         </div>
+        <div class="ons-u-mb-s ons-grid__col ons-col-6@m">
+                <div id="map" data-test="map">
+                    <div class="ons-map-control" data-test="map-control">
+                        <div class="ons-ctrl-group" data-test="map-ctrl-1">
+                            <button class="ons-ctrl-zoom-in" data-test="map-zoom">
+                                <span class="mapboxgl-ctrl-icon" data-test="map-zoom-icon"></span>
+                            </button>
+                            <button class="ons-ctrl-reset" data-test="map-reset">
+                                <span class="mapboxgl-ctrl-icon" data-test="map-reset-icon"></span>
+                            </button>
+                            <button class="ons-ctrl-zoom-out" data-test="map-zoom-out">
+                                <span class="mapboxgl-ctrl-icon" data-test="map-zoom-out-icon"></span>
+                            </button>
+                        </div>
+                        <div class="ons-ctrl-group" data-test="map-ctrl-1">
+                            <button class="ons-ctrl-fullscreen" data-test="map-fullscreen">
+                                <span class="mapboxgl-ctrl-icon" data-test="map-fullscreen-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        </div>
         {{ if .Relations }}
             <div class="ons-u-mb-s ons-grid__col ons-col-12@m">
                 <hr class="ons-u-mt-no margin-top" data-test="hr1" />
@@ -37,7 +59,7 @@
                     <div class="ons-grid ons-grid--gutterless ons-u-mt-l ons-u-mb-l" data-test="relationLinks">
                         {{ range .Relations }}
                             <div class="ons-grid__col ons-col-4@m">
-                                <div class="ons-pl-grid-col"><a href="{{ .Href }}" target="_blank">{{ .Name }}</a></div>
+                                <div class="ons-pl-grid-col"><a href="{{ .Href }}">{{ .Name }}</a></div>
                             </div>
                         {{ end }}
                     </div>
@@ -46,3 +68,8 @@
         {{ end }}
     </div>
 </div>
+
+{{ define "scripts-area-summary" }}
+    <script src="/areas/dist/mapboxGL.bundle.js"></script>
+    <script src="/areas/dist/areaLanding.bundle.js"></script>
+{{ end }}

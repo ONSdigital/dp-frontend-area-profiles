@@ -5,17 +5,16 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: onsdigital/dp-concourse-tools-node-go
-    tag: latest
+    repository: node
+    tag: 16.14.1
 
 inputs:
   - name: dp-frontend-area-profiles
 
 outputs:
   - name: build
+  - name: package
 
-caches:
-  - path: go/
 
 run:
-  path: dp-frontend-area-profiles/ci/scripts/build.sh
+  path: dp-frontend-area-profiles/ci/scripts/public.sh

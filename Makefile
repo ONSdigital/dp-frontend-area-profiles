@@ -19,17 +19,23 @@ lint:
 	exit
 
 .PHONY: build
-build: generate-prod
+build: 
+	make public-build
+	make generate-prod
 	go build -tags 'production' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles
 
 .PHONY: debug
-debug: generate-debug
+debug: 
+	make generate-debug
 	go build -tags 'debug' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles
 	HUMAN_LOG=1 DEBUG=1 $(BINPATH)/dp-frontend-area-profiles
 
 
 .PHONY: test
-test: generate-prod
+test: 
+	make public-build
+	make public-test
+	make generate-prod
 	go test -race -cover -tags 'production' ./...
 
 .PHONY: convey
@@ -37,7 +43,10 @@ convey:
 	goconvey ./...
 
 .PHONY: test-component
-test-component: generate-prod
+test-component: 
+	$(shell mkdir -p assets/dist)
+	$(shell touch assets/dist/scripts.js)
+	make generate-prod
 	go test -cover -tags 'production' -coverpkg=github.com/ONSdigital/dp-frontend-area-profiles/... -component
 
 .PHONY: fetch-dp-renderer
@@ -51,12 +60,28 @@ endif
 
 .PHONY: generate-debug
 generate-debug: fetch-renderer-lib
-		cd assets; go run github.com/kevinburke/go-bindata/go-bindata -prefix $(CORE_ASSETS_PATH)/assets -debug -o data.go -pkg assets locales/... templates/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
+		go install github.com/go-bindata/go-bindata/...
+		cd assets; go run github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs -prefix $(CORE_ASSETS_PATH)/assets -o data.go -pkg assets locales/... templates/... dist/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
 		{ echo "// +build debug\n"; cat assets/data.go; } > assets/debug.go.new
 		mv assets/debug.go.new assets/data.go
 
 .PHONY: generate-prod
-generate-prod: fetch-renderer-lib
-		cd assets; go run github.com/kevinburke/go-bindata/go-bindata -prefix $(CORE_ASSETS_PATH)/assets -o data.go -pkg assets locales/... templates/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
+generate-prod: 
+		make fetch-renderer-lib
+		go install github.com/go-bindata/go-bindata/...
+		cd assets; go run github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs -prefix $(CORE_ASSETS_PATH)/assets -o data.go -pkg assets locales/... templates/... dist/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
 		{ echo "// +build production\n"; cat assets/data.go; } > assets/data.go.new
 		mv assets/data.go.new assets/data.go
+
+.PHONY: public-debug
+public-debug:
+	npm run build:dev
+
+.PHONY: public-build
+public-build:
+	npm install
+	npm run build:prod
+
+public-test:
+	npm run lint
+	npm run test

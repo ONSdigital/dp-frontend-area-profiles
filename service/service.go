@@ -3,11 +3,13 @@ package service
 import (
 	"context"
 	"errors"
+	"net/http"
 
 	"github.com/ONSdigital/dp-api-clients-go/v2/health"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/ONSdigital/dp-frontend-area-profiles/routes"
+	"github.com/ONSdigital/dp-frontend-area-profiles/utils"
 	"github.com/ONSdigital/log.go/v2/log"
 	"github.com/gorilla/mux"
 )
@@ -45,6 +47,7 @@ func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *E
 	// Initialise router
 	r := mux.NewRouter()
 	routes.Setup(ctx, r, cfg, clients)
+	r.PathPrefix("/areas/dist").Handler(http.StripPrefix("/areas/dist", http.FileServer(utils.AssetDIR("dist"))))
 	svc.Server = serviceList.GetHTTPServer(cfg.BindAddr, r)
 
 	return nil

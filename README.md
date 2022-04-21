@@ -4,6 +4,10 @@ MVC app for Geo Journey on ons web
 
 ### Getting started
 
+First build the client assets
+* Run `make public-build`
+
+Run the main server
 * Run `make debug`
 
 ### Dependencies
@@ -19,6 +23,28 @@ MVC app for Geo Journey on ons web
 | HEALTHCHECK_INTERVAL         | 30s       | Time between self-healthchecks (`time.Duration` format)
 | HEALTHCHECK_CRITICAL_TIMEOUT | 90s       | Time to wait until an unhealthy dependent propagates its state to make this app unhealthy (`time.Duration` format)
 | HELLO_WORLD_EMPHASISE        | true      | Example boolean flag to control whether the 'Hello World' greeting should be emphasised with "!"
+
+### Frontend
+```
+.
+├── dist
+├── node_modules
+├── package-lock.json
+├── package.json
+public
+├── @types
+│   └── index.d.ts
+├── __test__
+│   └── area-landing.spec.ts
+├── sass
+│   ├── area-landing.scss
+│   └── index.scss
+└── ts
+    ├── area-landing.ts
+    └── geography-start.ts
+├── tsconfig.json
+└── webpack
+```
 
 ### Contributing
 
