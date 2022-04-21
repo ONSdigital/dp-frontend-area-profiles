@@ -4,11 +4,12 @@ MVC app for Geo Journey on ons web
 
 ### Getting started
 
+First build the client assets
+* Run `make public-build`
+
+Run the main server
 * Run `make debug`
 
-For the frontend build run
-* Run `make `
-* Run `make `
 ### Dependencies
 
 * No further dependencies other than those defined in `go.mod`
