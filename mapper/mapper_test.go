@@ -29,7 +29,7 @@ func TestAreaProfilesMapper(t *testing.T) {
 			DateStarted:   "",
 			DateEnd:       "",
 			WelshName:     "",
-			GeometricData: "",
+			GeometricData: nil,
 			AreaType:      "Country",
 			Ancestors:     nil,
 		}
