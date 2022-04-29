@@ -8,6 +8,6 @@
         "allowJs": true,
         "moduleResolution": "node",
         "esModuleInterop": true,
-        // "types": ["../node_modules/@types", "jest"]
+        "resolveJsonModule": true
     }
 }

@@ -1,6 +1,5 @@
 import "mapbox-gl";
-import { MapComponent } from "../ts/components/map";
-import { MapComponent as _MapComponent } from "dp-maps-js";
+import { IMapComponentOptions, MapComponent } from "dp-maps-js";
 
 jest.mock("dp-maps-js", () => ({
     MapComponent: jest.fn().mockImplementation(() => {
@@ -13,7 +12,13 @@ jest.mock("dp-maps-js", () => ({
 describe("map", () => {
     describe("#MapComponent()", () => {
         test("#init()", () => {
-            const mapComponent = new MapComponent();
+            const options: IMapComponentOptions = {
+                style: "",
+                center: [-7.9454024125535625, 48.95006696529006],
+                token: "",
+                geoDataURL: "<GEO_DATA_URL>",
+            };
+            const mapComponent = new MapComponent(options);
             const mapComponentSpy = jest.spyOn(mapComponent, "init");
             mapComponent.init();
             expect(mapComponentSpy).toBeCalled();
