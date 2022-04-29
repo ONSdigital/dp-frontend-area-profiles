@@ -30,6 +30,11 @@ debug:
 	go build -tags 'debug' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles
 	HUMAN_LOG=1 DEBUG=1 $(BINPATH)/dp-frontend-area-profiles
 
+.PHONY: public-debug
+public-debug: 
+	make generate-public-debug
+	go build -tags 'debug' $(LDFLAGS) -o $(BINPATH)/dp-frontend-area-profiles
+	HUMAN_LOG=1 DEBUG=1 $(BINPATH)/dp-frontend-area-profiles
 
 .PHONY: test
 test: 
@@ -75,8 +80,15 @@ generate-prod:
 		{ echo "// +build production\n"; cat assets/data.go; } > assets/data.go.new
 		mv assets/data.go.new assets/data.go
 
-.PHONY: public-debug
-public-debug:
+.PHONY: generate-public-debug
+generate-public-debug: fetch-renderer-lib
+		go install github.com/go-bindata/go-bindata/...
+		cd assets; go run github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs -prefix $(CORE_ASSETS_PATH)/assets -o data.go -pkg assets locales/... templates/... $(CORE_ASSETS_PATH)/assets/locales/... $(CORE_ASSETS_PATH)/assets/templates/...
+		{ echo "// +build debug\n"; cat assets/data.go; } > assets/debug.go.new
+		mv assets/debug.go.new assets/data.go
+
+.PHONY: public-build-dev
+public-build-dev:
 	npm run build:dev
 
 .PHONY: public-build

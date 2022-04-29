@@ -25,11 +25,13 @@
     "@types/jest": "^27.4.1",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
     "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.6.0",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.1",
     "ts-jest": "^27.1.3",
     "ts-loader": "^9.2.7",
     "tslint": "^6.1.3",
@@ -50,7 +52,7 @@
   },
   "dependencies": {
     "@types/mapbox-gl": "^2.6.3",
-    "dp-maps-js": "^0.1.14",
+    "dp-maps-js": "^0.2.0",
     "mapbox-gl": "^2.7.0"
   }
 }
