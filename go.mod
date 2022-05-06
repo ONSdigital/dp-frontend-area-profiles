@@ -5,14 +5,14 @@ go 1.16
 require (
 	github.com/BurntSushi/toml v1.1.0 // indirect
 	github.com/ONSdigital/dp-api-clients-go v1.43.0
-	github.com/ONSdigital/dp-api-clients-go/v2 v2.123.0
+	github.com/ONSdigital/dp-api-clients-go/v2 v2.131.0
 	github.com/ONSdigital/dp-component-test v0.7.0
 	github.com/ONSdigital/dp-healthcheck v1.3.0
 	github.com/ONSdigital/dp-net v1.4.1
 	github.com/ONSdigital/dp-net/v2 v2.4.0 // indirect
-	github.com/ONSdigital/dp-renderer v1.25.4
+	github.com/ONSdigital/dp-renderer v1.26.0
 	github.com/ONSdigital/log.go/v2 v2.2.0
-	github.com/aws/aws-sdk-go v1.44.2 // indirect
+	github.com/aws/aws-sdk-go v1.44.8 // indirect
 	github.com/chromedp/cdproto v0.0.0-20211126220118-81fa0469ad77
 	github.com/chromedp/chromedp v0.7.6
 	github.com/cucumber/godog v0.10.0
@@ -28,5 +28,5 @@ require (
 	github.com/stretchr/testify v1.7.0
 	github.com/unrolled/render v1.4.1 // indirect
 	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4 // indirect
-	golang.org/x/sys v0.0.0-20220422013727-9388b58f7150 // indirect
+	golang.org/x/sys v0.0.0-20220503163025-988cb79eb6c6 // indirect
 )
