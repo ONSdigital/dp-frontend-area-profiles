@@ -9,7 +9,7 @@ import (
 	io "io"
 	reflect "reflect"
 
-	areas "github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	areas "github.com/ONSdigital/dp-areas-api/sdk/areas"
 	healthcheck "github.com/ONSdigital/dp-healthcheck/healthcheck"
 	model "github.com/ONSdigital/dp-renderer/model"
 	gomock "github.com/golang/mock/gomock"
