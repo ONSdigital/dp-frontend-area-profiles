@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-api-clients-go/v2/health"
+	"github.com/ONSdigital/dp-areas-api/sdk/areas"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/ONSdigital/dp-frontend-area-profiles/service"
