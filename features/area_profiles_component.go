@@ -95,6 +95,7 @@ func NewAreaProfilesComponent() (*AreaProfileComponent, error) {
 	}
 
 	c.svc.Run(ctx, svcErrors)
+	defer c.svc.Close(ctx)
 
 	c.ServiceRunning = true
 	return c, nil
