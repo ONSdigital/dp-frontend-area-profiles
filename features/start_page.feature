@@ -1,5 +1,5 @@
 Feature: Groups
-
+    @avoid
     Scenario: GET /areas and checking the response status 200
     When I navigate to "/areas"
     Then the beta phase banner should be visible
