@@ -68,6 +68,7 @@ func TestComponent(t *testing.T) {
 			Output: colors.Colored(os.Stdout),
 			Format: "pretty",
 			Paths:  flag.Args(),
+			Tags:   "~@avoid",
 		}
 
 		status = godog.TestSuite{
