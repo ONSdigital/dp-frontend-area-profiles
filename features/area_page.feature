@@ -2,7 +2,7 @@
 # area type TOML table names in features/area_profiles_component.go areas.AreaDetails struct.
 
 Feature: Groups
-
+    @avoid
     Scenario: Get /areas/{id} and checking the response status 200
     When I navigate to "/areas/E92000001"
     Then the beta phase banner should be visible
