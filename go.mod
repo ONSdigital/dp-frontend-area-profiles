@@ -18,6 +18,7 @@ require (
 	github.com/cucumber/godog v0.10.0
 	github.com/elazarl/go-bindata-assetfs v1.0.1
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/go-bindata/go-bindata v3.1.2+incompatible // indirect
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/mux v1.8.0
 	github.com/gosimple/slug v1.12.0 // indirect
