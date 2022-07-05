@@ -2,6 +2,7 @@ package feature
 
 import (
 	"context"
+	dphttp "github.com/ONSdigital/dp-net/http"
 	"net/http"
 
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
@@ -110,9 +111,9 @@ func (c *AreaProfileComponent) DoGetHealthcheckOk(cfg *config.Config, buildTime 
 }
 
 func (c *AreaProfileComponent) DoGetHTTPServer(bindAddr string, router http.Handler) service.HTTPServer {
-	c.HTTPServer.Addr = bindAddr
-	c.HTTPServer.Handler = router
-	return c.HTTPServer
+	s := dphttp.NewServer(bindAddr, router)
+	s.HandleOSSignals = false
+	return s
 }
 
 func (c *AreaProfileComponent) DoGetHealthClient(name, url string) *health.Client {
