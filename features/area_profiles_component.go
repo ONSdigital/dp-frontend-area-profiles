@@ -3,6 +3,7 @@ package feature
 import (
 	"context"
 	dphttp "github.com/ONSdigital/dp-net/http"
+	"github.com/ONSdigital/log.go/v2/log"
 	"net/http"
 
 	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
@@ -24,8 +25,7 @@ type AreaProfileComponent struct {
 	svc            *service.Service
 }
 
-func NewAreaProfilesComponent() (*AreaProfileComponent, error) {
-	ctx := context.Background()
+func NewAreaProfilesComponent(ctx context.Context) (*AreaProfileComponent, error) {
 	svcErrors := make(chan error, 1)
 
 	c := &AreaProfileComponent{
@@ -96,10 +96,15 @@ func NewAreaProfilesComponent() (*AreaProfileComponent, error) {
 	}
 
 	c.svc.Run(ctx, svcErrors)
-	defer c.svc.Close(ctx)
-
 	c.ServiceRunning = true
 	return c, nil
+}
+
+func (c *AreaProfileComponent) StopService(ctx context.Context) {
+	err := c.svc.Close(ctx)
+	if err != nil {
+		log.Error(ctx, "failed to stop service in component test", err)
+	}
 }
 
 func (c *AreaProfileComponent) DoGetHealthcheckOk(cfg *config.Config, buildTime string, gitCommit string, version string) (service.HealthChecker, error) {
