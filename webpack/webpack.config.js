@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 
 const config = env => require(`./webpack.${env}.js`);
@@ -33,11 +34,20 @@ module.exports = (args = { mode: "production", analyze: false }) => {
                         "css-loader",
                         "sass-loader"
                     ]
+                },
+                {
+                    type: "javascript/auto",
+                    test: /\.json$/,
+                    loader: "file-loader",
+                    include: path.resolve(__dirname, "../public/json"),
+                    options: {
+                        name: "[name].[ext]"
+                    }
                 }
             ],
         },
         resolve: {
-            extensions: [".ts", ".js"],
+            extensions: [".ts", ".js", ".json"],
             modules: [
                 path.join(__dirname, '../node_modules')
             ]
@@ -54,9 +64,8 @@ module.exports = (args = { mode: "production", analyze: false }) => {
         },
         plugins: [
             new webpack.ProgressPlugin(),
-            new CleanWebpackPlugin({
-                verbose: true,
-            }),
+            new CleanWebpackPlugin({ verbose: true }),
+            new TerserPlugin({ extractComments: false }),
         ],
         optimization: {
             splitChunks: {
