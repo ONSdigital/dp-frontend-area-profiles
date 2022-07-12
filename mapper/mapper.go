@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	"github.com/ONSdigital/dp-areas-api/sdk/areas"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 )
 
