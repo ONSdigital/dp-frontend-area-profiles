@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"os"
 	"testing"
@@ -17,7 +18,8 @@ import (
 var componentFlag = flag.Bool("component", false, "perform component tests")
 
 func InitializeScenario(ctx *godog.ScenarioContext) {
-	component, _ := feature.NewAreaProfilesComponent()
+	goCtx := context.Background()
+	component, _ := feature.NewAreaProfilesComponent(goCtx)
 	uiFeature := componenttest.NewUIFeature("http://" + component.Config.SiteDomain + component.Config.BindAddr)
 
 	ctx.BeforeScenario(func(*godog.Scenario) {
@@ -26,6 +28,7 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 
 	ctx.AfterScenario(func(*godog.Scenario, error) {
 		uiFeature.Close()
+		component.StopService(goCtx)
 	})
 
 	uiFeature.RegisterSteps(ctx)
@@ -68,6 +71,7 @@ func TestComponent(t *testing.T) {
 			Output: colors.Colored(os.Stdout),
 			Format: "pretty",
 			Paths:  flag.Args(),
+			Tags:   "~@avoid",
 		}
 
 		status = godog.TestSuite{
