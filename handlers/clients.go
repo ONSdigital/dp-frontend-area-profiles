@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	"github.com/ONSdigital/dp-areas-api/sdk/areas"
 	health "github.com/ONSdigital/dp-healthcheck/healthcheck"
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 )

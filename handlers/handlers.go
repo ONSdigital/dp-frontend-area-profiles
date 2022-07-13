@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
+	"github.com/ONSdigital/dp-areas-api/sdk/areas"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/mapper"
 	"github.com/ONSdigital/dp-frontend-area-profiles/utils"

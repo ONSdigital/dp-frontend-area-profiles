@@ -6,8 +6,8 @@ import (
 	"github.com/ONSdigital/log.go/v2/log"
 	"net/http"
 
-	"github.com/ONSdigital/dp-api-clients-go/v2/areas"
 	"github.com/ONSdigital/dp-api-clients-go/v2/health"
+	"github.com/ONSdigital/dp-areas-api/sdk/areas"
 	"github.com/ONSdigital/dp-frontend-area-profiles/assets"
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
