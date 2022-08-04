@@ -14,10 +14,10 @@ module.exports = (args = { mode: "production", analyze: false }) => {
         entry: {
             areaLanding: {
                 import: path.resolve(__dirname, "../public/ts/area-landing.ts"),
-                dependOn: "mapboxGL"
+                // dependOn: "mapboxGL"
             },
             geographyStart:  path.resolve(__dirname, "../public/ts/geography-start.ts"),
-            mapboxGL: "mapbox-gl"
+            // mapboxGL: "mapbox-gl"
         },
         module: {
             rules: [
@@ -32,7 +32,7 @@ module.exports = (args = { mode: "production", analyze: false }) => {
                         "style-loader",
                         "css-loader",
                         "sass-loader"
-                    ]
+                    ],
                 }
             ],
         },
@@ -48,7 +48,14 @@ module.exports = (args = { mode: "production", analyze: false }) => {
             ]
         },
         output: {
-            filename: "[name].bundle.js",
+            // filename: "[name].bundle.js",
+            filename: (pathData) => {
+                
+                if (pathData.chunk.id === "public_sass_index_scss") {
+                    return "local-styles.bundle.js";
+                }
+                return "[name].bundle.js";
+            },
             path: path.resolve(__dirname, "../assets/dist"),
             clean: true,
         },

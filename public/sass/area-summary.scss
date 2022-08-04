@@ -1,0 +1,37 @@
+.area-summary {
+    .ons-related-content {
+        border-top: 5px solid $color-black;
+    }
+    .overview-container {
+        ul {
+            padding-left: 1rem;
+        }
+    }
+    .areas-within-england-container {
+        hr {
+            margin: 2rem 0;
+        }
+    }
+    @media screen and (min-width: $dp-breakpoint-md) {
+        .main-content-container {
+            margin: $margin-md auto;
+            .ons-grid__col {
+                padding-left: 0!important;
+            }
+        }
+        h2 {
+            font-size: 1.6rem;
+        }
+        h3 {
+            font-size: 1.1;
+        }
+        .ons-related-content {
+            margin-top: 0!important;
+        }
+    }
+    @media screen and (min-width: $dp-breakpoint-lg) {
+        .main-content-container {
+            margin: $margin-l auto;
+        }
+    }
+}
