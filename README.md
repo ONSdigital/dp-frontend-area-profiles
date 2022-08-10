@@ -10,6 +10,10 @@ First build the client assets
 Run the main server
 * Run `make debug`
 
+To develop the frontend assets (css, js, ts etc.) then the following 2 make tasks will watch any file changesin the `assets/dist` directory & your frontend will reflect these updates on page reload (you might need to clear your cache withL `⌘ + R`):
+* Run `make public-build-dev`
+* Run `make public-debug`
+
 ### Dependencies
 
 * No further dependencies other than those defined in `go.mod`
