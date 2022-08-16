@@ -105,4 +105,19 @@ func TestAreaProfilesMapper(t *testing.T) {
 
 		So(areaModel.Relations, ShouldResemble, expected)
 	})
+
+	Convey("Test GetRelationsHeading selects the correct relations heading", t, func() {
+		ancestors := []areas.Ancestor{{}}
+		result := GetRelationsHeading(ancestors, "heading1", "heading2", "England")
+		exepected := "heading2 England"
+		So(result, ShouldEqual, exepected)
+		ancestors = []areas.Ancestor{{}, {}}
+		result = GetRelationsHeading(ancestors, "heading1", "heading2", "England")
+		exepected = "heading2 England"
+		So(result, ShouldEqual, exepected)
+		ancestors = []areas.Ancestor{}
+		result = GetRelationsHeading(ancestors, "heading1", "heading2", "England")
+		exepected = "heading1 England"
+		So(result, ShouldEqual, exepected)
+	})
 }

@@ -37,7 +37,7 @@
                 <div class="areas-within-england-container">
                     <hr data-test="hr1" />
                     <div class="ons-grid ons-grid--gutterless">
-                        <h2 class="ons-u-fs-r--b" data-test="h2Relations">{{ localise "RegionsWithinEngland" .Language 1 .Name }}</h2>
+                        <h2 class="ons-u-fs-r--b" data-test="h2Relations">{{ call .GetRelationsHeading .Ancestors (localise "RelationsParentHeading" .Language 1) (localise "RelationsChildHeading" .Language 1) .Name }}</h2>
                         <div class="ons-grid ons-grid--gutterless" data-test="relationLinks">
                             {{ range .Relations }}
                                 <div class="ons-grid__col ons-col-4@m">

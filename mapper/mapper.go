@@ -46,16 +46,17 @@ type ErrorModel struct {
 
 type AreaModel struct {
 	coreModel.Page
-	Name      string           `json:"name"`
-	Code      string           `json:"code"`
-	Level     string           `json:"level"`
-	AreaType  string           `json:"area_type"`
-	NomisLink string           `json:"nomis_link"`
-	Ancestors []areas.Ancestor `json:"ancestors"`
-	Siblings  []AreaModel      `json:"siblings"`
-	Children  []AreaModel      `json:"children"`
-	Relations []RelationLink   `json:"relations"`
-	Version   string           `json:"area_profiles_version"`
+	Name                string           `json:"name"`
+	Code                string           `json:"code"`
+	Level               string           `json:"level"`
+	AreaType            string           `json:"area_type"`
+	NomisLink           string           `json:"nomis_link"`
+	Ancestors           []areas.Ancestor `json:"ancestors"`
+	Siblings            []AreaModel      `json:"siblings"`
+	Children            []AreaModel      `json:"children"`
+	Relations           []RelationLink   `json:"relations"`
+	Version             string           `json:"area_profiles_version"`
+	GetRelationsHeading func(ancestors []areas.Ancestor, headingOne string, headingTwo string, areaName string) string
 }
 
 // CreateAreaPage maps request area profile data to frontend view
@@ -77,7 +78,7 @@ func CreateAreaPage(basePage coreModel.Page, areaDetails areas.AreaDetails, rela
 	model.Metadata = coreModel.Metadata{
 		Title: fmt.Sprintf("%s Summary", model.Name),
 	}
-
+	model.GetRelationsHeading = GetRelationsHeading
 	model.Ancestors = areaDetails.Ancestors
 	pageBreadcrumb := []coreModel.TaxonomyNode{{Title: "Home", URI: "/"}, {Title: "Areas", URI: "/areas"}}
 	model.Page.Breadcrumb = createBreadcrumbs(areaDetails.Ancestors, pageBreadcrumb)
@@ -115,6 +116,13 @@ func createBreadcrumbs(ancestors []areas.Ancestor, pageBreadcrumb []coreModel.Ta
 type RelationLink struct {
 	Name string
 	Href string
+}
+
+func GetRelationsHeading(ancestors []areas.Ancestor, headingOne, headingTwo, areaName string) string {
+	if len(ancestors) == 0 {
+		return fmt.Sprintf("%s %s", headingOne, areaName)
+	}
+	return fmt.Sprintf("%s %s", headingTwo, areaName)
 }
 
 func createRelationLinks(relations []areas.Relation) []RelationLink {
