@@ -92,11 +92,13 @@ one = "Get and compare Cenus 2021 data for"
 description = " {{ .arg0 }} on Nomis (an Office for National Statistics service)."
 one = " {{ .arg0 }} on Nomis (an Office for National Statistics service)."
 
+[RelationsParentHeading]
+description = "Regions within"
+one = "Regions within"
 
-[RegionsWithinEngland]
-description = "Regions within {{ .arg0 }}"
-one = "Regions within {{ .arg0 }}"
-
+[RelationsChildHeading]
+description = "Local authorities within"
+one = "Local authorities within"
 # ====================================
 #   Area Types
 # ====================================
