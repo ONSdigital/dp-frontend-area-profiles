@@ -102,6 +102,14 @@ one = "Regions within"
 description = "Local authorities within"
 one = "Local authorities within"
 
+[ChangeOverTime]
+description = "How {{ .arg0 }} has changed over time"
+one = "How {{ .arg0 }} has changed over time"
+
+[ReadAboutHowPeoplesLives]
+description = "Read about how people's lives have changed in {{ .arg0 }} between the 2011 and 2021 censuses, in our <a href='https://www.ons.gov.uk/visualisations/censuspopulationchange/{{ .arg1 }}'>changes over time article.</a>"
+one = "Read about how people's lives have changed in {{ .arg0 }} between the 2011 and 2021 censuses, in our <a href='https://www.ons.gov.uk/visualisations/censuspopulationchange/{{ .arg1 }}'>changes over time article.</a>"
+
 # ====================================
 #   Area Types
 # ====================================

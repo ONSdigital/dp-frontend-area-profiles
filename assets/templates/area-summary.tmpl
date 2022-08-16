@@ -47,6 +47,9 @@
                         </div>
                     </div>
                 </div>
+            {{ else }}
+                <h2 class="ons-u-fs-r--b">{{ localise "ChangeOverTime" .Language 1 .Name }}</h2>
+                <p>{{ localise "ReadAboutHowPeoplesLives" .Language 1 .Name .Code | safeHTML }}</p>
             {{ end }}
         </div> <!-- ons-col-8@m-->
         <div class="ons-grid__col ons-col-4@m">
