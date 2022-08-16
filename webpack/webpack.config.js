@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 
 const config = env => require(`./webpack.${env}.js`);
@@ -14,10 +15,10 @@ module.exports = (args = { mode: "production", analyze: false }) => {
         entry: {
             areaLanding: {
                 import: path.resolve(__dirname, "../public/ts/area-landing.ts"),
-                dependOn: "mapboxGL"
+                // dependOn: "mapboxGL"
             },
             geographyStart:  path.resolve(__dirname, "../public/ts/geography-start.ts"),
-            mapboxGL: "mapbox-gl"
+            // mapboxGL: "mapbox-gl"
         },
         module: {
             rules: [
@@ -37,7 +38,7 @@ module.exports = (args = { mode: "production", analyze: false }) => {
             ],
         },
         resolve: {
-            extensions: [".ts", ".js"],
+            extensions: [".ts", ".js", ".json"],
             modules: [
                 path.join(__dirname, '../node_modules')
             ]
@@ -48,15 +49,21 @@ module.exports = (args = { mode: "production", analyze: false }) => {
             ]
         },
         output: {
-            filename: "[name].bundle.js",
+            // filename: "[name].bundle.js",
+            filename: (pathData) => {
+                
+                if (pathData.chunk.id === "public_sass_index_scss") {
+                    return "local-styles.bundle.js";
+                }
+                return "[name].bundle.js";
+            },
             path: path.resolve(__dirname, "../assets/dist"),
             clean: true,
         },
         plugins: [
             new webpack.ProgressPlugin(),
-            new CleanWebpackPlugin({
-                verbose: true,
-            }),
+            new CleanWebpackPlugin({ verbose: true }),
+            new TerserPlugin({ extractComments: false }),
         ],
         optimization: {
             splitChunks: {

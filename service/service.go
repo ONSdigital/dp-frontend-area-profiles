@@ -47,7 +47,12 @@ func (svc *Service) Init(ctx context.Context, cfg *config.Config, serviceList *E
 	// Initialise router
 	r := mux.NewRouter()
 	routes.Setup(ctx, r, cfg, clients)
-	r.PathPrefix("/areas/dist").Handler(http.StripPrefix("/areas/dist", http.FileServer(utils.AssetDIR("dist"))))
+	if cfg.Debug {
+		r.PathPrefix("/areas/dist").Handler(http.StripPrefix("/areas/dist", http.FileServer(http.Dir("assets/dist"))))
+	} else {
+		r.PathPrefix("/areas/dist").Handler(http.StripPrefix("/areas/dist", http.FileServer(utils.AssetDIR("dist"))))
+	}
+
 	svc.Server = serviceList.GetHTTPServer(cfg.BindAddr, r)
 
 	return nil

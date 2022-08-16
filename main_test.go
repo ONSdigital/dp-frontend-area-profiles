@@ -33,16 +33,16 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 
 	uiFeature.RegisterSteps(ctx)
 	// Start page custom steps
-	// p:nth-child(1) > a:nth-child(1)
 	ctx.Step(`^the page heading should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='h1']"))
 	ctx.Step(`^the area type should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='area-type']"))
 	ctx.Step(`^the first paragraph should have a link of "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='a-country-1']"))
 	ctx.Step(`^the first paragraph should have a second link of "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='a-country-2']"))
-	ctx.Step(`^the country section sub heading is "([^"]*)"`, selectedContentShouldExist(uiFeature, "h2"))
-	ctx.Step(`^the country section first paragraph contains link with text "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='other-1'] > a"))
+	ctx.Step(`^the country section sub heading is "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='h2']"))
+	ctx.Step(`^the country section first paragraph contains text "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='other-1']"))
 	ctx.Step(`^the country section second paragraph contains link with text "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='other-2'] > a"))
 	ctx.Step(`^the Nomis link text should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='ViewFactsFiguresNomis']"))
 	ctx.Step(`^the Nomis link should point to "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='ViewFactsFiguresNomis']"))
+	ctx.Step(`^the Related content heading should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='related-content-h2']"))
 	// Area page custom steps
 	ctx.Step(`^the relations sub heading should be "([^"]*)"`, selectedContentShouldExist(uiFeature, "[data-test='h2Relations']"))
 	ctx.Step(`^the relations sections should have (\d+) external links$`, sectionShouldHaveNthElements(uiFeature, "[data-test='relationLinks'] > div > div > a"))
@@ -55,7 +55,7 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 	ctx.Step(`^the second link href value should be "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='relationLinks'] > div:nth-child(2) > div > a"))
 	ctx.Step(`^the third link href value should be "([^"]*)"`, selectedLinkShouldHaveHREF(uiFeature, "[data-test='relationLinks'] > div:nth-child(3) > div > a"))
 	// Map
-	// ctx.Step(`^a map should be displayed`, )
+
 }
 
 func InitializeTestSuite(ctx *godog.TestSuiteContext) {

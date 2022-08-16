@@ -1,0 +1,46 @@
+{
+    "type": "FeatureCollection",
+    "name": "Local_Authority_Districts__April_2019__UK_BGC_v2",
+    "crs": {
+      "type": "name",
+      "properties": {
+        "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+      }
+    },
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "OBJECTID": 1,
+          "LAD19CD": "E06000001",
+          "LAD19NM": "Hartlepool",
+          "LAD19NMW": " ",
+          "BNG_E": 447157,
+          "BNG_N": 531476,
+          "LONG": -1.27023,
+          "LAT": 54.6762,
+          "Shape__Area": 93640735.0924377,
+          "Shape__Length": 69780.4164463249
+        },
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [-7.197902920595226, 49.80281964843661],  
+                [
+                  -1.22408473987775,
+                  54.6237679430521
+                ],
+                [
+                  -1.22458561103267,
+                  54.6241763851639
+                ],
+                [2.1939240880979014, 55.490707526676545] 
+              ]
+            ]
+          ]
+        }
+      }
+    ]
+  }

@@ -15,88 +15,100 @@
 
 [FindFactsAndFiguresEnglandWales]
 description = "Find facts and figures heading"
-one = "Find facts and figures about areas in England or Wales"
+one = "Facts and figures for areas in England and Wales"
 
 [GetDataAboutPeopleAndHouseholds]
 description = "Area profiles start page intro"
-one = "Get data about people and households in <a href=\"/areas/E92000001\" data-test=\"a-country-1\">England</a> or <a href=\"/areas/W92000004\" data-test=\"a-country-2\">Wales</a>. You can also view facts and figures for a town, local authority or ward in each country."
+one = "You can get and compare data about people and households in <a href=\"/areas/E92000001\" data-test=\"a-country-1\">England</a> or <a href=\"/areas/W92000004\" data-test=\"a-country-2\">Wales</a>. You can also view facts and figures for each region (England only) and local authorities"
 
-[DataIncludes]
-description = "Data includes"
-one = "Data includes"
-
-[HowManyPeopleLiveThere]
-description = "how many people live there"
-one = "how many people live there"
-
-[PeoplesAverageAge]
-description = "people's average age"
-one = "people's average age"
-
-[PeopleThinkTheirGoodHealth]
-description = "how many people think their general health is good"
-one = "how many people think their general health is good"
-
-[HouseholdsEnglishNotMainLanguage]
-description = "how many households where English is not the main language"
-one = "how many households where English is not the main language"
-
-[HouseholdsWelshMainLanguage]
-description = "how many households where Welsh is the main language"
-one = "how many households where Welsh is the main language (Wales only)"
-
-[HouseholdsWithMortgage]
-description = "how many households are owned with a mortgage, loan or shared ownership"
-one = "how many households are owned with a mortgage, loan or shared ownership"
 
 [OtherCountries]
 description = "Other countries"
 one = "Other countries"
 
-[FindFactsAndFiguresScotland]
-description = "Find facts and figures about areas in Scotland on Scotland’s Census website"
-one = "Find facts and figures about <a href=\"https://www.scotlandscensus.gov.uk/search-the-census#/explore\">areas in Scotland on Scotland’s Census website</a>."
+[OtherCountriesContent]
+description = "Scotland and Northern Ireland have their own agencies who produce official statistics. View facts and figures for areas in:"
+one = "Scotland and Northern Ireland have their own agencies who produce official statistics. View facts and figures for areas in:"
 
-[FindFactsAndFiguresNorthernIreland]
-description = "For facts and figures about areas in Northern Ireland, see the Northern Ireland Statistics and Research Agency website."
-one = "For facts and figures about <a href=\"https://www.nisra.gov.uk/statistics/census/2021-census\">areas in Northern Ireland, see the Northern Ireland Statistics and Research Agency website</a>."
+[Scotland]
+description = "Scotland"
+one = "Scotland"
 
+[NorthernIreland]
+description = "Northern Ireland"
+one = "Northern Ireland"
+
+[RelatedContent]
+description = "Related content"
+one = "Related content"
+
+# ===========================
 # Area Summary Page
+# ===========================
+[AreaProfile]
+description = "{{ .arg0 }} Profile"
+one = "{{ .arg0 }} Profile"
+
+[FactsAndFiguresAboutPeople]
+description = "Facts and figures from Census 2021 results on the population of {{ .arg0 }}"
+one = "Facts and figures from Census 2021 results on the population of {{ .arg0 }}"
+
 [Overview]
 description = "Overview"
 one = "Overview"
 
-[FactsAndFiguresAboutPeople]
-description = "Facts and figures about people living in {{ .arg0 }}"
-one = "Facts and figures about people living in {{ .arg0 }}"
+[ViewCompareData]
+description = "You can view and compare data on {{ .arg0 }} with other areas about the topics:"
+one = "You can view and compare data on {{ .arg0 }} with other areas about the topics:"
 
-[FindOut]
-description = "Find out"
-one = "Find out"
+[Population]
+description = "population"
+one = "population"
 
-[HowCrowdedItIs]
-description = "how crowded it is"
-one = "how crowded it is"
+[Identity]
+description = "identity"
+one = "identity"
 
-[HowManyPeopleThinkHealth]
-description = "how many people think their general health is good"
-one = "how many people think their general health is good"
+[Housing]
+description = "housing"
+one = "housing"
 
-[HowManyHouseholdsEnglishMainLanguage]
-description = "how many households where English is not the main language"
-one = "how many households where English is not the main language"
+[Work]
+description = "work"
+one = "work"
 
-[HowHouseholdsOwnedMortgageSharedOwnership]
-description = "how many households are owned with a mortgage, loan or shared ownership"
-one = "how many households are owned with a mortgage, loan or shared ownership"
+[Education]
+description = "education"
+one = "education"
 
-[ViewFactsFiguresNomis]
-description = "View facts and figures on Nomis"
-one = "View facts and figures on Nomis"
+[Health]
+description = "health"
+one = "health"
 
-[AreasWithinEngland]
-description = "Areas Within {{ .arg0 }}"
-one = "Areas Within {{ .arg0 }}"
+
+[CompareCensusData]
+description = "Get and compare Cenus 2021 data for"
+one = "Get and compare Cenus 2021 data for"
+
+[CompareCensusDataForNomis]
+description = " {{ .arg0 }} on Nomis (an Office for National Statistics service)."
+one = " {{ .arg0 }} on Nomis (an Office for National Statistics service)."
+
+[RelationsParentHeading]
+description = "Regions within"
+one = "Regions within"
+
+[RelationsChildHeading]
+description = "Local authorities within"
+one = "Local authorities within"
+
+[ChangeOverTime]
+description = "How {{ .arg0 }} has changed over time"
+one = "How {{ .arg0 }} has changed over time"
+
+[ReadAboutHowPeoplesLives]
+description = "Read about how people's lives have changed in {{ .arg0 }} between the 2011 and 2021 censuses, in our <a href='https://www.ons.gov.uk/visualisations/censuspopulationchange/{{ .arg1 }}'>changes over time article.</a>"
+one = "Read about how people's lives have changed in {{ .arg0 }} between the 2011 and 2021 censuses, in our <a href='https://www.ons.gov.uk/visualisations/censuspopulationchange/{{ .arg1 }}'>changes over time article.</a>"
 
 # ====================================
 #   Area Types

@@ -1,43 +1,60 @@
-<div class="ons-page__container ons-container ons-u-mb-xl">
-    <div class="ons-grid ons-js-toc-container">
-        <div class="ons-grid__col ons-col-8@m ons-u-mb-m">
-            {{ template "partials/breadcrumb" . }}
+<div class="geography-start">
+    <div class="ons-page__container ons-container"><!--ons-u-mb-xl-->
+        <div class="ons-grid">
+            <div class="ons-grid__col ons-col-8@m"> <!-- ons-u-mb-m-->
+                {{ template "partials/breadcrumb" . }}
+            </div>
         </div>
 
-        <h1 class="ons-grid__col ons-col-8@m ons-u-fs-xxxl ons-u-mb-m" data-test="h1">
-            {{ localise "FindFactsAndFiguresEnglandWales" .Language 1 }}
-        </h1>
+        <div class="ons-grid main-content-container">
+            <div class="ons-u-mb-s ons-grid__col ons-col-8@m">
+                <h1 class="ons-u-fs-xxxl ons-u-mb-m" data-test="h1">
+                    {{ localise "FindFactsAndFiguresEnglandWales" .Language 1 }}
+                </h1>
+                <p>
+                    {{ localise "GetDataAboutPeopleAndHouseholds" .Language 1 | safeHTML}}
+                </p>
+                <div class="other-countries">
+                    <h2 class="ons-u-fs-r--b" data-test="h2">{{ localise "OtherCountries" .Language 1}}</h2>
+                    <p data-test="other-1">{{ localise "OtherCountriesContent" .Language 1 | safeHTML}}</p>
+                    <ul class="link-adjust" data-test="other-countries-ul">
+                        <li><a href="https://statistics.gov.scot/atlas/resource?uri=http://statistics.gov.scot/id/statistical-geography/S92000003">{{ localise "Scotland" .Language 1}}</a></li>
+                        <li><a href="https://www.ninis2.nisra.gov.uk/public/AreaProfile.aspx?Menu=True">{{ localise "NorthernIreland" .Language 1}}</a></li>
+                    </ul>
+                </div>
+            </div>
 
-        <div class="ons-u-mb-s ons-grid__col ons-col-8@m">
-            <p>
-                {{ localise "GetDataAboutPeopleAndHouseholds" .Language 1 | safeHTML}}
-            </p>
+            <div class="ons-grid__col content-wrapper ons-col-4@m ons-u-mb-m">
+                <aside class="ons-related-content" aria-label="Related content">
+                    <div class="ons-related-content__body">
+                        <div class="ons-related-content__section">
+                            <h2 class="ons-related-content__title ons-u-fs-r--b ons-u-mb-xs"
+                                id="related-help-with-the-census" data-test="related-content-h2">{{ localise "RelatedContent" .Language 1 }}</h2>
+                            <div class="ons-related-content__content">
+                                <nav class="ons-related-content__navigation" aria-labelledby="related-help-with-the-census">
+                                    <ul class="ons-list ons-list--bare" data-test="related-ul">
+                                        <!-- <li class="ons-list__item">
+                                            <a href="#0" class="ons-list__link">View census data on a map</a>
+                                        </li>
+                                        <li class="ons-list__item">
+                                            <a href="#0" class="ons-list__link">Choose and create your own area report</a>
+                                        </li> -->
+                                        <li class="ons-list__item">
+                                            <a href="https://www.ons.gov.uk/census" class="ons-list__link">Census</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
 
-            <p data-test="p2">
-                {{ localise "DataIncludes" .Language 1}}:
-            </p>
-
-            <ul class="ons-u-pb-l ons-u-bb" data-test="questions">
-                <li>{{ localise "HowManyPeopleLiveThere" .Language 1}}</li>
-                <li>{{ localise "HowCrowdedItIs" .Language 1}}</li>
-                <li>{{ localise "PeoplesAverageAge" .Language 1}}</li>
-                <li>{{ localise "PeopleThinkTheirGoodHealth" .Language 1}}</li>
-                <li>{{ localise "HouseholdsEnglishNotMainLanguage" .Language 1}}</li>
-                <li>{{ localise "HouseholdsWelshMainLanguage" .Language 1}}</li>
-                <li>{{ localise "HouseholdsWithMortgage" .Language 1}}</li>
-            </ul>
-        </div>
-
-        <div class="ons-grid__col ons-col-8@m">
-            <h2>{{ localise "OtherCountries" .Language 1}}</h2>
-
-            <p data-test="other-1">{{ localise "FindFactsAndFiguresScotland" .Language 1 | safeHTML}}</p>
-
-            <p data-test="other-2">{{ localise "FindFactsAndFiguresNorthernIreland" .Language 1 | safeHTML}}</p>
         </div>
     </div>
 </div>
 
 {{ define "scripts-geography-start" }}
-    <script src="/areas/dist/geographyStart.bundle.js?v={{ .Version }}"></script>
+<script src="/areas/dist/geographyStart.bundle.js?v={{ .Version }}"></script>
+<script src="/areas/dist/local-styles.bundle.js?v={{ .Version }}"></script>
 {{ end }}
