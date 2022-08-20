@@ -8,7 +8,6 @@ import (
 
 // Config represents service configuration for dp-frontend-area-profiles
 type Config struct {
-	AreaApiURL                 string        `envconfig:"AREA_API_URL"`
 	BindAddr                   string        `envconfig:"BIND_ADDR"`
 	Debug                      bool          `envconfig:"DEBUG"`
 	SiteDomain                 string        `envconfig:"SITE_DOMAIN"`
@@ -18,6 +17,7 @@ type Config struct {
 	HealthCheckInterval        time.Duration `envconfig:"HEALTHCHECK_INTERVAL"`
 	HealthCheckCriticalTimeout time.Duration `envconfig:"HEALTHCHECK_CRITICAL_TIMEOUT"`
 	ShowONSMap                 bool
+	APIRouterURL               string `envconfig:"API_ROUTER_URL"`
 }
 
 var cfg *Config
@@ -44,7 +44,6 @@ func get() (*Config, error) {
 	}
 
 	cfg = &Config{
-		AreaApiURL:                 "http://localhost:25500",
 		BindAddr:                   ":26600",
 		Debug:                      false,
 		SiteDomain:                 "localhost",
@@ -52,6 +51,7 @@ func get() (*Config, error) {
 		HealthCheckInterval:        30 * time.Second,
 		HealthCheckCriticalTimeout: 90 * time.Second,
 		RendererURL:                ":",
+		APIRouterURL:               "http://localhost:23200/v1",
 	}
 
 	return cfg, envconfig.Process("", cfg)

@@ -43,7 +43,7 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	// Remote requests
 	go func() {
 		defer wg.Done()
-		areaData, err = c.AreaApi.GetArea(ctx, accessToken, "", collectionID, areaID, acceptedLang)
+		areaData, err = c.APIRouterURL.GetArea(ctx, accessToken, "", collectionID, areaID, acceptedLang)
 		if err != nil {
 			log.Error(ctx, "fetching Area Data", err)
 			return
@@ -52,7 +52,7 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	go func() {
 		defer wg.Done()
 		// Create a new local error variable otherwise we will incur a race condition when other goroutines access it
-		relationsData, relationsErr = c.AreaApi.GetRelations(ctx, accessToken, "", collectionID, areaID, acceptedLang)
+		relationsData, relationsErr = c.APIRouterURL.GetRelations(ctx, accessToken, "", collectionID, areaID, acceptedLang)
 		if relationsErr != nil {
 			log.Error(ctx, "fetching area relations data", relationsErr)
 			return
