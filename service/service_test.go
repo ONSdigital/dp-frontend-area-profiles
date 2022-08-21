@@ -84,9 +84,9 @@ var (
 	}
 
 	clients = handlers.Clients{
-		Render:       renderClientMock,
-		Renderer:     rendererClientMock,
-		APIRouterURL: areaClientMock,
+		Render:         renderClientMock,
+		Renderer:       rendererClientMock,
+		AreasSDKClient: areaClientMock,
 	}
 )
 

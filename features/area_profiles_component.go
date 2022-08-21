@@ -86,9 +86,9 @@ func NewAreaProfilesComponent(ctx context.Context) (*AreaProfileComponent, error
 	}
 
 	clients := handlers.Clients{
-		Render:       render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
-		Renderer:     rendererClientMock,
-		APIRouterURL: areaClientMock,
+		Render:         render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
+		Renderer:       rendererClientMock,
+		AreasSDKClient: areaClientMock,
 	}
 
 	if err = c.svc.Init(ctx, c.Config, svcList, clients, "1", "", ""); err != nil {
