@@ -18,7 +18,12 @@ module.exports = (args = { mode: "production", analyze: false }) => {
                 // dependOn: "mapboxGL"
             },
             geographyStart:  path.resolve(__dirname, "../public/ts/geography-start.ts"),
+            highchartsPOC: {
+                import: path.resolve(__dirname, "../public/ts/highcharts-poc.ts"),
+                dependOn: "highcharts"
+            },
             // mapboxGL: "mapbox-gl"
+            highcharts: "highcharts",
         },
         module: {
             rules: [
@@ -49,9 +54,7 @@ module.exports = (args = { mode: "production", analyze: false }) => {
             ]
         },
         output: {
-            // filename: "[name].bundle.js",
             filename: (pathData) => {
-                
                 if (pathData.chunk.id === "public_sass_index_scss") {
                     return "local-styles.bundle.js";
                 }

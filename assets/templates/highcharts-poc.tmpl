@@ -1,0 +1,79 @@
+<div class="highcharts-poc ons-page__container ons-container">
+    <div class="ons-grid">
+        <div class="ons-grid__col ons-col-12@m">
+            <h3 class="ons-u-fs-m">Marital status</h3>
+            <table>
+                <tr>
+                    <td>Location:</td>
+                    <td>Manchester, Stockport, Rochdale</td>
+                </tr>
+                <tr>
+                    <td>Time period:</td>
+                    <td>2021</td>
+                </tr>
+                <tr>
+                    <td>Source:</td>
+                    <td>Office for National Statistics - England and Wales Cenus 2021</td>
+                </tr>
+            </table>  
+            <hr>
+        </div>
+        <div class="ons-grid__col ons-col-12@m">
+            <h4 class="ons-u-fs-r–b">People married or in civil partnership, by households</h4>
+            <h5 class="ons-u-fs-r">All households</h5>
+        </div>
+     
+        <div class="ons-grid__col ons-col-2@m">
+            <div class="ons-u-fs-xl">405,709</div>
+            <p>Manchester</p>
+        </div>
+        <div class="ons-grid__col ons-col-2@m">
+            <div class="ons-u-fs-xl">229,822</div>
+            <p>Stockport</p>
+        </div>
+        <div class="ons-grid__col ons-col-2@m">
+            <div class="ons-u-fs-xl">166,916</div>
+            <p>Rochdale</p>
+        </div>
+        <div class="ons-grid__col ons-col-6@m">&#8203;</div>
+
+        <!-- Main -->
+        <div class="ons-grid__col ons-col-6@m">
+            
+            <div class="relations-container">
+                <div class="relations-container__inner">
+                    <p>&#8203;</p>
+                    <p>People</p>
+                </div>
+                <div class="relations-container__inner">
+                    <b><p>0 to 4 year olds</p></b>
+                    <p>&#8203;</p>
+                </div>
+                <div class="relations-container__inner">
+                    <p>Manchester</p>
+                    <p>36,413</p>
+                </div>
+                <div class="relations-container__inner">
+                    <p>Stockport</p>
+                    <p>17,342</p>
+                </div>
+                <div class="relations-container__inner">
+                    <p>Rochdale</p>
+                    <p>14,754</p>
+                </div>
+            </div>
+        </div>
+        <div class="ons-grid__col ons-col-6@m">
+                <div class="highcharts-container" id="hcContainer"></div>            </div>
+
+        </div> <!-- end Main -->
+
+    </div>
+   </div> 
+</div>
+
+{{ define "scripts-highcharts-poc" }}
+    <script src="/areas/dist/highcharts.bundle.js"></script>
+    <script src="/areas/dist/highchartsPOC.bundle.js"></script>
+    <script src="/areas/dist/local-styles.bundle.js"></script>
+{{ end }}

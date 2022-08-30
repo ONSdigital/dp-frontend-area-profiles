@@ -14,5 +14,6 @@ func Setup(ctx context.Context, r *mux.Router, cfg *config.Config, c handlers.Cl
 	log.Info(ctx, "adding routes")
 	r.StrictSlash(true).Path("/health").HandlerFunc(c.HealthCheckHandler)
 	r.StrictSlash(true).Path("/areas").Methods("GET").HandlerFunc(handlers.GeographyStart(*cfg, c.Render))
+	r.StrictSlash(true).Path("/areas/poc").Methods("GET").HandlerFunc(handlers.GetPOCHighChartsHandler(*cfg, c.Render))
 	r.StrictSlash(true).Path("/areas/{id}").Methods("GET").HandlerFunc(handlers.GetArea(ctx, *cfg, c))
 }

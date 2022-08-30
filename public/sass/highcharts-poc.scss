@@ -1,0 +1,41 @@
+.highcharts-poc {
+    .highcharts-container {
+        width: 100%;
+        height: 500px;
+    }
+    .relations-container {
+        &__inner {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    .highcharts-xaxis-labels {
+        text {
+            font-size:  18px!important;
+            font-weight: 700!important;
+            font-family: "OpenSans", "Helvetica Neue", arial, sans-serif!important;
+            color: $color-black!important;
+        }
+    
+    }
+    .highcharts-yaxis-labels {
+        text {
+            font-size:  16px!important;
+            font-weight: 400!important;
+            font-family: "OpenSans", "Helvetica Neue", arial, sans-serif!important;
+            color: $color-black!important;
+        }
+    }
+    .test-margin {
+        margin-bottom: 40px!important;
+        color: red;
+    }
+    &__data-labels {
+        text {
+            font-size:  18px!important;
+            font-weight: 700!important;
+            font-family: "OpenSans", "Helvetica Neue", arial, sans-serif!important;
+            color: $color-black!important;
+        }
+    }
+}

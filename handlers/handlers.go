@@ -72,3 +72,11 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	model := mapper.CreateAreaPage(basePage, areaData, relationsData, lang)
 	c.Render.BuildPage(w, model, "area-summary")
 }
+
+func GetPOCHighChartsHandler(cfg config.Config, rc RenderClient) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		basePage := rc.NewBasePageModel()
+		model := mapper.CreatePOCPage(basePage)
+		rc.BuildPage(w, model, "highcharts-poc")
+	}
+}

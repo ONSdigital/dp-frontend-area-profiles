@@ -34,6 +34,17 @@ func CreateStartPage(basePage coreModel.Page) StartPageModel {
 	return model
 }
 
+type POCPage struct {
+	coreModel.Page
+}
+
+func CreatePOCPage(basePage coreModel.Page) POCPage {
+	model := POCPage{
+		Page: basePage,
+	}
+	return model
+}
+
 type ErrorDetails struct {
 	Description string
 	Title       string
