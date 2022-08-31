@@ -88,7 +88,7 @@ func TestGetAreaWithSpies(t *testing.T) {
 		c := Clients{
 			HealthCheckHandler: func(w http.ResponseWriter, req *http.Request) {},
 			Render:             mockRenderClient,
-			AreaApi:            mockAreaApi,
+			AreasSDKClient:     mockAreaApi,
 			Renderer:           mockRenderer,
 		}
 

@@ -61,9 +61,9 @@ func run(ctx context.Context) error {
 
 	// Initialise clients
 	clients := handlers.Clients{
-		Render:   render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
-		Renderer: renderer.New(cfg.RendererURL),
-		AreaApi:  areas.NewWithHealthClient(svc.AreaApiHealthCheck),
+		Render:         render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
+		Renderer:       renderer.New(cfg.RendererURL),
+		AreasSDKClient: areas.NewWithHealthClient(svc.AreaApiHealthCheck),
 	}
 	if err := svc.Init(ctx, cfg, svcList, clients, BuildTime, GitCommit, Version); err != nil {
 		log.Error(ctx, "failed to initialise service", err)
