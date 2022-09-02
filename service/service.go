@@ -134,5 +134,5 @@ func (svc *Service) registerCheckers(ctx context.Context, c handlers.Clients) (e
 func (svc *Service) IntiateServiceList(config *config.Config, svcList *ExternalServiceList) {
 	svc.Config = config
 	svc.ServiceList = svcList
-	svc.AreaApiHealthCheck = svcList.GetHealthClient("area-api", config.AreaApiURL)
+	svc.AreaApiHealthCheck = svcList.GetHealthClient("area-api", config.APIRouterURL)
 }

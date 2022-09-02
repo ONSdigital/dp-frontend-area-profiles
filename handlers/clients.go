@@ -23,7 +23,7 @@ type AreaApiClient interface {
 type Clients struct {
 	HealthCheckHandler func(w http.ResponseWriter, req *http.Request)
 	Render             RenderClient
-	AreaApi            AreaApiClient
+	AreasSDKClient     AreaApiClient
 	Renderer           RendererClient
 }
 
