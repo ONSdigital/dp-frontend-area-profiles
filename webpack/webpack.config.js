@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 
 const config = env => require(`./webpack.${env}.js`);
@@ -28,9 +29,9 @@ module.exports = (args = { mode: "production", analyze: false }) => {
                     exclude: /node_modules/,
                 },
                 {
-                    test: /\.scss$/i,
+                    test: /\.s[ac]ss$/i,
                     use: [
-                        "style-loader",
+                        MiniCssExtractPlugin.loader,
                         "css-loader",
                         "sass-loader"
                     ]
@@ -38,7 +39,7 @@ module.exports = (args = { mode: "production", analyze: false }) => {
             ],
         },
         resolve: {
-            extensions: [".ts", ".js", ".json"],
+            extensions: [".ts", ".js", ".json", ".css", ".scss"],
             modules: [
                 path.join(__dirname, '../node_modules')
             ]
@@ -50,13 +51,7 @@ module.exports = (args = { mode: "production", analyze: false }) => {
         },
         output: {
             // filename: "[name].bundle.js",
-            filename: (pathData) => {
-                
-                if (pathData.chunk.id === "public_sass_index_scss") {
-                    return "local-styles.bundle.js";
-                }
-                return "[name].bundle.js";
-            },
+            filename: "[name].bundle.js",
             path: path.resolve(__dirname, "../assets/dist"),
             clean: true,
         },
@@ -64,6 +59,9 @@ module.exports = (args = { mode: "production", analyze: false }) => {
             new webpack.ProgressPlugin(),
             new CleanWebpackPlugin({ verbose: true }),
             new TerserPlugin({ extractComments: false }),
+            new MiniCssExtractPlugin({
+                filename: "[name].bundle.css",
+            })
         ],
         optimization: {
             splitChunks: {

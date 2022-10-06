@@ -54,7 +54,10 @@
     </div>
 </div>
 
+{{ define "styles-geography-start"}}
+    <link rel="stylesheet" href="/areas/dist/geographyStart.bundle.css?v={{ .Version }}">
+{{ end }}
+
 {{ define "scripts-geography-start" }}
 <script src="/areas/dist/geographyStart.bundle.js?v={{ .Version }}"></script>
-<script src="/areas/dist/local-styles.bundle.js?v={{ .Version }}"></script>
 {{ end }}
