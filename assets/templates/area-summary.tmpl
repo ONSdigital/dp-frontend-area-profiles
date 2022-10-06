@@ -80,8 +80,10 @@
 
     </div>
 </div>
+{{ define "styles-area-summary"}}
+    <link rel="stylesheet" href="/areas/dist/areaLanding.bundle.css?v={{ .Version }}">
+{{ end }}
 
 {{ define "scripts-area-summary" }}
     <script src="/areas/dist/areaLanding.bundle.js?v={{ .Version }}"></script>
-    <script src="/areas/dist/local-styles.bundle.js?v={{ .Version }}"></script>
 {{ end }}
