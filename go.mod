@@ -1,9 +1,8 @@
 module github.com/ONSdigital/dp-frontend-area-profiles
 
-go 1.18
+go 1.19
 
 require (
-	github.com/ONSdigital/dp-api-clients-go v1.43.0
 	github.com/ONSdigital/dp-api-clients-go/v2 v2.185.0
 	github.com/ONSdigital/dp-areas-api v0.20.0
 	github.com/ONSdigital/dp-component-test v0.7.0
@@ -24,6 +23,7 @@ require (
 
 require (
 	github.com/BurntSushi/toml v1.2.0 // indirect
+	github.com/ONSdigital/dp-api-clients-go v1.43.0 // indirect
 	github.com/ONSdigital/dp-mongodb-in-memory v1.2.0 // indirect
 	github.com/ONSdigital/dp-net/v2 v2.5.0-beta.2 // indirect
 	github.com/aws/aws-sdk-go v1.44.76 // indirect
