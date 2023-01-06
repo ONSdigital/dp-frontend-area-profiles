@@ -2,9 +2,10 @@ package feature
 
 import (
 	"context"
-	dphttp "github.com/ONSdigital/dp-net/http"
-	"github.com/ONSdigital/log.go/v2/log"
 	"net/http"
+
+	dphttp "github.com/ONSdigital/dp-net/v2/http"
+	"github.com/ONSdigital/log.go/v2/log"
 
 	"github.com/ONSdigital/dp-api-clients-go/v2/health"
 	"github.com/ONSdigital/dp-areas-api/sdk/areas"
