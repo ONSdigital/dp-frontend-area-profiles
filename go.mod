@@ -1,16 +1,15 @@
 module github.com/ONSdigital/dp-frontend-area-profiles
 
-go 1.18
+go 1.19
 
 require (
-	github.com/ONSdigital/dp-api-clients-go v1.43.0
-	github.com/ONSdigital/dp-api-clients-go/v2 v2.185.0
+	github.com/ONSdigital/dp-api-clients-go/v2 v2.187.0
 	github.com/ONSdigital/dp-areas-api v0.20.0
 	github.com/ONSdigital/dp-component-test v0.7.0
-	github.com/ONSdigital/dp-healthcheck v1.4.0-beta.1
-	github.com/ONSdigital/dp-net v1.5.0
+	github.com/ONSdigital/dp-healthcheck v1.5.0
+	github.com/ONSdigital/dp-net/v2 v2.7.1
 	github.com/ONSdigital/dp-renderer v1.52.0
-	github.com/ONSdigital/log.go/v2 v2.3.0-beta
+	github.com/ONSdigital/log.go/v2 v2.3.0
 	github.com/chromedp/cdproto v0.0.0-20211126220118-81fa0469ad77
 	github.com/chromedp/chromedp v0.7.6
 	github.com/cucumber/godog v0.10.0
@@ -24,8 +23,9 @@ require (
 
 require (
 	github.com/BurntSushi/toml v1.2.0 // indirect
+	github.com/ONSdigital/dp-api-clients-go v1.43.0 // indirect
 	github.com/ONSdigital/dp-mongodb-in-memory v1.2.0 // indirect
-	github.com/ONSdigital/dp-net/v2 v2.5.0-beta.2 // indirect
+	github.com/ONSdigital/dp-net v1.5.0 // indirect
 	github.com/aws/aws-sdk-go v1.44.76 // indirect
 	github.com/c2h5oh/datasize v0.0.0-20220606134207-859f65c6625b // indirect
 	github.com/chromedp/sysutil v1.0.0 // indirect
@@ -73,6 +73,6 @@ require (
 	golang.org/x/net v0.0.0-20220812174116-3211cb980234 // indirect
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f // indirect
 	golang.org/x/sys v0.0.0-20220928140112-f11e5e49a4ec // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/text v0.6.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

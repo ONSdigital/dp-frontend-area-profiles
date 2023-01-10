@@ -5,7 +5,6 @@ import (
 
 	"github.com/ONSdigital/dp-areas-api/sdk/areas"
 	"github.com/ONSdigital/dp-renderer/model"
-	coreModel "github.com/ONSdigital/dp-renderer/model"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
@@ -45,7 +44,7 @@ func TestAreaProfilesMapper(t *testing.T) {
 
 	Convey("Test area profile page has breadcrumbs", t, func() {
 		Convey("should contain area & home breadcrumbs", func() {
-			expected := []coreModel.TaxonomyNode{
+			expected := []model.TaxonomyNode{
 				{Title: "Home", URI: "/"},
 				{Title: "Areas", URI: "/areas"},
 			}
@@ -57,9 +56,10 @@ func TestAreaProfilesMapper(t *testing.T) {
 
 			So(areaModel.Page.Breadcrumb, ShouldResemble, expected)
 		})
+
 		Convey("should display country if area is direct child", func() {
 			// This test fixes a bug in `createBreadcrumbs()`
-			expected := []coreModel.TaxonomyNode{
+			expected := []model.TaxonomyNode{
 				{Title: "Home", URI: "/"},
 				{Title: "Areas", URI: "/areas"},
 				{Title: "Wales", URI: "/areas/W92000004"},
@@ -72,8 +72,9 @@ func TestAreaProfilesMapper(t *testing.T) {
 
 			So(areaModel.Page.Breadcrumb, ShouldResemble, expected)
 		})
+
 		Convey("should contain breadcrumbs with county in the correct order", func() {
-			expected := []coreModel.TaxonomyNode{
+			expected := []model.TaxonomyNode{
 				{Title: "Home", URI: "/"},
 				{Title: "Areas", URI: "/areas"},
 				{Title: "England", URI: "/areas/E92000001"},
@@ -87,7 +88,6 @@ func TestAreaProfilesMapper(t *testing.T) {
 
 			So(areaModel.Page.Breadcrumb, ShouldResemble, expected)
 		})
-
 	})
 
 	Convey("Test area profile page has child relations", t, func() {
@@ -107,17 +107,19 @@ func TestAreaProfilesMapper(t *testing.T) {
 	})
 
 	Convey("Test GetRelationsHeading selects the correct relations heading", t, func() {
+		expectedRelationsHeading1 := "heading1 England"
+		expectedRelationsHeading2 := "heading2 England"
+
 		ancestors := []areas.Ancestor{{}}
 		result := GetRelationsHeading(ancestors, "heading1", "heading2", "England")
-		exepected := "heading2 England"
-		So(result, ShouldEqual, exepected)
+		So(result, ShouldEqual, expectedRelationsHeading2)
+
 		ancestors = []areas.Ancestor{{}, {}}
 		result = GetRelationsHeading(ancestors, "heading1", "heading2", "England")
-		exepected = "heading2 England"
-		So(result, ShouldEqual, exepected)
+		So(result, ShouldEqual, expectedRelationsHeading2)
+
 		ancestors = []areas.Ancestor{}
 		result = GetRelationsHeading(ancestors, "heading1", "heading2", "England")
-		exepected = "heading1 England"
-		So(result, ShouldEqual, exepected)
+		So(result, ShouldEqual, expectedRelationsHeading1)
 	})
 }
