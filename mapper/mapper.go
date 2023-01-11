@@ -125,8 +125,7 @@ func GetRelationsHeading(ancestors []areas.Ancestor, headingOne, headingTwo, are
 	return fmt.Sprintf("%s %s", headingTwo, areaName)
 }
 
-func createRelationLinks(relations []areas.Relation) []RelationLink {
-	var relationLinks []RelationLink
+func createRelationLinks(relations []areas.Relation) (relationLinks []RelationLink) {
 	for _, relation := range relations {
 		href := fmt.Sprintf("/areas/%s", relation.AreaCode)
 		relationLinks = append(relationLinks, RelationLink{
