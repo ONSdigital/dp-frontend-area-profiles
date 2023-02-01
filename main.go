@@ -12,6 +12,8 @@ import (
 	"github.com/ONSdigital/dp-frontend-area-profiles/config"
 	"github.com/ONSdigital/dp-frontend-area-profiles/handlers"
 	"github.com/ONSdigital/dp-frontend-area-profiles/service"
+	cacheHelper "github.com/ONSdigital/dp-frontend-cache-helper/pkg/navigation/helper"
+
 	render "github.com/ONSdigital/dp-renderer"
 	"github.com/ONSdigital/log.go/v2/log"
 )
@@ -59,16 +61,32 @@ func run(ctx context.Context) error {
 	svc := service.New()
 	svc.IntiateServiceList(cfg, svcList)
 
+	navCache, err := cacheHelper.Init(ctx, cacheHelper.Config{
+		APIRouterURL:                cfg.APIRouterURL,
+		CacheUpdateInterval:         cfg.CacheUpdateInterval,
+		EnableNewNavBar:             cfg.EnableNewNavBar,
+		EnableCensusTopicSubsection: cfg.EnableCensusTopicSubsection,
+		CensusTopicID:               cfg.CensusTopicID,
+		IsPublishingMode:            cfg.IsPublishingMode,
+		Languages:                   cfg.SupportedLanguages,
+		ServiceAuthToken:            cfg.ServiceAuthToken,
+	})
+	if err != nil {
+		log.Error(ctx, "failed to initialise topic cache", err)
+		return err
+	}
 	// Initialise clients
 	clients := handlers.Clients{
 		Render:         render.NewWithDefaultClient(assets.Asset, assets.AssetNames, cfg.PatternLibraryAssetsPath, cfg.SiteDomain),
 		Renderer:       renderer.New(cfg.RendererURL),
 		AreasSDKClient: areas.NewWithHealthClient(svc.AreaApiHealthCheck),
+		CacheHelper:    navCache,
 	}
 	if err := svc.Init(ctx, cfg, svcList, clients, BuildTime, GitCommit, Version); err != nil {
 		log.Error(ctx, "failed to initialise service", err)
 		return err
 	}
+	clients.CacheHelper.RunUpdates(ctx, svcErrors)
 	svc.Run(ctx, svcErrors)
 
 	// Blocks until an os interrupt or a fatal error occurs

@@ -10,7 +10,9 @@ import (
 	coreModel "github.com/ONSdigital/dp-renderer/model"
 )
 
-//go:generate moq -out moq_clients.go -pkg handlers . AreaApiClient RenderClient RendererClient
+//go:generate moq -out moq_clients.go -pkg handlers . AreaApiClient RenderClient RendererClient CacheHelper
+
+//go:generate MockGen
 
 // AreaApiClient is an interface for requesting area profile specific data
 type AreaApiClient interface {
@@ -25,6 +27,7 @@ type Clients struct {
 	Render             RenderClient
 	AreasSDKClient     AreaApiClient
 	Renderer           RendererClient
+	CacheHelper        CacheHelper
 }
 
 // ClientError is an interface that can be used to retrieve the status code if a client has errored
@@ -43,4 +46,9 @@ type RenderClient interface {
 type RendererClient interface {
 	Do(string, []byte) ([]byte, error)
 	Checker(ctx context.Context, check *health.CheckState) error
+}
+
+type CacheHelper interface {
+	RunUpdates(ctx context.Context, svcErrors chan error)
+	GetMappedNavigationContent(ctx context.Context, lang string) (content []coreModel.NavigationItem, err error)
 }

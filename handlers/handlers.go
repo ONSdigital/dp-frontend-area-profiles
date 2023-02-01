@@ -15,12 +15,18 @@ import (
 )
 
 // GeographyStart Handler
-func GeographyStart(cfg config.Config, rc RenderClient) http.HandlerFunc {
-	return func(w http.ResponseWriter, req *http.Request) {
-		basePage := rc.NewBasePageModel()
+func GeographyStart(ctx context.Context, cfg config.Config, c Clients) http.HandlerFunc {
+	return dphandlers.ControllerHandler(func(w http.ResponseWriter, req *http.Request, lang, collectionID, accessToken string) {
+		basePage := c.Render.NewBasePageModel()
 		model := mapper.CreateStartPage(basePage)
-		rc.BuildPage(w, model, "geography-start")
-	}
+		if cfg.EnableNewNavBar {
+			mappedNavContent, err := c.CacheHelper.GetMappedNavigationContent(ctx, lang)
+			if err == nil {
+				model.NavigationContent = mappedNavContent
+			}
+		}
+		c.Render.BuildPage(w, model, "geography-start")
+	})
 }
 
 // GetArea Handler
@@ -70,5 +76,12 @@ func GetAreaViewHandler(w http.ResponseWriter, req *http.Request, ctx context.Co
 	}
 	//  View logic
 	model := mapper.CreateAreaPage(basePage, areaData, relationsData, lang)
+	if cfg.EnableNewNavBar {
+		mappedNavContent, err := c.CacheHelper.GetMappedNavigationContent(ctx, lang)
+		if err == nil {
+			model.NavigationContent = mappedNavContent
+		}
+	}
+
 	c.Render.BuildPage(w, model, "area-summary")
 }

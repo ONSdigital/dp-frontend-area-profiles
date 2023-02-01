@@ -50,17 +50,30 @@ func TestUnitHandlers(t *testing.T) {
 	})
 
 	Convey("test GetGeographyStart", t, func() {
+		ctx := context.Background()
+
 		mockConfig := config.Config{}
 		mockRenderClient := NewMockRenderClient(mockCtrl)
+		mockAreaApi := NewMockAreaApiClient(mockCtrl)
+		mockRenderer := NewMockRendererClient(mockCtrl)
+		mockCacheHelper := NewMockCacheHelper(mockCtrl)
+		c := Clients{
+			HealthCheckHandler: func(w http.ResponseWriter, req *http.Request) {},
+			Render:             mockRenderClient,
+			AreasSDKClient:     mockAreaApi,
+			Renderer:           mockRenderer,
+			CacheHelper:        mockCacheHelper,
+		}
 
 		router := mux.NewRouter()
-		router.HandleFunc("/areas", GeographyStart(mockConfig, mockRenderClient))
+		router.HandleFunc("/areas", GeographyStart(ctx, mockConfig, c))
 
 		w := httptest.NewRecorder()
 
 		Convey("it returns 200 when rendered successfully", func() {
 			mockRenderClient.EXPECT().NewBasePageModel().Return(coreModel.NewPage(cfg.PatternLibraryAssetsPath, cfg.SiteDomain))
 			mockRenderClient.EXPECT().BuildPage(gomock.Any(), gomock.Any(), "geography-start")
+
 			req := httptest.NewRequest("GET", "http://localhost:26600/areas", nil)
 
 			router.ServeHTTP(w, req)
@@ -83,6 +96,8 @@ func TestGetAreaWithSpies(t *testing.T) {
 		mockRenderClient := NewMockRenderClient(mockCtrl)
 		mockAreaApi := NewMockAreaApiClient(mockCtrl)
 		mockRenderer := NewMockRendererClient(mockCtrl)
+		mockCacheHelper := NewMockCacheHelper(mockCtrl)
+
 		router := mux.NewRouter()
 
 		c := Clients{
@@ -90,6 +105,7 @@ func TestGetAreaWithSpies(t *testing.T) {
 			Render:             mockRenderClient,
 			AreasSDKClient:     mockAreaApi,
 			Renderer:           mockRenderer,
+			CacheHelper:        mockCacheHelper,
 		}
 
 		ctx := context.Background()

@@ -18,25 +18,25 @@ var _ AreaApiClient = &AreaApiClientMock{}
 
 // AreaApiClientMock is a mock implementation of AreaApiClient.
 //
-// 	func TestSomethingThatUsesAreaApiClient(t *testing.T) {
+//	func TestSomethingThatUsesAreaApiClient(t *testing.T) {
 //
-// 		// make and configure a mocked AreaApiClient
-// 		mockedAreaApiClient := &AreaApiClientMock{
-// 			CheckerFunc: func(ctx context.Context, check *healthcheck.CheckState) error {
-// 				panic("mock out the Checker method")
-// 			},
-// 			GetAreaFunc: func(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) (areas.AreaDetails, error) {
-// 				panic("mock out the GetArea method")
-// 			},
-// 			GetRelationsFunc: func(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) ([]areas.Relation, error) {
-// 				panic("mock out the GetRelations method")
-// 			},
-// 		}
+//		// make and configure a mocked AreaApiClient
+//		mockedAreaApiClient := &AreaApiClientMock{
+//			CheckerFunc: func(ctx context.Context, check *healthcheck.CheckState) error {
+//				panic("mock out the Checker method")
+//			},
+//			GetAreaFunc: func(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) (areas.AreaDetails, error) {
+//				panic("mock out the GetArea method")
+//			},
+//			GetRelationsFunc: func(ctx context.Context, userAuthToken string, serviceAuthToken string, collectionID string, areaID string, acceptLang string) ([]areas.Relation, error) {
+//				panic("mock out the GetRelations method")
+//			},
+//		}
 //
-// 		// use mockedAreaApiClient in code that requires AreaApiClient
-// 		// and then make assertions.
+//		// use mockedAreaApiClient in code that requires AreaApiClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type AreaApiClientMock struct {
 	// CheckerFunc mocks the Checker method.
 	CheckerFunc func(ctx context.Context, check *healthcheck.CheckState) error
@@ -112,7 +112,8 @@ func (mock *AreaApiClientMock) Checker(ctx context.Context, check *healthcheck.C
 
 // CheckerCalls gets all the calls that were made to Checker.
 // Check the length with:
-//     len(mockedAreaApiClient.CheckerCalls())
+//
+//	len(mockedAreaApiClient.CheckerCalls())
 func (mock *AreaApiClientMock) CheckerCalls() []struct {
 	Ctx   context.Context
 	Check *healthcheck.CheckState
@@ -155,7 +156,8 @@ func (mock *AreaApiClientMock) GetArea(ctx context.Context, userAuthToken string
 
 // GetAreaCalls gets all the calls that were made to GetArea.
 // Check the length with:
-//     len(mockedAreaApiClient.GetAreaCalls())
+//
+//	len(mockedAreaApiClient.GetAreaCalls())
 func (mock *AreaApiClientMock) GetAreaCalls() []struct {
 	Ctx              context.Context
 	UserAuthToken    string
@@ -206,7 +208,8 @@ func (mock *AreaApiClientMock) GetRelations(ctx context.Context, userAuthToken s
 
 // GetRelationsCalls gets all the calls that were made to GetRelations.
 // Check the length with:
-//     len(mockedAreaApiClient.GetRelationsCalls())
+//
+//	len(mockedAreaApiClient.GetRelationsCalls())
 func (mock *AreaApiClientMock) GetRelationsCalls() []struct {
 	Ctx              context.Context
 	UserAuthToken    string
@@ -235,22 +238,22 @@ var _ RenderClient = &RenderClientMock{}
 
 // RenderClientMock is a mock implementation of RenderClient.
 //
-// 	func TestSomethingThatUsesRenderClient(t *testing.T) {
+//	func TestSomethingThatUsesRenderClient(t *testing.T) {
 //
-// 		// make and configure a mocked RenderClient
-// 		mockedRenderClient := &RenderClientMock{
-// 			BuildPageFunc: func(w io.Writer, pageModel interface{}, templateName string)  {
-// 				panic("mock out the BuildPage method")
-// 			},
-// 			NewBasePageModelFunc: func() model.Page {
-// 				panic("mock out the NewBasePageModel method")
-// 			},
-// 		}
+//		// make and configure a mocked RenderClient
+//		mockedRenderClient := &RenderClientMock{
+//			BuildPageFunc: func(w io.Writer, pageModel interface{}, templateName string)  {
+//				panic("mock out the BuildPage method")
+//			},
+//			NewBasePageModelFunc: func() model.Page {
+//				panic("mock out the NewBasePageModel method")
+//			},
+//		}
 //
-// 		// use mockedRenderClient in code that requires RenderClient
-// 		// and then make assertions.
+//		// use mockedRenderClient in code that requires RenderClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type RenderClientMock struct {
 	// BuildPageFunc mocks the BuildPage method.
 	BuildPageFunc func(w io.Writer, pageModel interface{}, templateName string)
@@ -299,7 +302,8 @@ func (mock *RenderClientMock) BuildPage(w io.Writer, pageModel interface{}, temp
 
 // BuildPageCalls gets all the calls that were made to BuildPage.
 // Check the length with:
-//     len(mockedRenderClient.BuildPageCalls())
+//
+//	len(mockedRenderClient.BuildPageCalls())
 func (mock *RenderClientMock) BuildPageCalls() []struct {
 	W            io.Writer
 	PageModel    interface{}
@@ -331,7 +335,8 @@ func (mock *RenderClientMock) NewBasePageModel() model.Page {
 
 // NewBasePageModelCalls gets all the calls that were made to NewBasePageModel.
 // Check the length with:
-//     len(mockedRenderClient.NewBasePageModelCalls())
+//
+//	len(mockedRenderClient.NewBasePageModelCalls())
 func (mock *RenderClientMock) NewBasePageModelCalls() []struct {
 } {
 	var calls []struct {
@@ -348,22 +353,22 @@ var _ RendererClient = &RendererClientMock{}
 
 // RendererClientMock is a mock implementation of RendererClient.
 //
-// 	func TestSomethingThatUsesRendererClient(t *testing.T) {
+//	func TestSomethingThatUsesRendererClient(t *testing.T) {
 //
-// 		// make and configure a mocked RendererClient
-// 		mockedRendererClient := &RendererClientMock{
-// 			CheckerFunc: func(ctx context.Context, check *healthcheck.CheckState) error {
-// 				panic("mock out the Checker method")
-// 			},
-// 			DoFunc: func(s string, bytes []byte) ([]byte, error) {
-// 				panic("mock out the Do method")
-// 			},
-// 		}
+//		// make and configure a mocked RendererClient
+//		mockedRendererClient := &RendererClientMock{
+//			CheckerFunc: func(ctx context.Context, check *healthcheck.CheckState) error {
+//				panic("mock out the Checker method")
+//			},
+//			DoFunc: func(s string, bytes []byte) ([]byte, error) {
+//				panic("mock out the Do method")
+//			},
+//		}
 //
-// 		// use mockedRendererClient in code that requires RendererClient
-// 		// and then make assertions.
+//		// use mockedRendererClient in code that requires RendererClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type RendererClientMock struct {
 	// CheckerFunc mocks the Checker method.
 	CheckerFunc func(ctx context.Context, check *healthcheck.CheckState) error
@@ -412,7 +417,8 @@ func (mock *RendererClientMock) Checker(ctx context.Context, check *healthcheck.
 
 // CheckerCalls gets all the calls that were made to Checker.
 // Check the length with:
-//     len(mockedRendererClient.CheckerCalls())
+//
+//	len(mockedRendererClient.CheckerCalls())
 func (mock *RendererClientMock) CheckerCalls() []struct {
 	Ctx   context.Context
 	Check *healthcheck.CheckState
@@ -447,7 +453,8 @@ func (mock *RendererClientMock) Do(s string, bytes []byte) ([]byte, error) {
 
 // DoCalls gets all the calls that were made to Do.
 // Check the length with:
-//     len(mockedRendererClient.DoCalls())
+//
+//	len(mockedRendererClient.DoCalls())
 func (mock *RendererClientMock) DoCalls() []struct {
 	S     string
 	Bytes []byte
@@ -459,5 +466,127 @@ func (mock *RendererClientMock) DoCalls() []struct {
 	mock.lockDo.RLock()
 	calls = mock.calls.Do
 	mock.lockDo.RUnlock()
+	return calls
+}
+
+// Ensure, that CacheHelperMock does implement CacheHelper.
+// If this is not the case, regenerate this file with moq.
+var _ CacheHelper = &CacheHelperMock{}
+
+// CacheHelperMock is a mock implementation of CacheHelper.
+//
+//	func TestSomethingThatUsesCacheHelper(t *testing.T) {
+//
+//		// make and configure a mocked CacheHelper
+//		mockedCacheHelper := &CacheHelperMock{
+//			GetMappedNavigationContentFunc: func(ctx context.Context, lang string) ([]model.NavigationItem, error) {
+//				panic("mock out the GetMappedNavigationContent method")
+//			},
+//			RunUpdatesFunc: func(ctx context.Context, svcErrors chan error)  {
+//				panic("mock out the RunUpdates method")
+//			},
+//		}
+//
+//		// use mockedCacheHelper in code that requires CacheHelper
+//		// and then make assertions.
+//
+//	}
+type CacheHelperMock struct {
+	// GetMappedNavigationContentFunc mocks the GetMappedNavigationContent method.
+	GetMappedNavigationContentFunc func(ctx context.Context, lang string) ([]model.NavigationItem, error)
+
+	// RunUpdatesFunc mocks the RunUpdates method.
+	RunUpdatesFunc func(ctx context.Context, svcErrors chan error)
+
+	// calls tracks calls to the methods.
+	calls struct {
+		// GetMappedNavigationContent holds details about calls to the GetMappedNavigationContent method.
+		GetMappedNavigationContent []struct {
+			// Ctx is the ctx argument value.
+			Ctx context.Context
+			// Lang is the lang argument value.
+			Lang string
+		}
+		// RunUpdates holds details about calls to the RunUpdates method.
+		RunUpdates []struct {
+			// Ctx is the ctx argument value.
+			Ctx context.Context
+			// SvcErrors is the svcErrors argument value.
+			SvcErrors chan error
+		}
+	}
+	lockGetMappedNavigationContent sync.RWMutex
+	lockRunUpdates                 sync.RWMutex
+}
+
+// GetMappedNavigationContent calls GetMappedNavigationContentFunc.
+func (mock *CacheHelperMock) GetMappedNavigationContent(ctx context.Context, lang string) ([]model.NavigationItem, error) {
+	if mock.GetMappedNavigationContentFunc == nil {
+		panic("CacheHelperMock.GetMappedNavigationContentFunc: method is nil but CacheHelper.GetMappedNavigationContent was just called")
+	}
+	callInfo := struct {
+		Ctx  context.Context
+		Lang string
+	}{
+		Ctx:  ctx,
+		Lang: lang,
+	}
+	mock.lockGetMappedNavigationContent.Lock()
+	mock.calls.GetMappedNavigationContent = append(mock.calls.GetMappedNavigationContent, callInfo)
+	mock.lockGetMappedNavigationContent.Unlock()
+	return mock.GetMappedNavigationContentFunc(ctx, lang)
+}
+
+// GetMappedNavigationContentCalls gets all the calls that were made to GetMappedNavigationContent.
+// Check the length with:
+//
+//	len(mockedCacheHelper.GetMappedNavigationContentCalls())
+func (mock *CacheHelperMock) GetMappedNavigationContentCalls() []struct {
+	Ctx  context.Context
+	Lang string
+} {
+	var calls []struct {
+		Ctx  context.Context
+		Lang string
+	}
+	mock.lockGetMappedNavigationContent.RLock()
+	calls = mock.calls.GetMappedNavigationContent
+	mock.lockGetMappedNavigationContent.RUnlock()
+	return calls
+}
+
+// RunUpdates calls RunUpdatesFunc.
+func (mock *CacheHelperMock) RunUpdates(ctx context.Context, svcErrors chan error) {
+	if mock.RunUpdatesFunc == nil {
+		panic("CacheHelperMock.RunUpdatesFunc: method is nil but CacheHelper.RunUpdates was just called")
+	}
+	callInfo := struct {
+		Ctx       context.Context
+		SvcErrors chan error
+	}{
+		Ctx:       ctx,
+		SvcErrors: svcErrors,
+	}
+	mock.lockRunUpdates.Lock()
+	mock.calls.RunUpdates = append(mock.calls.RunUpdates, callInfo)
+	mock.lockRunUpdates.Unlock()
+	mock.RunUpdatesFunc(ctx, svcErrors)
+}
+
+// RunUpdatesCalls gets all the calls that were made to RunUpdates.
+// Check the length with:
+//
+//	len(mockedCacheHelper.RunUpdatesCalls())
+func (mock *CacheHelperMock) RunUpdatesCalls() []struct {
+	Ctx       context.Context
+	SvcErrors chan error
+} {
+	var calls []struct {
+		Ctx       context.Context
+		SvcErrors chan error
+	}
+	mock.lockRunUpdates.RLock()
+	calls = mock.calls.RunUpdates
+	mock.lockRunUpdates.RUnlock()
 	return calls
 }
