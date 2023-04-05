@@ -9,7 +9,7 @@ require (
 	github.com/ONSdigital/dp-frontend-cache-helper v0.2.0
 	github.com/ONSdigital/dp-healthcheck v1.5.0
 	github.com/ONSdigital/dp-net/v2 v2.8.0
-	github.com/ONSdigital/dp-renderer v1.58.0
+	github.com/ONSdigital/dp-renderer v1.62.0
 	github.com/ONSdigital/log.go/v2 v2.3.0
 	github.com/chromedp/cdproto v0.0.0-20230201081901-5f7573a87050
 	github.com/chromedp/chromedp v0.8.7
